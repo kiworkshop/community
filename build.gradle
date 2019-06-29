@@ -1,0 +1,61 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	ext {
+		springBootVersion = '2.1.6.RELEASE'
+
+		set('springCloudVersion', "Greenwich.SR1")
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+
+subprojects {
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'jacoco'
+	apply plugin: 'checkstyle'
+
+	group = 'org.kiworkshop'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '11'
+
+	configurations {
+		developmentOnly
+		runtimeClasspath {
+			extendsFrom developmentOnly
+		}
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+
+
+	test {
+		useJUnitPlatform()
+	}
+	
+	jacocoTestReport {
+		afterEvaluate {
+            getClassDirectories().setFrom(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ['**/*Application*', '**/*Config*'])
+            })
+        }
+
+		dependsOn test
+	}
+}
+

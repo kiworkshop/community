@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NoticeService {
   private final NoticeRepository noticeRepository;
-  private final ModelMapper modelMapper;
+  private final ModelMapper modelMapper = new ModelMapper();
 
   public Long createNotice(NoticeRequestDto noticeRequestDto) {
     Notice notice = modelMapper.map(noticeRequestDto, Notice.class);

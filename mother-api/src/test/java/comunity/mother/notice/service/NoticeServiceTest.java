@@ -24,7 +24,7 @@ class NoticeServiceTest {
 
   @BeforeEach
   void setup() {
-    noticeService = new NoticeService(noticeRepository, new ModelMapper());
+    noticeService = new NoticeService(noticeRepository);
   }
 
   @Test

@@ -7,10 +7,12 @@ import javax.persistence.Id;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class Notice {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

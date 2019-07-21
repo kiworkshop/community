@@ -20,21 +20,21 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest
 class NoticeControllerTest {
-    private @Autowired MockMvc mvc;
-    private @MockBean NoticeService noticeService;
-    private @Autowired ObjectMapper objectMapper;
+  private @Autowired MockMvc mvc;
+  private @MockBean NoticeService noticeService;
+  private @Autowired ObjectMapper objectMapper;
 
-    @Test
-    void createNotice_ValidInput_ValidOutput() throws Exception {
-        // given
-        NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
-        given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
+  @Test
+  void createNotice_ValidInput_ValidOutput() throws Exception {
+    // given
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
 
-        // expect
-        this.mvc.perform(post("/notices")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(noticeRequestDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(1L));
-    }
+    // expect
+    this.mvc.perform(post("/notices")
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(objectMapper.writeValueAsString(noticeRequestDto)))
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("$").value(1L));
+  }
 }

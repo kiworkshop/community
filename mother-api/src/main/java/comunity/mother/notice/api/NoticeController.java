@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/notices")
 public class NoticeController {
-    private final NoticeService noticeService;
+  private final NoticeService noticeService;
 
-    @PostMapping
-    public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
-        return noticeService.createNotice(noticeRequestDto);
-    }
+  @PostMapping
+  public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
+    return noticeService.createNotice(noticeRequestDto);
+  }
 }

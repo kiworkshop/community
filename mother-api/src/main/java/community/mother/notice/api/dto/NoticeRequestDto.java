@@ -1,7 +1,6 @@
-package comunity.mother.notice.api.dto;
+package community.mother.notice.api.dto;
 
 import javax.validation.constraints.NotEmpty;
-
 import lombok.Getter;
 
 @Getter

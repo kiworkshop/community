@@ -1,4 +1,4 @@
-package comunity.mother.notice.api.dto;
+package community.mother.notice.api.dto;
 
 import java.lang.reflect.Field;
 

@@ -1,8 +1,8 @@
-package comunity.mother.notice.service;
+package community.mother.notice.service;
 
-import comunity.mother.notice.api.dto.NoticeRequestDto;
-import comunity.mother.notice.domain.Notice;
-import comunity.mother.notice.domain.NoticeRepository;
+import community.mother.notice.api.dto.NoticeRequestDto;
+import community.mother.notice.domain.Notice;
+import community.mother.notice.domain.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

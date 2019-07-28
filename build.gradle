@@ -81,3 +81,8 @@ subprojects {
 	check.dependsOn integrationTest
 }
 
+project(':mother-api') {
+	dependencies {
+		implementation project(':common')
+	}
+}

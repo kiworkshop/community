@@ -10,11 +10,10 @@ class ApiErrorTest {
   void constructApiError_ValidInput_ConstructedApiError() {
     ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "message");
 
-    then(apiError)
-        .hasNoNullFieldsOrProperties()
-        .hasFieldOrProperty("timestamp")
-        .hasFieldOrPropertyWithValue("status", HttpStatus.NOT_FOUND.value())
-        .hasFieldOrPropertyWithValue("error", HttpStatus.NOT_FOUND.getReasonPhrase())
-        .hasFieldOrPropertyWithValue("message", "message");
+    then(apiError) .hasNoNullFieldsOrProperties();
+    then(apiError.getTimestamp()).isNotNull();
+    then(apiError.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+    then(apiError.getError()).isEqualTo(HttpStatus.NOT_FOUND.getReasonPhrase());
+    then(apiError.getMessage()).isEqualTo("message");
   }
 }

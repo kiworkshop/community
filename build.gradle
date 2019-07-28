@@ -79,6 +79,13 @@ subprojects {
 		useJUnitPlatform()
 	}
 	check.dependsOn integrationTest
+
+	task checkstyleAll(type: Test) {
+		group = 'verification'
+	}
+	checkstyleAll.dependsOn checkstyleMain
+	checkstyleAll.dependsOn checkstyleTest
+	checkstyleAll.dependsOn checkstyleIntegrationTest
 }
 
 project(':mother-api') {

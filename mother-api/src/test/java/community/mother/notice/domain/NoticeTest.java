@@ -8,8 +8,12 @@ import org.junit.jupiter.api.Test;
 
 public class NoticeTest {
   public static Notice getNoticeFixture() throws Exception {
+    return getNoticeFixture(1L);
+  }
+
+  public static Notice getNoticeFixture(Long id) throws Exception {
     Notice notice = Notice.builder().title("title").content("content").build();
-    MyReflectionUtils.setField(notice, "id", 1L);
+    MyReflectionUtils.setField(notice, "id", id);
 
     return notice;
   }

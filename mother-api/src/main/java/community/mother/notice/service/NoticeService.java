@@ -22,8 +22,6 @@ public class NoticeService {
   }
 
   public Page<NoticeResponseDto> readNotices(Pageable pageable) {
-    return noticeRepository
-        .findAll(pageable)
-        .map(n -> modelMapper.map(n, NoticeResponseDto.class));
+    return noticeRepository.findAll(pageable).map(NoticeResponseDto::of);
   }
 }

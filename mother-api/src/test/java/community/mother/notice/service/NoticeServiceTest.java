@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class NoticeServiceTest {
@@ -51,12 +52,12 @@ class NoticeServiceTest {
     // given
     PageRequest pageRequest = PageRequest.of(0, 10);
     List<Notice> givenNotices = new ArrayList<>();
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       givenNotices.add(getNoticeFixture());
     }
 
     PageImpl<Notice> pageImpl = new PageImpl<>(givenNotices, pageRequest, 10);
-    given(noticeRepository.findAll(any(PageRequest.class))).willReturn(pageImpl);
+    given(noticeRepository.findAll(any(Pageable.class))).willReturn(pageImpl);
 
     // when
     Page<NoticeResponseDto> notices = noticeService.readNotices(pageRequest);

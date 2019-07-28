@@ -1,5 +1,6 @@
 package community.mother.notice.api;
 
+import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,11 +12,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import community.common.util.MyReflectionUtils;
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.api.dto.NoticeRequestDtoTest;
+import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.service.NoticeService;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -67,5 +75,31 @@ class NoticeControllerTest {
         .andExpect(jsonPath("$.status").value(404))
         .andExpect(jsonPath("$.error").value("Not Found"))
         .andExpect(jsonPath("$.message").value("notice id 1 has not been found"));
+  }
+
+  @Test
+  void readPage_ValidInput_ValidOutput() throws Exception {
+    // given
+    final int numTotal = 10;
+    List<NoticeResponseDto> noticeResponseDtos = new ArrayList<>();
+    for (long i = 0; i < numTotal; i++) {
+      noticeResponseDtos.add(getNoticeResponseDtoFixture(numTotal - i));
+    }
+
+    PageImpl<NoticeResponseDto> noticeResponseDtoPage = new PageImpl<>(
+        noticeResponseDtos,
+        PageRequest.of(0, numTotal, new Sort(Sort.Direction.DESC, "id")),
+        numTotal);
+    given(noticeService.readNotices(any(Pageable.class))).willReturn(noticeResponseDtoPage);
+
+    // when
+    this.mvc.perform(get("/notices")
+        .param("page", "0")
+        .param("size", Integer.toString(numTotal))
+        .param("sort", "id,desc"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[9].id").value(1))
+        .andExpect(jsonPath("$.sort.sorted").value(true));
   }
 }

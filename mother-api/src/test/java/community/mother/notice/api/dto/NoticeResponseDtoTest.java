@@ -5,22 +5,19 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 import community.mother.notice.domain.Notice;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration;
 
-class NoticeResponseDtoTest {
-  private final ModelMapper modelMapper = new ModelMapper();
+public class NoticeResponseDtoTest {
+  public static NoticeResponseDto getNoticeResponseDtoFixture(Long id) throws Exception {
+    return NoticeResponseDto.of(getNoticeFixture(id));
+  }
 
   @Test
   void construct_ValidInput_ValidOutput() throws Exception {
     // given
     Notice notice = getNoticeFixture();
-    modelMapper.getConfiguration()
-        .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
-        .setFieldMatchingEnabled(true);
 
     // when
-    NoticeResponseDto noticeResponseDto = modelMapper.map(notice, NoticeResponseDto.class);
+    NoticeResponseDto noticeResponseDto = NoticeResponseDto.of(notice);
 
     // then
     then(noticeResponseDto.getId()).isEqualTo(notice.getId());

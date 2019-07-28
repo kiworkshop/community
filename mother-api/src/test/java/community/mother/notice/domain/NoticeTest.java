@@ -3,15 +3,13 @@ package community.mother.notice.domain;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
-import java.lang.reflect.Field;
+import community.common.util.MyReflectionUtils;
 import org.junit.jupiter.api.Test;
 
 public class NoticeTest {
   public static Notice getNoticeFixture() throws Exception {
     Notice notice = Notice.builder().title("title").content("content").build();
-    Field idField = Notice.class.getDeclaredField("id");
-    idField.setAccessible(true);
-    idField.set(notice, 1L);
+    MyReflectionUtils.setField(notice, "id", 1L);
 
     return notice;
   }

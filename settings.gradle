@@ -3,6 +3,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'comunity'
+rootProject.name = 'community'
 include 'mother-api'
 

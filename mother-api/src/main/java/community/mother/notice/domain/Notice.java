@@ -1,10 +1,9 @@
-package comunity.mother.notice.domain;
+package community.mother.notice.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

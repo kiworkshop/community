@@ -1,10 +1,9 @@
-package comunity.mother.notice.domain;
+package community.mother.notice.domain;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import java.lang.reflect.Field;
-
 import org.junit.jupiter.api.Test;
 
 public class NoticeTest {

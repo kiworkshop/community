@@ -1,4 +1,4 @@
-package comunity.mother.notice.domain;
+package community.mother.notice.domain;
 
 import static org.assertj.core.api.BDDAssertions.then;
 

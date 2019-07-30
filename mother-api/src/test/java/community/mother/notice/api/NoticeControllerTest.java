@@ -1,6 +1,5 @@
-package comunity.mother.notice.api;
+package community.mother.notice.api;
 
-import static comunity.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,9 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import comunity.mother.notice.api.dto.NoticeRequestDto;
-import comunity.mother.notice.service.NoticeService;
+import community.mother.notice.api.dto.NoticeRequestDto;
+import community.mother.notice.api.dto.NoticeRequestDtoTest;
+import community.mother.notice.service.NoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,7 +26,7 @@ class NoticeControllerTest {
   @Test
   void createNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
     given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
 
     // expect

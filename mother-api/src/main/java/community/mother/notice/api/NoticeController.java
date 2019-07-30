@@ -1,7 +1,7 @@
-package comunity.mother.notice.api;
+package community.mother.notice.api;
 
-import comunity.mother.notice.api.dto.NoticeRequestDto;
-import comunity.mother.notice.service.NoticeService;
+import community.mother.notice.api.dto.NoticeRequestDto;
+import community.mother.notice.service.NoticeService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

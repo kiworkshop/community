@@ -1,15 +1,14 @@
 package community.mother.notice.api;
 
-import static comunity.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import comunity.mother.MotherApiApplication;
-import comunity.mother.notice.api.dto.NoticeRequestDto;
+import community.mother.MotherApiApplication;
+import community.mother.notice.api.dto.NoticeRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

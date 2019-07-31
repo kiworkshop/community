@@ -1,7 +1,10 @@
 package community.mother.notice.api;
 
+import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseFixture;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -9,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.api.dto.NoticeRequestDtoTest;
+import community.mother.notice.api.dto.NoticeResponseDto;
+import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +40,28 @@ class NoticeControllerTest {
       .content(objectMapper.writeValueAsString(noticeRequestDto)))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$").value(1L));
+  }
+
+  @Test
+  void get_ValidInput_NoticeResponse() throws Exception {
+    NoticeResponseDto noticeResponseDto = getNoticeResponseFixture();
+    given(noticeService.readNotice(anyLong())).willReturn(noticeResponseDto);
+
+    this.mvc.perform(get("/notices/{id}", 1))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("id").value(1L))
+            .andExpect(jsonPath("title").value("title"))
+            .andExpect(jsonPath("content").value("content"));
+  }
+
+  @Test
+  void get_NonExistentId_ApiError() throws Exception {
+    given(noticeService.readNotice(anyLong())).willThrow(new NoticeNotFoundException(1L));
+
+    this.mvc.perform(get("/notices/{id}", 1))
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("status").isNumber())
+            .andExpect(jsonPath("error").isNotEmpty())
+            .andExpect(jsonPath("message").isNotEmpty());
   }
 }

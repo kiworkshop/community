@@ -1,13 +1,14 @@
 package community.mother.notice.api;
 
 import static comunity.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
+
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import comunity.mother.MotherApiApplication;
 import comunity.mother.notice.api.dto.NoticeRequestDto;
 import org.junit.jupiter.api.Test;
@@ -38,5 +39,17 @@ class NoticeControllerIntTest {
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isNumber());
+  }
+
+  @Test
+  void updateNotice_ValidInput_ValidOutput() throws Exception {
+    // given
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+
+    // expect
+    this.mvc.perform(put("/notices/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(noticeRequestDto)))
+        .andExpect(status().isOk());
   }
 }

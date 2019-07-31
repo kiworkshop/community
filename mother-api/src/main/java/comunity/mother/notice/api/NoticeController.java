@@ -4,10 +4,7 @@ import comunity.mother.notice.api.dto.NoticeRequestDto;
 import comunity.mother.notice.service.NoticeService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,5 +15,10 @@ public class NoticeController {
   @PostMapping
   public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
     return noticeService.createNotice(noticeRequestDto);
+  }
+
+  @PutMapping(value = "/{id}")
+  public void update(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto noticeRequestDto) {
+    noticeService.updateNotice(id, noticeRequestDto);
   }
 }

@@ -1,10 +1,10 @@
 package comunity.mother.notice.domain;
 
+import comunity.mother.notice.api.dto.NoticeRequestDto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +30,11 @@ public class Notice {
 
     this.title = title;
     this.content = content;
+  }
+
+  public Notice updateNotice(NoticeRequestDto noticeRequestDto) {
+    this.title = noticeRequestDto.getTitle();
+    this.content = noticeRequestDto.getContent();
+    return this;
   }
 }

@@ -4,6 +4,8 @@ import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.service.NoticeService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +20,10 @@ public class NoticeController {
   @PostMapping
   public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
     return noticeService.createNotice(noticeRequestDto);
+  }
+
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable("id") Long id) {
+    noticeService.deleteById(id);
   }
 }

@@ -27,4 +27,22 @@ class NoticeRepositoryTest {
     // then
     then(notice.getId()).isEqualTo(foundNotice.getId());
   }
+
+  @Test
+  void findById_deletedId_FoundOptionalEmpty() throws Exception {
+    // given
+    Notice notice = testEntityManager.persist(Notice.builder()
+        .title("title")
+        .content("content").build());
+    then(notice.getId()).isNotNull();
+
+    // when
+    Notice noticeToDelete = noticeRepository.findById(notice.getId())
+        .orElseThrow(() -> new Exception("notice not found"));
+    noticeRepository.delete(noticeToDelete);
+
+    // then
+    then(noticeRepository.findById(noticeToDelete.getId())).isEmpty();
+  }
+
 }

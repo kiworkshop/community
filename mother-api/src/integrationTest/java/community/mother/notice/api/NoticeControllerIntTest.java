@@ -2,6 +2,7 @@ package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,5 +38,22 @@ class NoticeControllerIntTest {
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isNumber());
+  }
+
+  @Test
+  void deleteNotice_ValidInput_StatusOk() throws Exception {
+    this.mvc.perform(delete("/notices/{id}", 1L))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+  }
+
+  @Test
+  void deleteNoticeAndTryToGetNotice_ValidInput_StatusOkAndFailToGetIt() throws Exception {
+    this.mvc.perform(delete("/notices/{id}", 1L))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    //this.mvc.perform(get("/notices/{id}", 1L))
+    //    .andExpect(status().isNotFound());
   }
 }

@@ -2,6 +2,7 @@ package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,5 +38,28 @@ class NoticeControllerIntTest {
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isNumber());
+  }
+
+  @Test
+  void readNotices_NoParams_DefaultPageSortedTrue() throws Exception {
+    // expect
+    this.mvc.perform(get("/notices"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[9].id").value(1))
+        .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
+        .andExpect(jsonPath("$.pageable.pageSize").value(10));
+  }
+
+  @Test
+  void readNotices_PageNumber1_ReturnFirstPage() throws Exception {
+    // expect
+    this.mvc.perform(get("/notices")
+        .param("page", "1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[9].id").value(1))
+        .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
+        .andExpect(jsonPath("$.pageable.pageSize").value(10));
   }
 }

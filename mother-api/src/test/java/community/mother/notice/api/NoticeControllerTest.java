@@ -1,11 +1,5 @@
 package community.mother.notice.api;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.api.dto.NoticeRequestDtoTest;
@@ -16,6 +10,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 class NoticeControllerTest {
@@ -35,5 +36,16 @@ class NoticeControllerTest {
       .content(objectMapper.writeValueAsString(noticeRequestDto)))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$").value(1L));
+  }
+
+  // TODO: Delete when read method is implemented.
+  @Test
+  void occurNoticeNotFoundExceptionForTest_ValidInput_ThrowException() throws Exception {
+    this.mvc.perform(get("/notices/not-found"))
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$.timestamp").isString())
+        .andExpect(jsonPath("$.status").value(404))
+        .andExpect(jsonPath("$.error").value("Not Found"))
+        .andExpect(jsonPath("$.message").value("notice id 1 has not been found"));
   }
 }

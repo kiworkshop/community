@@ -16,5 +16,20 @@ public class NoticeRequestDtoTest {
 
     return noticeRequestDto;
   }
+
+  public static NoticeRequestDto getNoticeUpdateRequestDtoFixture() throws Exception {
+    NoticeRequestDto noticeRequestDto = new NoticeRequestDto();
+
+    Field titleField = NoticeRequestDto.class.getDeclaredField("title");
+    titleField.setAccessible(true);
+    titleField.set(noticeRequestDto, "title updated");
+
+    Field contentField = NoticeRequestDto.class.getDeclaredField("content");
+    contentField.setAccessible(true);
+    contentField.set(noticeRequestDto, "content updated");
+
+    return noticeRequestDto;
+  }
+
 }
 

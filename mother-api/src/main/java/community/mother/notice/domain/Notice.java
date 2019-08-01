@@ -32,9 +32,8 @@ public class Notice {
     this.content = content;
   }
 
-  public Notice updateNotice(NoticeRequestDto noticeRequestDto) {
-    this.title = noticeRequestDto.getTitle();
-    this.content = noticeRequestDto.getContent();
-    return this;
+  public void updateNotice(String title, String content) {
+    this.title = title;
+    this.content = content;
   }
 }

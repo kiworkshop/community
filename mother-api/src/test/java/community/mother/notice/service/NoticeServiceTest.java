@@ -48,10 +48,9 @@ class NoticeServiceTest {
   void deleteNotice_ValidInput_DeleteNotice() throws Exception {
     // given
     Notice noticeToDelete = getNoticeFixture();
-    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.ofNullable(noticeToDelete));
+    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(noticeToDelete));
 
     // when
-    assert noticeToDelete != null;
     noticeService.deleteById(noticeToDelete.getId());
   }
 

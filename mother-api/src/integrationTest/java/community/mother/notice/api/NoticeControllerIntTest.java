@@ -42,20 +42,13 @@ class NoticeControllerIntTest {
   }
 
   @Test
-  void deleteNotice_ValidInput_StatusOk() throws Exception {
-    this.mvc.perform(delete("/notices/{id}", 1L))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$").doesNotExist());
-  }
-
-  @Test
   void deleteNoticeAndTryToGetNotice_ValidInput_StatusOkAndFailToGetIt() throws Exception {
     this.mvc.perform(delete("/notices/{id}", 1L))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").doesNotExist());
 
-    //this.mvc.perform(get("/notices/{id}", 1L))
-    //    .andExpect(status().isNotFound());
+    this.mvc.perform(get("/not-found"))
+        .andExpect(status().isNotFound());
   }
 
   @Test

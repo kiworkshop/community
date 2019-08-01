@@ -1,5 +1,6 @@
 package community.mother.notice.api.dto;
 
+import community.common.util.MyReflectionUtils;
 import java.lang.reflect.Field;
 
 public class NoticeRequestDtoTest {
@@ -17,16 +18,11 @@ public class NoticeRequestDtoTest {
     return noticeRequestDto;
   }
 
-  public static NoticeRequestDto getNoticeUpdateRequestDtoFixture() throws Exception {
+  public static NoticeRequestDto getNoticeRequestDtoFixture(String title, String content) throws Exception {
     NoticeRequestDto noticeRequestDto = new NoticeRequestDto();
 
-    Field titleField = NoticeRequestDto.class.getDeclaredField("title");
-    titleField.setAccessible(true);
-    titleField.set(noticeRequestDto, "title updated");
-
-    Field contentField = NoticeRequestDto.class.getDeclaredField("content");
-    contentField.setAccessible(true);
-    contentField.set(noticeRequestDto, "content updated");
+    MyReflectionUtils.setField(noticeRequestDto, "title", title);
+    MyReflectionUtils.setField(noticeRequestDto, "content", content);
 
     return noticeRequestDto;
   }

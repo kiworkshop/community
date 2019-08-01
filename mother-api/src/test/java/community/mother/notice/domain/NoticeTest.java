@@ -1,6 +1,6 @@
 package community.mother.notice.domain;
 
-import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeUpdateRequestDtoFixture;
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
@@ -48,7 +48,7 @@ public class NoticeTest {
   void update_ValidInput_ValidOutput() throws Exception {
     //given
     Notice notice = getNoticeFixture();
-    NoticeRequestDto noticeRequestDto = getNoticeUpdateRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture("updated title", "updated content");
 
     // when
     notice.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());

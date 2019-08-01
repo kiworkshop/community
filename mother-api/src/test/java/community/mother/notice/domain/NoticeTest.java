@@ -1,9 +1,11 @@
 package community.mother.notice.domain;
 
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import community.common.util.MyReflectionUtils;
+import community.mother.notice.api.dto.NoticeRequestDto;
 import org.junit.jupiter.api.Test;
 
 public class NoticeTest {
@@ -40,5 +42,18 @@ public class NoticeTest {
             .title("")
             .content("content").build()
     ).isInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void update_ValidInput_ValidOutput() throws Exception {
+    //given
+    Notice savedNotice = getNoticeFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+
+    // when
+    Notice updatedNotice = savedNotice.updateNotice(noticeRequestDto);
+    then(updatedNotice)
+        .hasFieldOrPropertyWithValue("title", noticeRequestDto.getTitle())
+        .hasFieldOrPropertyWithValue("content", noticeRequestDto.getContent());
   }
 }

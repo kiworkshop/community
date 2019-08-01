@@ -3,6 +3,7 @@ package community.mother.notice.service;
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,10 @@ public class NoticeService {
   public Long createNotice(NoticeRequestDto noticeRequestDto) {
     Notice notice = modelMapper.map(noticeRequestDto, Notice.class);
     return noticeRepository.save(notice).getId();
+  }
+
+  public void updateNotice(Long id, NoticeRequestDto noticeRequestDto) {
+    Notice savedNotice = noticeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    noticeRepository.save(savedNotice.updateNotice(noticeRequestDto));
   }
 }

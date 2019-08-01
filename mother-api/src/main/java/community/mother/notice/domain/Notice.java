@@ -1,5 +1,6 @@
 package community.mother.notice.domain;
 
+import community.mother.notice.api.dto.NoticeRequestDto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,5 +30,11 @@ public class Notice {
 
     this.title = title;
     this.content = content;
+  }
+
+  public Notice updateNotice(NoticeRequestDto noticeRequestDto) {
+    this.title = noticeRequestDto.getTitle();
+    this.content = noticeRequestDto.getContent();
+    return this;
   }
 }

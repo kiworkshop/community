@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,5 +27,10 @@ public class NoticeController {
   @GetMapping("/not-found")
   public void occurNoticeNotFoundExceptionForTest() {
     throw new NoticeNotFoundException(1L);
+  }
+
+  @PutMapping(value = "/{id}")
+  public void update(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto noticeRequestDto) {
+    noticeService.updateNotice(id, noticeRequestDto);
   }
 }

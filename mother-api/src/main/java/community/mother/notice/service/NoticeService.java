@@ -20,7 +20,7 @@ public class NoticeService {
   }
 
   public void deleteById(Long id) {
-    Notice noticeToDelete = noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
+    Notice noticeToDelete = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
     noticeRepository.delete(noticeToDelete);
   }
 }

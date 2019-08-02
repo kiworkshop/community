@@ -93,3 +93,9 @@ project(':mother-api') {
 		implementation project(':common')
 	}
 }
+
+project(':content-api') {
+	dependencies {
+		implementation project(':common')
+	}
+}

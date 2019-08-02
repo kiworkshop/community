@@ -43,7 +43,7 @@ public class NoticeController {
 
   @GetMapping("/{id}")
   public NoticeResponseDto read(@PathVariable Long id) {
-      return noticeService.readNotice(id);
+    return noticeService.readNotice(id);
   }
 
   @PutMapping(value = "/{id}")

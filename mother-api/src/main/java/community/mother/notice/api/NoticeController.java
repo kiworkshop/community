@@ -2,7 +2,6 @@ package community.mother.notice.api;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.api.dto.NoticeResponseDto;
-import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +32,6 @@ public class NoticeController {
   @DeleteMapping("/{id}")
   public void delete(@PathVariable("id") Long id) {
     noticeService.deleteById(id);
-  }
-
-  // TODO: Delete when read method is implemented.
-  @GetMapping("/not-found")
-  public void occurNoticeNotFoundExceptionForTest() {
-    throw new NoticeNotFoundException(1L);
   }
 
   @GetMapping

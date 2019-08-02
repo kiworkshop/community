@@ -1,12 +1,11 @@
 package community.mother.notice.api;
 
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseDtoFixture;
 import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseFixture;
-import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,14 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.mother.notice.api.dto.NoticeRequestDto;
-import community.mother.notice.api.dto.NoticeRequestDtoTest;
 import community.mother.notice.api.dto.NoticeResponseDto;
+import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import community.mother.notice.exception.NoticeNotFoundException;
-import community.mother.notice.service.NoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -65,17 +62,6 @@ class NoticeControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
         .andExpect(status().isBadRequest());
-  }
-
-  // TODO: Delete when read method is implemented.
-  @Test
-  void occurNoticeNotFoundExceptionForTest_ValidInput_ThrowException() throws Exception {
-    this.mvc.perform(get("/notices/not-found"))
-        .andExpect(status().isNotFound())
-        .andExpect(jsonPath("$.timestamp").isString())
-        .andExpect(jsonPath("$.status").value(404))
-        .andExpect(jsonPath("$.error").value("Not Found"))
-        .andExpect(jsonPath("$.message").value("notice id 1 has not been found"));
   }
 
   @Test

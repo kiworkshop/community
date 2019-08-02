@@ -9,7 +9,6 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
-import community.mother.notice.api.dto.NoticeRequestDtoTest;
 import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
@@ -74,6 +73,7 @@ class NoticeServiceTest {
     then(noticeResponseDtoPage.getTotalElements()).isEqualTo(numNotices);
   }
 
+  @Test
   void readNotice_ValidInput_FoundNotice() throws Exception {
     Notice notice = getNoticeFixture();
     given(noticeRepository.findById(anyLong())).willReturn(Optional.of(notice));
@@ -81,9 +81,9 @@ class NoticeServiceTest {
     NoticeResponseDto foundNotice = noticeService.readNotice(1L);
 
     then(foundNotice)
-            .hasFieldOrPropertyWithValue("id", notice.getId())
-            .hasFieldOrPropertyWithValue("title", notice.getTitle())
-            .hasFieldOrPropertyWithValue("content", notice.getContent());
+        .hasFieldOrPropertyWithValue("id", notice.getId())
+        .hasFieldOrPropertyWithValue("title", notice.getTitle())
+        .hasFieldOrPropertyWithValue("content", notice.getContent());
   }
 
   @Test

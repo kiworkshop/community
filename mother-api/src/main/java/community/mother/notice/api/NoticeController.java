@@ -5,7 +5,9 @@ import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,11 @@ public class NoticeController {
   @PostMapping
   public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
     return noticeService.createNotice(noticeRequestDto);
+  }
+
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable("id") Long id) {
+    noticeService.deleteById(id);
   }
 
   // TODO: Delete when read method is implemented.

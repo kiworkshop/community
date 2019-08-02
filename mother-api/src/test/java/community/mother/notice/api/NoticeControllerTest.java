@@ -2,6 +2,7 @@ package community.mother.notice.api;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,5 +36,11 @@ class NoticeControllerTest {
       .content(objectMapper.writeValueAsString(noticeRequestDto)))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$").value(1L));
+  }
+
+  @Test
+  void deleteNotice_ValidInput_ValidOutput() throws Exception {
+    this.mvc.perform(delete("/notices/{id}", 1L))
+        .andExpect(status().isOk());
   }
 }

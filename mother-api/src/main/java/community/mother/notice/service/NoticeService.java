@@ -4,6 +4,7 @@ import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
+import community.mother.notice.exception.NoticeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -23,5 +24,10 @@ public class NoticeService {
 
   public Page<NoticeResponseDto> readNoticePage(Pageable pageable) {
     return noticeRepository.findAll(pageable).map(NoticeResponseDto::of);
+  }
+
+  public void deleteById(Long id) {
+    Notice noticeToDelete = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    noticeRepository.delete(noticeToDelete);
   }
 }

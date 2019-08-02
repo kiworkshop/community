@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,11 @@ public class NoticeController {
   @PostMapping
   public Long create(@RequestBody @Valid NoticeRequestDto noticeRequestDto) {
     return noticeService.createNotice(noticeRequestDto);
+  }
+
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable("id") Long id) {
+    noticeService.deleteById(id);
   }
 
   // TODO: Delete when read method is implemented.

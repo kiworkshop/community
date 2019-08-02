@@ -2,8 +2,10 @@ package community.mother.notice.api.dto;
 
 import community.mother.notice.domain.Notice;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class NoticeResponseDto {
   private Long id;
   private String title;

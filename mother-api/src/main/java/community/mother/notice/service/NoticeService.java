@@ -27,4 +27,15 @@ public class NoticeService {
   private Notice findNoticeById(Long id) {
     return noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
   }
+
+  public void updateNotice(Long id, NoticeRequestDto noticeRequestDto) {
+    Notice noticeToUpdate = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    noticeToUpdate.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());
+    noticeRepository.save(noticeToUpdate);
+  }
+
+  public void deleteById(Long id) {
+    Notice noticeToDelete = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    noticeRepository.delete(noticeToDelete);
+  }
 }

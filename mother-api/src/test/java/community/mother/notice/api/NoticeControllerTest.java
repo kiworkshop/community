@@ -1,11 +1,14 @@
 package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseFixture;
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,6 +18,7 @@ import community.mother.notice.api.dto.NoticeRequestDtoTest;
 import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,7 +35,7 @@ class NoticeControllerTest {
   @Test
   void createNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
     given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
 
     // expect
@@ -63,5 +67,22 @@ class NoticeControllerTest {
             .andExpect(jsonPath("status").isNumber())
             .andExpect(jsonPath("error").isNotEmpty())
             .andExpect(jsonPath("message").isNotEmpty());
+  }
+
+  @Test
+  void updateNotice_ValidInput_ValidOutput() throws Exception {
+    // given
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+
+    // expect
+    this.mvc.perform(put("/notices/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(noticeRequestDto)));
+  }
+
+  @Test
+  void deleteNotice_ValidInput_ValidOutput() throws Exception {
+    this.mvc.perform(delete("/notices/{id}", 1L))
+        .andExpect(status().isOk());
   }
 }

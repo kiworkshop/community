@@ -1,5 +1,6 @@
 package community.mother.notice.service;
 
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static community.mother.notice.domain.NoticeTest.getNoticeFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 @ExtendWith(MockitoExtension.class)
 class NoticeServiceTest {
   private NoticeService noticeService;
@@ -34,7 +36,7 @@ class NoticeServiceTest {
   @Test
   void createNotice_ValidInput_CreatedNotice() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
 
     Notice noticeToSave = getNoticeFixture();
     given(noticeRepository.save(any(Notice.class))).willReturn(noticeToSave);
@@ -62,5 +64,41 @@ class NoticeServiceTest {
   void readNotice_NonExistentNoticeId_NoticeNotFoundException() {
     given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
     thenThrownBy(() -> noticeService.readNotice(1L)).isExactlyInstanceOf(NoticeNotFoundException.class);
+  }
+
+  @Test
+  void updateNotice_validInput_validOutput() throws Exception {
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    Notice notice = getNoticeFixture();
+    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(notice));
+    given(noticeRepository.save(any(Notice.class))).willReturn(notice);
+
+    noticeService.updateNotice(1L, noticeRequestDto);
+  }
+
+  @Test
+  void updateNotice_nonExistNotice_throwException() throws Exception {
+    NoticeRequestDto noticeUpdatingRequestDto = getNoticeRequestDtoFixture();
+    given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
+
+    thenThrownBy(() -> noticeService.updateNotice(1L, noticeUpdatingRequestDto))
+        .isInstanceOf(NoticeNotFoundException.class);
+  }
+
+  @Test
+  void deleteNotice_ValidInput_DeleteNotice() throws Exception {
+    // given
+    Notice noticeToDelete = getNoticeFixture();
+    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(noticeToDelete));
+
+    // when
+    noticeService.deleteById(noticeToDelete.getId());
+  }
+
+  @Test
+  void deleteNotice_InvalidInput_Exception() {
+    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.empty());
+    thenThrownBy(() -> noticeService.deleteById(1L))
+        .isExactlyInstanceOf(NoticeNotFoundException.class);
   }
 }

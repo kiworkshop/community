@@ -1,9 +1,13 @@
 package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
+
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,5 +51,52 @@ class NoticeControllerIntTest {
             .andExpect(jsonPath("$.id").value(1L))
             .andExpect(jsonPath("$.title").value("title1"))
             .andExpect(jsonPath("$.content").value("content1"));
+  }
+
+  void deleteNoticeAndTryToGetNotice_ValidInput_StatusOkAndFailToGetIt() throws Exception {
+    this.mvc.perform(delete("/notices/{id}", 1L))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    this.mvc.perform(get("/not-found"))
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void readNotices_NoParams_DefaultPageSortedTrue() throws Exception {
+    // expect
+    this.mvc.perform(get("/notices"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[9].id").value(1))
+        .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
+        .andExpect(jsonPath("$.pageable.pageSize").value(10));
+  }
+
+  @Test
+  void readNotices_PageNumber1_ReturnFirstPage() throws Exception {
+    // expect
+    this.mvc.perform(get("/notices")
+        .param("page", "1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[9].id").value(1))
+        .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
+        .andExpect(jsonPath("$.pageable.pageSize").value(10));
+  }
+
+  @Test
+  void updateNotice_ValidInput_ValidOutput() throws Exception {
+    // given
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture("updated title", "updated content");
+
+    // expect
+    this.mvc.perform(put("/notices/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(noticeRequestDto)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    // TODO: 2019-08-02 check if it is actually updated when get method is implemented.
   }
 }

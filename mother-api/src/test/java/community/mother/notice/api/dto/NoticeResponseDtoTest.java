@@ -22,4 +22,23 @@ public class NoticeResponseDtoTest {
             .hasFieldOrPropertyWithValue("title", notice.getTitle())
             .hasFieldOrPropertyWithValue("content", notice.getContent());
   }
+
+  @Test
+  public static NoticeResponseDto getNoticeResponseDtoFixture(Long id) throws Exception {
+    return NoticeResponseDto.of(getNoticeFixture(id));
+  }
+
+  @Test
+  void construct_ValidInput_ValidOutput() throws Exception {
+    // given
+    Notice notice = getNoticeFixture();
+
+    // when
+    NoticeResponseDto noticeResponseDto = NoticeResponseDto.of(notice);
+
+    // then
+    then(noticeResponseDto.getId()).isEqualTo(notice.getId());
+    then(noticeResponseDto.getTitle()).isEqualTo(notice.getTitle());
+    then(noticeResponseDto.getContent()).isEqualTo(notice.getContent());
+  }
 }

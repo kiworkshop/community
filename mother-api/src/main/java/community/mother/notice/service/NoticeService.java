@@ -21,8 +21,8 @@ public class NoticeService {
   }
 
   public void updateNotice(Long id, NoticeRequestDto noticeRequestDto) {
-    Notice savedNotice = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
-    savedNotice.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());
-    noticeRepository.save(savedNotice);
+    Notice noticeToUpdate = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    noticeToUpdate.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());
+    noticeRepository.save(noticeToUpdate);
   }
 }

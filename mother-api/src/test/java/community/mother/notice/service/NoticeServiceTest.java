@@ -5,11 +5,13 @@ import static community.mother.notice.domain.NoticeTest.getNoticeFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
 import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
+import community.mother.notice.exception.NoticeNotFoundException;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,11 +58,10 @@ class NoticeServiceTest {
   @Test
   void updateNotice_nonExistNotice_throwException() throws Exception {
     NoticeRequestDto noticeUpdatingRequestDto = getNoticeRequestDtoFixture();
-    Long updatingNoticeId = 100L;
-    given(noticeRepository.findById(updatingNoticeId)).willReturn(Optional.empty());
+    given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
 
-    thenThrownBy(() -> noticeService.updateNotice(updatingNoticeId, noticeUpdatingRequestDto))
-        .isInstanceOf(EntityNotFoundException.class);
+    thenThrownBy(() -> noticeService.updateNotice(1L, noticeUpdatingRequestDto))
+        .isInstanceOf(NoticeNotFoundException.class);
   }
 
 }

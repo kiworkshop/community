@@ -68,12 +68,15 @@ class NoticeControllerIntTest {
   @Test
   void updateNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture("updated title", "updated content");
 
     // expect
     this.mvc.perform(put("/notices/1")
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    // TODO: 2019-08-02 check if it is actually updated when get method is implemented.
   }
 }

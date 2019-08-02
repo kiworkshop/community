@@ -1,6 +1,7 @@
 package community.mother.notice.api;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
+import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.exception.NoticeNotFoundException;
 import community.mother.notice.service.NoticeService;
 import javax.validation.Valid;
@@ -34,6 +35,11 @@ public class NoticeController {
   @GetMapping("/not-found")
   public void occurNoticeNotFoundExceptionForTest() {
     throw new NoticeNotFoundException(1L);
+  }
+
+  @GetMapping("/{id}")
+  public NoticeResponseDto read(@PathVariable Long id) {
+      return noticeService.readNotice(id);
   }
 
   @PutMapping(value = "/{id}")

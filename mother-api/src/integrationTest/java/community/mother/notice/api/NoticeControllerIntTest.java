@@ -3,6 +3,7 @@ package community.mother.notice.api;
 import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -44,6 +45,14 @@ class NoticeControllerIntTest {
   }
 
   @Test
+  public void getNotice_ValidInput_ValidOutput() throws Exception {
+    this.mvc.perform(get("/notices/{id}", 1))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(1L))
+            .andExpect(jsonPath("$.title").value("title1"))
+            .andExpect(jsonPath("$.content").value("content1"));
+  }
+
   void deleteNoticeAndTryToGetNotice_ValidInput_StatusOkAndFailToGetIt() throws Exception {
     this.mvc.perform(delete("/notices/{id}", 1L))
         .andExpect(status().isOk())

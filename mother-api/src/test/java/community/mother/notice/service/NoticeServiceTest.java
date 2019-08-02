@@ -9,17 +9,22 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
-import community.mother.notice.api.dto.NoticeRequestDtoTest;
 import community.mother.notice.api.dto.NoticeResponseDto;
 import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
 import community.mother.notice.exception.NoticeNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +53,27 @@ class NoticeServiceTest {
   }
 
   @Test
+  void readNoticePage_ValidInput_ValidOutput() throws Exception {
+    // given
+    final Long numNotices = 10L;
+    List<Notice> notices = new ArrayList<>();
+
+    for (long i = 0; i < numNotices; i++) {
+      notices.add(getNoticeFixture(i));
+    }
+
+    PageImpl<Notice> noticePage = new PageImpl<>(notices);
+    given(noticeRepository.findAll(any(Pageable.class))).willReturn(noticePage);
+
+    // when
+    Page<NoticeResponseDto> noticeResponseDtoPage = noticeService.readNoticePage(
+        PageRequest.of(0, numNotices.intValue()));
+
+    // expect
+    then(noticeResponseDtoPage.getTotalElements()).isEqualTo(numNotices);
+  }
+
+  @Test
   void readNotice_ValidInput_FoundNotice() throws Exception {
     Notice notice = getNoticeFixture();
     given(noticeRepository.findById(anyLong())).willReturn(Optional.of(notice));
@@ -55,9 +81,9 @@ class NoticeServiceTest {
     NoticeResponseDto foundNotice = noticeService.readNotice(1L);
 
     then(foundNotice)
-            .hasFieldOrPropertyWithValue("id", notice.getId())
-            .hasFieldOrPropertyWithValue("title", notice.getTitle())
-            .hasFieldOrPropertyWithValue("content", notice.getContent());
+        .hasFieldOrPropertyWithValue("id", notice.getId())
+        .hasFieldOrPropertyWithValue("title", notice.getTitle())
+        .hasFieldOrPropertyWithValue("content", notice.getContent());
   }
 
   @Test

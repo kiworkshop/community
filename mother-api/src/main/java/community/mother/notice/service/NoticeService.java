@@ -7,6 +7,8 @@ import community.mother.notice.domain.NoticeRepository;
 import community.mother.notice.exception.NoticeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,22 +22,26 @@ public class NoticeService {
     return noticeRepository.save(notice).getId();
   }
 
+  public Page<NoticeResponseDto> readNoticePage(Pageable pageable) {
+    return noticeRepository.findAll(pageable).map(NoticeResponseDto::of);
+  }
+
   public NoticeResponseDto readNotice(Long id) {
     return NoticeResponseDto.of(findNoticeById(id));
   }
 
-  private Notice findNoticeById(Long id) {
-    return noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
-  }
-
   public void updateNotice(Long id, NoticeRequestDto noticeRequestDto) {
-    Notice noticeToUpdate = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    Notice noticeToUpdate = findNoticeById(id);
     noticeToUpdate.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());
     noticeRepository.save(noticeToUpdate);
   }
 
   public void deleteById(Long id) {
-    Notice noticeToDelete = noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
+    Notice noticeToDelete = findNoticeById(id);
     noticeRepository.delete(noticeToDelete);
+  }
+
+  private Notice findNoticeById(Long id) {
+    return noticeRepository.findById(id).orElseThrow(() -> new NoticeNotFoundException(id));
   }
 }

@@ -1,9 +1,7 @@
 package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
-
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,12 +51,13 @@ class NoticeControllerIntTest {
             .andExpect(jsonPath("$.content").value("content1"));
   }
 
+  @Test
   void deleteNoticeAndTryToGetNotice_ValidInput_StatusOkAndFailToGetIt() throws Exception {
     this.mvc.perform(delete("/notices/{id}", 1L))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").doesNotExist());
 
-    this.mvc.perform(get("/not-found"))
+    this.mvc.perform(get("/notices/{id}", 1L))
         .andExpect(status().isNotFound());
   }
 
@@ -97,6 +96,9 @@ class NoticeControllerIntTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").doesNotExist());
 
-    // TODO: 2019-08-02 check if it is actually updated when get method is implemented.
+    this.mvc.perform(get("/notices/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title").value("updated title"))
+        .andExpect(jsonPath("$.content").value("updated content"));
   }
 }

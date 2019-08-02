@@ -11,5 +11,14 @@ public class NoticeRequestDtoTest {
 
     return noticeRequestDto;
   }
+
+  public static NoticeRequestDto getNoticeRequestDtoFixture(String title, String content) throws Exception {
+    NoticeRequestDto noticeRequestDto = new NoticeRequestDto();
+
+    MyReflectionUtils.setField(noticeRequestDto, "title", title);
+    MyReflectionUtils.setField(noticeRequestDto, "content", content);
+
+    return noticeRequestDto;
+  }
 }
 

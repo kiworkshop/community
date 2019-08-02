@@ -1,11 +1,16 @@
 package community.mother.notice.api;
 
 import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseDtoFixture;
+import static community.mother.notice.api.dto.NoticeResponseDtoTest.getNoticeResponseFixture;
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,6 +22,8 @@ import community.mother.notice.service.NoticeService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import community.mother.notice.exception.NoticeNotFoundException;
+import community.mother.notice.service.NoticeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -37,7 +44,7 @@ class NoticeControllerTest {
   @Test
   void createNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
     given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
 
     // expect
@@ -93,6 +100,40 @@ class NoticeControllerTest {
         .andExpect(jsonPath("$.content[9].id").value(1))
         .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
         .andExpect(jsonPath("$.pageable.pageSize").value(10));
+  }
+
+  @Test
+  void get_ValidInput_NoticeResponse() throws Exception {
+    NoticeResponseDto noticeResponseDto = getNoticeResponseFixture();
+    given(noticeService.readNotice(anyLong())).willReturn(noticeResponseDto);
+
+    this.mvc.perform(get("/notices/{id}", 1))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("id").value(1L))
+            .andExpect(jsonPath("title").value("title"))
+            .andExpect(jsonPath("content").value("content"));
+  }
+
+  @Test
+  void get_NonExistentId_ApiError() throws Exception {
+    given(noticeService.readNotice(anyLong())).willThrow(new NoticeNotFoundException(1L));
+
+    this.mvc.perform(get("/notices/{id}", 1))
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("status").isNumber())
+            .andExpect(jsonPath("error").isNotEmpty())
+            .andExpect(jsonPath("message").isNotEmpty());
+  }
+
+  @Test
+  void updateNotice_ValidInput_ValidOutput() throws Exception {
+    // given
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+
+    // expect
+    this.mvc.perform(put("/notices/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(noticeRequestDto)));
   }
 
   @Test

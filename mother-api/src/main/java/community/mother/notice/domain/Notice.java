@@ -1,5 +1,6 @@
 package community.mother.notice.domain;
 
+import community.mother.notice.api.dto.NoticeRequestDto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,11 @@ public class Notice {
     Assert.hasLength(title, "title should not be empty.");
     Assert.hasLength(content, "content should not be empty.");
 
+    this.title = title;
+    this.content = content;
+  }
+
+  public void updateNotice(String title, String content) {
     this.title = title;
     this.content = content;
   }

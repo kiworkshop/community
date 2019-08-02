@@ -1,9 +1,11 @@
 package community.mother.notice.service;
 
+import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static community.mother.notice.domain.NoticeTest.getNoticeFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 import community.mother.notice.api.dto.NoticeRequestDto;
@@ -40,7 +42,7 @@ class NoticeServiceTest {
   @Test
   void createNotice_ValidInput_CreatedNotice() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
 
     Notice noticeToSave = getNoticeFixture();
     given(noticeRepository.save(any(Notice.class))).willReturn(noticeToSave);
@@ -70,6 +72,43 @@ class NoticeServiceTest {
 
     // expect
     then(noticeResponseDtoPage.getTotalElements()).isEqualTo(numNotices);
+  }
+
+  void readNotice_ValidInput_FoundNotice() throws Exception {
+    Notice notice = getNoticeFixture();
+    given(noticeRepository.findById(anyLong())).willReturn(Optional.of(notice));
+
+    NoticeResponseDto foundNotice = noticeService.readNotice(1L);
+
+    then(foundNotice)
+            .hasFieldOrPropertyWithValue("id", notice.getId())
+            .hasFieldOrPropertyWithValue("title", notice.getTitle())
+            .hasFieldOrPropertyWithValue("content", notice.getContent());
+  }
+
+  @Test
+  void readNotice_NonExistentNoticeId_NoticeNotFoundException() {
+    given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
+    thenThrownBy(() -> noticeService.readNotice(1L)).isExactlyInstanceOf(NoticeNotFoundException.class);
+  }
+
+  @Test
+  void updateNotice_validInput_validOutput() throws Exception {
+    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    Notice notice = getNoticeFixture();
+    given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(notice));
+    given(noticeRepository.save(any(Notice.class))).willReturn(notice);
+
+    noticeService.updateNotice(1L, noticeRequestDto);
+  }
+
+  @Test
+  void updateNotice_nonExistNotice_throwException() throws Exception {
+    NoticeRequestDto noticeUpdatingRequestDto = getNoticeRequestDtoFixture();
+    given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
+
+    thenThrownBy(() -> noticeService.updateNotice(1L, noticeUpdatingRequestDto))
+        .isInstanceOf(NoticeNotFoundException.class);
   }
 
   @Test

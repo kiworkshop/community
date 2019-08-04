@@ -6,7 +6,6 @@ import community.mother.notice.domain.Notice;
 import community.mother.notice.domain.NoticeRepository;
 import community.mother.notice.exception.NoticeNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NoticeService {
   private final NoticeRepository noticeRepository;
-  private final ModelMapper modelMapper = new ModelMapper();
 
   public Long createNotice(NoticeRequestDto noticeRequestDto) {
-    Notice notice = modelMapper.map(noticeRequestDto, Notice.class);
-    return noticeRepository.save(notice).getId();
+    return noticeRepository.save(Notice.builder()
+        .title(noticeRequestDto.getTitle())
+        .content(noticeRequestDto.getContent()).build())
+        .getId();
   }
 
   public Page<NoticeResponseDto> readNoticePage(Pageable pageable) {

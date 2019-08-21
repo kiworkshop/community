@@ -18,6 +18,8 @@ public class PostTest {
         .title("title")
         .description("description")
         .content("content")
+        .originalFileName("originalFileName")
+        .storedFileName("storedFileName")
         .tags(tags).build();
 
     // then
@@ -25,6 +27,8 @@ public class PostTest {
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("description", "description")
         .hasFieldOrPropertyWithValue("content", "content")
+        .hasFieldOrPropertyWithValue("originalFileName", "originalFileName")
+        .hasFieldOrPropertyWithValue("storedFileName", "storedFileName")
         .hasFieldOrPropertyWithValue("tags", tags);
   }
 

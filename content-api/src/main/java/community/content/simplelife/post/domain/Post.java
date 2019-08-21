@@ -31,6 +31,8 @@ public class Post {
   private String content;
   @CreationTimestamp
   private LocalDateTime createdAt;
+  private String originalFileName;
+  private String storedFileName;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "post_tags",
@@ -43,6 +45,8 @@ public class Post {
       String title,
       String description,
       String content,
+      String originalFileName,
+      String storedFileName,
       Set<Tag> tags
   ) {
     Assert.hasLength(title, "title should not be empty.");
@@ -52,6 +56,8 @@ public class Post {
     this.title = title;
     this.description = description;
     this.content = content;
+    this.originalFileName = originalFileName;
+    this.storedFileName = storedFileName;
     this.tags = tags;
   }
 }

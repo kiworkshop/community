@@ -1,11 +1,14 @@
 package community.content.myanglog.service;
 
+import static community.content.myanglog.api.dto.PostRequestDtoTest.getPostRequestDtoFixture;
 import static community.content.myanglog.domain.PostTest.getPostFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
+import community.content.myanglog.api.dto.PostRequestDto;
 import community.content.myanglog.api.dto.PostResponseDto;
 import community.content.myanglog.domain.Post;
 import community.content.myanglog.domain.PostRepository;
@@ -45,8 +48,19 @@ class PostServiceTest {
   }
 
   @Test
-  void readPost_NonExistentIdInput_throwsPostNotFoundException() {
+  void readPost_NonExistentIdInput_ThrowPostNotFoundException() {
     given(postRepository.findById(anyLong())).willReturn(Optional.empty());
     thenThrownBy(() -> postService.readPost(1L)).isInstanceOf(PostNotFoundException.class);
+  }
+
+  @Test
+  void createPost_ValidInput_CreatedPostId() throws Exception {
+    PostRequestDto request = getPostRequestDtoFixture();
+    Post postToSave = getPostFixture();
+    given(postRepository.save(any(Post.class))).willReturn(postToSave);
+
+    Long id = postService.createPost(request);
+
+    then(id).isEqualTo(postToSave.getId());
   }
 }

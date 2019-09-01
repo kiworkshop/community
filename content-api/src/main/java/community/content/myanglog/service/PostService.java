@@ -1,5 +1,6 @@
 package community.content.myanglog.service;
 
+import community.content.myanglog.api.dto.PostRequestDto;
 import community.content.myanglog.api.dto.PostResponseDto;
 import community.content.myanglog.domain.Post;
 import community.content.myanglog.domain.PostRepository;
@@ -19,4 +20,12 @@ public class PostService {
   private Post findPostById(Long id) {
     return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
   }
+
+  public Long createPost(PostRequestDto postRequestDto) {
+    return postRepository.save(Post.builder()
+        .title(postRequestDto.getTitle())
+        .content(postRequestDto.getContent())
+        .build()).getId();
+  }
+
 }

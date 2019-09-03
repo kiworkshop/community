@@ -1,10 +1,15 @@
 package community.content.simplelife.post.domain;
 
 import community.content.simplelife.tag.domain.Tag;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.util.Assert;
 
 @Getter
@@ -30,9 +36,13 @@ public class Post {
   private String description;
   private String content;
   @CreationTimestamp
-  private LocalDateTime createdAt;
-  private String originalFileName;
-  private String storedFileName;
+  private ZonedDateTime createdAt;
+  @UpdateTimestamp
+  private ZonedDateTime updatedAt;
+  @ElementCollection
+  @CollectionTable(name = "post_image_urls", joinColumns = @JoinColumn(name = "id"))
+  @Column(name = "image_urls")
+  private List<String> imageUrls = new ArrayList<>();
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "post_tags",
@@ -45,8 +55,7 @@ public class Post {
       String title,
       String description,
       String content,
-      String originalFileName,
-      String storedFileName,
+      List<String> imageUrls,
       Set<Tag> tags
   ) {
     Assert.hasLength(title, "title should not be empty.");
@@ -56,8 +65,7 @@ public class Post {
     this.title = title;
     this.description = description;
     this.content = content;
-    this.originalFileName = originalFileName;
-    this.storedFileName = storedFileName;
+    this.imageUrls = imageUrls;
     this.tags = tags;
   }
 }

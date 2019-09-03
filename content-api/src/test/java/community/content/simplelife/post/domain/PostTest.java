@@ -6,10 +6,17 @@ import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import community.content.simplelife.tag.domain.Tag;
 
+import java.util.Arrays;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class PostTest {
+  public static Post getPostFixture() {
+    return Post.builder()
+        .title("title").description("description").content("content")
+        .imageUrls(Arrays.asList("imageUrl1", "imageUrl2")).tags(Set.of(getTagFixture())).build();
+  }
+
   @Test
   void build_ValidInput_ValidOutput() {
     // given
@@ -18,17 +25,15 @@ public class PostTest {
         .title("title")
         .description("description")
         .content("content")
-        .originalFileName("originalFileName")
-        .storedFileName("storedFileName")
+        .imageUrls(Arrays.asList("imageUrl1", "imageUrl2"))
         .tags(tags).build();
 
     // then
-    then(post).hasNoNullFieldsOrPropertiesExcept("id", "createdAt")
+    then(post).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("description", "description")
         .hasFieldOrPropertyWithValue("content", "content")
-        .hasFieldOrPropertyWithValue("originalFileName", "originalFileName")
-        .hasFieldOrPropertyWithValue("storedFileName", "storedFileName")
+        .hasFieldOrPropertyWithValue("imageUrls", Arrays.asList("imageUrl1", "imageUrl2"))
         .hasFieldOrPropertyWithValue("tags", tags);
   }
 

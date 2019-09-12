@@ -22,14 +22,14 @@ public class Tag {
   private Long id;
 
   @Column
-  private String tagName;
+  private String name;
 
   @ManyToMany(mappedBy = "tags")
   private Set<Post> post;
 
   @Builder
-  private Tag(String tagName) {
-    Assert.hasLength(tagName, "tag name should not be empty.");
-    this.tagName = tagName;
+  private Tag(String name) {
+    Assert.hasLength(name, "tag name should not be empty.");
+    this.name = name;
   }
 }

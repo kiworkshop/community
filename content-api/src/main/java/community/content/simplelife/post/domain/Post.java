@@ -2,14 +2,9 @@ package community.content.simplelife.post.domain;
 
 import community.content.simplelife.tag.domain.Tag;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,10 +34,7 @@ public class Post {
   private ZonedDateTime createdAt;
   @UpdateTimestamp
   private ZonedDateTime updatedAt;
-  @ElementCollection
-  @CollectionTable(name = "post_image_urls", joinColumns = @JoinColumn(name = "id"))
-  @Column(name = "image_urls")
-  private List<String> imageUrls = new ArrayList<>();
+  private int viewCount;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "post_tags",
@@ -54,9 +46,7 @@ public class Post {
   private Post(
       String title,
       String description,
-      String content,
-      List<String> imageUrls,
-      Set<Tag> tags
+      String content
   ) {
     Assert.hasLength(title, "title should not be empty.");
     Assert.hasLength(description, "description should not be empty.");
@@ -65,7 +55,5 @@ public class Post {
     this.title = title;
     this.description = description;
     this.content = content;
-    this.imageUrls = imageUrls;
-    this.tags = tags;
   }
 }

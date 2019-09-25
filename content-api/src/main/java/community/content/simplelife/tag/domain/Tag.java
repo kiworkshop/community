@@ -22,16 +22,16 @@ public class Tag {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String tagName;
+  private String name;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "tags")
   private Set<Post> posts = new HashSet<>();
 
   @Builder
-  private Tag(String tagName
+  private Tag(String name
   ) {
-    Assert.hasLength(tagName, "tagName should not be empty.");
+    Assert.hasLength(name, "tagName should not be empty.");
 
-    this.tagName = tagName;
+    this.name = name;
   }
 }

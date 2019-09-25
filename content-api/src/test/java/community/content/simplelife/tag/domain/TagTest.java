@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test;
 
 public class TagTest {
   public static Tag getTagFixture() {
-    return Tag.builder().tagName("tagName").build();
+    return Tag.builder().name("name").build();
   }
 
   @Test
   void build_ValidInput_ValidOutput() {
     // given
     Tag tag = Tag.builder()
-                .tagName("tagName").build();
+                .name("name").build();
 
     // then
-    then(tag).hasNoNullFieldsOrPropertiesExcept("id", "posts")
-        .hasFieldOrPropertyWithValue("tagName", "tagName");
+    then(tag).hasNoNullFieldsOrPropertiesExcept("id")
+        .hasFieldOrPropertyWithValue("name", "name");
   }
 
   @Test
@@ -26,7 +26,7 @@ public class TagTest {
     // given
     thenThrownBy(() ->
         Tag.builder()
-            .tagName("").build()
+            .name("").build()
     ).isInstanceOf(IllegalArgumentException.class);
   }
 }

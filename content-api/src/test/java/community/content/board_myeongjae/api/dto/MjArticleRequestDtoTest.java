@@ -1,5 +1,9 @@
 package community.content.board_myeongjae.api.dto;
 
+import static org.assertj.core.api.BDDAssertions.then;
+
+import community.content.board_myeongjae.domain.MjArticle;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class MjArticleRequestDtoTest {
@@ -19,6 +23,20 @@ public class MjArticleRequestDtoTest {
     ReflectionTestUtils.setField(mjArticleRequestDto, "content", content);
 
     return mjArticleRequestDto;
+  }
+
+  @Test
+  void createDomain_ValidInput_ValidOutput() {
+    // given
+    MjArticleRequestDto request = getMjArticleRequestDtoFixture();
+
+    // when
+    MjArticle mjArticle = request.createDomain();
+
+    // then
+    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
+    then(mjArticle.getTitle()).isEqualTo(request.getTitle());
+    then(mjArticle.getContent()).isEqualTo(request.getContent());
   }
 }
 

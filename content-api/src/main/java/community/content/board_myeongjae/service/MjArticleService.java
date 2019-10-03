@@ -16,10 +16,7 @@ public class MjArticleService {
   private final MjArticleRepository mjArticleRepository;
 
   public Long createMjArticle(MjArticleRequestDto mjArticleRequestDto) {
-    return mjArticleRepository.save(MjArticle.builder()
-        .title(mjArticleRequestDto.getTitle())
-        .content(mjArticleRequestDto.getContent()).build())
-        .getId();
+    return mjArticleRepository.save(mjArticleRequestDto.createDomain()).getId();
   }
 
   public Page<MjArticleResponseDto> readMjArticlePage(Pageable pageable) {
@@ -27,21 +24,21 @@ public class MjArticleService {
   }
 
   public MjArticleResponseDto readMjArticle(Long id) {
-    return MjArticleResponseDto.of(findMjArticleById(id));
+    return MjArticleResponseDto.of(findById(id));
   }
 
   public void updateMjArticle(Long id, MjArticleRequestDto mjArticleRequestDto) {
-    MjArticle mjArticleToUpdate = findMjArticleById(id);
-    mjArticleToUpdate.updateMjArticle(mjArticleRequestDto.getTitle(), mjArticleRequestDto.getContent());
+    MjArticle mjArticleToUpdate = findById(id);
+    mjArticleToUpdate.updateMjArticle(mjArticleRequestDto.createDomain());
     mjArticleRepository.save(mjArticleToUpdate);
   }
 
   public void deleteById(Long id) {
-    MjArticle mjArticleToDelete = findMjArticleById(id);
+    MjArticle mjArticleToDelete = findById(id);
     mjArticleRepository.delete(mjArticleToDelete);
   }
 
-  private MjArticle findMjArticleById(Long id) {
+  private MjArticle findById(Long id) {
     return mjArticleRepository.findById(id).orElseThrow(() -> new MjArticleNotFoundException(id));
   }
 }

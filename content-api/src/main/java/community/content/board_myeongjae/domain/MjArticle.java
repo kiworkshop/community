@@ -35,11 +35,8 @@ public class MjArticle {
     this.content = content;
   }
 
-  public void updateMjArticle(String title, String content) {
-    Assert.hasLength(title, "title should not be empty.");
-    Assert.hasLength(content, "content should not be empty.");
-
-    this.title = title;
-    this.content = content;
+  public void updateMjArticle(MjArticle mjArticle) {
+    this.title = mjArticle.title;
+    this.content = mjArticle.content;
   }
 }

@@ -56,31 +56,13 @@ public class MjArticleTest {
         .content("content").build();
 
     // when
-    mjArticle.updateMjArticle("updated title", "updated content");
+    mjArticle.updateMjArticle(MjArticle.builder()
+        .title("updated title")
+        .content("updated content").build());
 
     // then
     then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
     then(mjArticle.getTitle()).isEqualTo("updated title");
     then(mjArticle.getContent()).isEqualTo("updated content");
-  }
-
-  @Test
-  void update_emptyTitle_ThrowException() {
-    // given
-    MjArticle mjArticle = MjArticle.builder().title("title").content("content").build();
-
-    // expect
-    thenThrownBy(() -> mjArticle.updateMjArticle("", "updated content"))
-        .isInstanceOf(IllegalArgumentException.class);
-  }
-
-  @Test
-  void update_emptyContent_ThrowException() {
-    // given
-    MjArticle mjArticle = MjArticle.builder().title("title").content("content").build();
-
-    // expect
-    thenThrownBy(() -> mjArticle.updateMjArticle("updated title", ""))
-        .isInstanceOf(IllegalArgumentException.class);
   }
 }

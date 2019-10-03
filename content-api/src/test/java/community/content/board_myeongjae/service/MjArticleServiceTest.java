@@ -25,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 class MjArticleServiceTest {
@@ -36,6 +37,13 @@ class MjArticleServiceTest {
   @BeforeEach
   void setup() {
     mjArticleService = new MjArticleService(mjArticleRepository);
+  }
+
+  @Test
+  void findById_NonExistentMjArticleId_MjArticleNotFoundException() {
+    given(mjArticleRepository.findById(anyLong())).willReturn(Optional.empty());
+    thenThrownBy(() -> ReflectionTestUtils.invokeMethod(mjArticleService, "findById", 1L))
+        .isExactlyInstanceOf(MjArticleNotFoundException.class);
   }
 
   @Test
@@ -86,11 +94,6 @@ class MjArticleServiceTest {
         .hasFieldOrPropertyWithValue("content", mjArticle.getContent());
   }
 
-  @Test
-  void readMjArticle_NonExistentMjArticleId_MjArticleNotFoundException() {
-    given(mjArticleRepository.findById(anyLong())).willReturn(Optional.empty());
-    thenThrownBy(() -> mjArticleService.readMjArticle(1L)).isExactlyInstanceOf(MjArticleNotFoundException.class);
-  }
 
   @Test
   void updateMjArticle_validInput_validOutput() {
@@ -103,15 +106,6 @@ class MjArticleServiceTest {
   }
 
   @Test
-  void updateMjArticle_nonExistMjArticle_throwException() {
-    MjArticleRequestDto mjArticleUpdatingRequestDto = getMjArticleRequestDtoFixture();
-    given(mjArticleRepository.findById(anyLong())).willReturn(Optional.empty());
-
-    thenThrownBy(() -> mjArticleService.updateMjArticle(1L, mjArticleUpdatingRequestDto))
-        .isInstanceOf(MjArticleNotFoundException.class);
-  }
-
-  @Test
   void deleteMjArticle_ValidInput_DeleteMjArticle() {
     // given
     MjArticle mjArticleToDelete = getMjArticleFixture();
@@ -119,12 +113,5 @@ class MjArticleServiceTest {
 
     // when
     mjArticleService.deleteById(mjArticleToDelete.getId());
-  }
-
-  @Test
-  void deleteMjArticle_InvalidInput_Exception() {
-    given(mjArticleRepository.findById(any(Long.class))).willReturn(Optional.empty());
-    thenThrownBy(() -> mjArticleService.deleteById(1L))
-        .isExactlyInstanceOf(MjArticleNotFoundException.class);
   }
 }

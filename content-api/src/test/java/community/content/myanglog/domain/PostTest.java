@@ -3,8 +3,8 @@ package community.content.myanglog.domain;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
-import community.common.util.MyReflectionUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class PostTest {
   public static Post getPostFixture() throws Exception {
@@ -18,7 +18,7 @@ public class PostTest {
         .likeCount(0)
         .viewCount(0)
         .build();
-    MyReflectionUtils.setField(post, "id", id);
+    ReflectionTestUtils.setField(post, "id", id);
     return post;
   }
 

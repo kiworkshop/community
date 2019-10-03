@@ -1,6 +1,7 @@
 package community.content.mjarticle.domain;
 
 import java.time.ZonedDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,9 +19,11 @@ public class MjArticle {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(columnDefinition = "text")
   private String title;
   private String content;
   @CreationTimestamp
+  @Column(columnDefinition = "datetime(6)")
   private ZonedDateTime createdAt;
 
   @Builder

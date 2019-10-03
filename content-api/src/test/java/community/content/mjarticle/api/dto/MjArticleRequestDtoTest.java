@@ -26,12 +26,12 @@ public class MjArticleRequestDtoTest {
   }
 
   @Test
-  void createDomain_ValidInput_ValidOutput() {
+  void createEntity_ValidInput_ValidOutput() {
     // given
     MjArticleRequestDto request = getMjArticleRequestDtoFixture();
 
     // when
-    MjArticle mjArticle = request.createDomain();
+    MjArticle mjArticle = request.createEntity();
 
     // then
     then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");

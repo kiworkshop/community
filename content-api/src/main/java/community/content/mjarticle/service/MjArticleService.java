@@ -16,7 +16,7 @@ public class MjArticleService {
   private final MjArticleRepository mjArticleRepository;
 
   public Long createMjArticle(MjArticleRequestDto mjArticleRequestDto) {
-    return mjArticleRepository.save(mjArticleRequestDto.createDomain()).getId();
+    return mjArticleRepository.save(mjArticleRequestDto.createEntity()).getId();
   }
 
   public Page<MjArticleResponseDto> readMjArticlePage(Pageable pageable) {
@@ -29,7 +29,7 @@ public class MjArticleService {
 
   public void updateMjArticle(Long id, MjArticleRequestDto mjArticleRequestDto) {
     MjArticle mjArticleToUpdate = findById(id);
-    mjArticleToUpdate.updateMjArticle(mjArticleRequestDto.createDomain());
+    mjArticleToUpdate.updateMjArticle(mjArticleRequestDto.createEntity());
     mjArticleRepository.save(mjArticleToUpdate);
   }
 

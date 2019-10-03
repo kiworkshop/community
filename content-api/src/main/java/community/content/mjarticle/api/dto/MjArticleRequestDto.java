@@ -9,7 +9,7 @@ public class MjArticleRequestDto {
   private @NotEmpty String title;
   private @NotEmpty String content;
 
-  public MjArticle createDomain() {
+  public MjArticle createEntity() {
     return MjArticle.builder()
         .title(title)
         .content(content).build();

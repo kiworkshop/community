@@ -1,8 +1,8 @@
-package community.content.board_myeongjae.api;
+package community.content.mjarticle.api;
 
-import community.content.board_myeongjae.api.dto.MjArticleRequestDto;
-import community.content.board_myeongjae.api.dto.MjArticleResponseDto;
-import community.content.board_myeongjae.service.MjArticleService;
+import community.content.mjarticle.api.dto.MjArticleRequestDto;
+import community.content.mjarticle.api.dto.MjArticleResponseDto;
+import community.content.mjarticle.service.MjArticleService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
-package community.content.board_myeongjae.api;
+package community.content.mjarticle.api;
 
-import static community.content.board_myeongjae.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
-import static community.content.board_myeongjae.api.dto.MjArticleResponseDtoTest.getMjArticleResponseDtoFixture;
+import static community.content.mjarticle.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
+import static community.content.mjarticle.api.dto.MjArticleResponseDtoTest.getMjArticleResponseDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -13,10 +13,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import community.content.board_myeongjae.api.dto.MjArticleRequestDto;
-import community.content.board_myeongjae.api.dto.MjArticleResponseDto;
-import community.content.board_myeongjae.exception.MjArticleNotFoundException;
-import community.content.board_myeongjae.service.MjArticleService;
+import community.content.mjarticle.api.dto.MjArticleRequestDto;
+import community.content.mjarticle.api.dto.MjArticleResponseDto;
+import community.content.mjarticle.exception.MjArticleNotFoundException;
+import community.content.mjarticle.service.MjArticleService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

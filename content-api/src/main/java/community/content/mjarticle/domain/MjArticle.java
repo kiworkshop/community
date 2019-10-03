@@ -1,4 +1,4 @@
-package community.content.board_myeongjae.domain;
+package community.content.mjarticle.domain;
 
 import java.time.ZonedDateTime;
 import javax.persistence.Entity;

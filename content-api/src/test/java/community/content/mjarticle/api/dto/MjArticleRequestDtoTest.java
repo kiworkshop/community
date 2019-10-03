@@ -1,8 +1,8 @@
-package community.content.board_myeongjae.api.dto;
+package community.content.mjarticle.api.dto;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import community.content.board_myeongjae.domain.MjArticle;
+import community.content.mjarticle.domain.MjArticle;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 

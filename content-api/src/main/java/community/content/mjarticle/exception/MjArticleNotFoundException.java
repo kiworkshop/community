@@ -1,4 +1,4 @@
-package community.content.board_myeongjae.exception;
+package community.content.mjarticle.exception;
 
 import javax.persistence.EntityNotFoundException;
 

@@ -1,4 +1,4 @@
-package community.content.board_myeongjae.domain;
+package community.content.mjarticle.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

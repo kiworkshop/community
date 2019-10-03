@@ -1,6 +1,6 @@
-package community.content.board_myeongjae.api.dto;
+package community.content.mjarticle.api.dto;
 
-import community.content.board_myeongjae.domain.MjArticle;
+import community.content.mjarticle.domain.MjArticle;
 import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

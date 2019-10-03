@@ -1,10 +1,10 @@
-package community.content.board_myeongjae.service;
+package community.content.mjarticle.service;
 
-import community.content.board_myeongjae.api.dto.MjArticleRequestDto;
-import community.content.board_myeongjae.api.dto.MjArticleResponseDto;
-import community.content.board_myeongjae.domain.MjArticle;
-import community.content.board_myeongjae.domain.MjArticleRepository;
-import community.content.board_myeongjae.exception.MjArticleNotFoundException;
+import community.content.mjarticle.api.dto.MjArticleRequestDto;
+import community.content.mjarticle.api.dto.MjArticleResponseDto;
+import community.content.mjarticle.domain.MjArticle;
+import community.content.mjarticle.domain.MjArticleRepository;
+import community.content.mjarticle.exception.MjArticleNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

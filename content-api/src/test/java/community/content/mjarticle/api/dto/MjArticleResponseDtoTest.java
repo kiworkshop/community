@@ -1,9 +1,9 @@
-package community.content.board_myeongjae.api.dto;
+package community.content.mjarticle.api.dto;
 
-import static community.content.board_myeongjae.domain.MjArticleTest.getMjArticleFixture;
+import static community.content.mjarticle.domain.MjArticleTest.getMjArticleFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 
-import community.content.board_myeongjae.domain.MjArticle;
+import community.content.mjarticle.domain.MjArticle;
 import org.junit.jupiter.api.Test;
 
 public class MjArticleResponseDtoTest {

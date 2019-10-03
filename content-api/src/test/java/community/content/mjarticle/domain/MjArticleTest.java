@@ -1,4 +1,4 @@
-package community.content.board_myeongjae.domain;
+package community.content.mjarticle.domain;
 
 import static java.time.ZonedDateTime.now;
 import static org.assertj.core.api.BDDAssertions.then;

@@ -1,18 +1,18 @@
-package community.content.board_myeongjae.service;
+package community.content.mjarticle.service;
 
-import static community.content.board_myeongjae.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
-import static community.content.board_myeongjae.domain.MjArticleTest.getMjArticleFixture;
+import static community.content.mjarticle.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
+import static community.content.mjarticle.domain.MjArticleTest.getMjArticleFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
-import community.content.board_myeongjae.api.dto.MjArticleRequestDto;
-import community.content.board_myeongjae.api.dto.MjArticleResponseDto;
-import community.content.board_myeongjae.domain.MjArticle;
-import community.content.board_myeongjae.domain.MjArticleRepository;
-import community.content.board_myeongjae.exception.MjArticleNotFoundException;
+import community.content.mjarticle.api.dto.MjArticleRequestDto;
+import community.content.mjarticle.api.dto.MjArticleResponseDto;
+import community.content.mjarticle.domain.MjArticle;
+import community.content.mjarticle.domain.MjArticleRepository;
+import community.content.mjarticle.exception.MjArticleNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +31,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 class MjArticleServiceTest {
   private MjArticleService mjArticleService;
 
-  private @Mock
-  MjArticleRepository mjArticleRepository;
+  private @Mock MjArticleRepository mjArticleRepository;
 
   @BeforeEach
   void setup() {

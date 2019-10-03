@@ -33,12 +33,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(MjArticleController.class)
 class MjArticleControllerTest {
-  private @Autowired
-  MockMvc mvc;
-  private @MockBean
-  MjArticleService mjArticleService;
-  private @Autowired
-  ObjectMapper objectMapper;
+  private @Autowired MockMvc mvc;
+  private @MockBean MjArticleService mjArticleService;
+  private @Autowired ObjectMapper objectMapper;
 
   @Test
   void createMjArticle_ValidInput_ValidOutput() throws Exception {

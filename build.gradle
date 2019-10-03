@@ -36,6 +36,9 @@ subprojects {
 		}
 	}
 
+	dependencies {
+		implementation 'org.modelmapper:modelmapper:2.3.5'
+	}
 
 	dependencyManagement {
 		imports {

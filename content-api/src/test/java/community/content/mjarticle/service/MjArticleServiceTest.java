@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
+import community.common.config.CommonBeanCreators;
 import community.content.mjarticle.api.dto.MjArticleRequestDto;
 import community.content.mjarticle.api.dto.MjArticleResponseDto;
 import community.content.mjarticle.domain.MjArticle;
@@ -35,7 +36,7 @@ class MjArticleServiceTest {
 
   @BeforeEach
   void setup() {
-    mjArticleService = new MjArticleService(mjArticleRepository);
+    mjArticleService = new MjArticleService(mjArticleRepository, CommonBeanCreators.modelMapper());
   }
 
   @Test
@@ -112,5 +113,41 @@ class MjArticleServiceTest {
 
     // when
     mjArticleService.deleteById(mjArticleToDelete.getId());
+  }
+
+  @Test
+  void createEntityFrom_Request_ValidOutput() {
+    // given
+    MjArticleRequestDto request = getMjArticleRequestDtoFixture();
+
+    // when
+    MjArticle mjArticle = ReflectionTestUtils.invokeMethod(mjArticleService, "createEntityFrom", request);
+    if (mjArticle == null) {
+      throw new RuntimeException();
+    }
+
+    // then
+    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
+    then(mjArticle.getTitle()).isEqualTo(request.getTitle());
+    then(mjArticle.getContent()).isEqualTo(request.getContent());
+  }
+
+  @Test
+  void construct_ValidInput_ValidOutput() {
+    // given
+    MjArticle mjArticle = getMjArticleFixture();
+
+    // when
+    MjArticleResponseDto mjArticleResponseDto = ReflectionTestUtils
+        .invokeMethod(mjArticleService, "createResponseDtoFrom", mjArticle);
+    if (mjArticleResponseDto == null) {
+      throw new RuntimeException();
+    }
+
+    // then
+    then(mjArticleResponseDto.getId()).isEqualTo(mjArticle.getId());
+    then(mjArticleResponseDto.getTitle()).isEqualTo(mjArticle.getTitle());
+    then(mjArticleResponseDto.getContent()).isEqualTo(mjArticle.getContent());
+    then(mjArticleResponseDto.getCreatedAt()).isEqualTo(mjArticle.getCreatedAt());
   }
 }

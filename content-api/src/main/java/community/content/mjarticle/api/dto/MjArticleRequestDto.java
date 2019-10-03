@@ -1,6 +1,5 @@
 package community.content.mjarticle.api.dto;
 
-import community.content.mjarticle.domain.MjArticle;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 
@@ -8,10 +7,4 @@ import lombok.Getter;
 public class MjArticleRequestDto {
   private @NotEmpty String title;
   private @NotEmpty String content;
-
-  public MjArticle createEntity() {
-    return MjArticle.builder()
-        .title(title)
-        .content(content).build();
-  }
 }

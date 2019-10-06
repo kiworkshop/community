@@ -96,7 +96,9 @@ class MjArticleControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(1L))
         .andExpect(jsonPath("$.title").value("title"))
-        .andExpect(jsonPath("$.content").value("content"));
+        .andExpect(jsonPath("$.content").value("content"))
+        .andExpect(jsonPath("$.createdAt").isString())
+        .andExpect(jsonPath("$.updatedAt").isString());
   }
 
   @Test

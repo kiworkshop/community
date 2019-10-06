@@ -24,9 +24,11 @@ public class MjArticleResponseDtoTest {
     MjArticleResponseDto mjArticleResponseDto = MjArticleResponseDto.of(mjArticle);
 
     // then
+    then(mjArticleResponseDto).hasNoNullFieldsOrProperties();
     then(mjArticleResponseDto.getId()).isEqualTo(mjArticle.getId());
     then(mjArticleResponseDto.getTitle()).isEqualTo(mjArticle.getTitle());
     then(mjArticleResponseDto.getContent()).isEqualTo(mjArticle.getContent());
     then(mjArticleResponseDto.getCreatedAt()).isEqualTo(mjArticle.getCreatedAt());
+    then(mjArticleResponseDto.getUpdatedAt()).isEqualTo(mjArticle.getUpdatedAt());
   }
 }

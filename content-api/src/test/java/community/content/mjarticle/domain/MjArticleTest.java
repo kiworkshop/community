@@ -19,6 +19,7 @@ public class MjArticleTest {
 
     ReflectionTestUtils.setField(mjArticle, "id", id);
     ReflectionTestUtils.setField(mjArticle, "createdAt", now());
+    ReflectionTestUtils.setField(mjArticle, "updatedAt", now());
 
     return mjArticle;
   }
@@ -31,7 +32,7 @@ public class MjArticleTest {
         .content("content").build();
 
     // then
-    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
+    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt");
     then(mjArticle.getTitle()).isEqualTo("title");
     then(mjArticle.getContent()).isEqualTo("content");
   }
@@ -61,7 +62,7 @@ public class MjArticleTest {
         .content("updated content").build());
 
     // then
-    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
+    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt");
     then(mjArticle.getTitle()).isEqualTo("updated title");
     then(mjArticle.getContent()).isEqualTo("updated content");
   }

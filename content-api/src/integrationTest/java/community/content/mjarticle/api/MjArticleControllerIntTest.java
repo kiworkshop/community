@@ -1,7 +1,6 @@
 package community.content.mjarticle.api;
 
 import static community.content.mjarticle.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
-import static community.content.mjarticle.api.dto.MjArticleResponseDtoTest.getMjArticleResponseDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,11 +12,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.content.ContentApiApplication;
 import community.content.mjarticle.api.dto.MjArticleRequestDto;
-import community.content.mjarticle.api.dto.MjArticleResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,11 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(classes = ContentApiApplication.class, webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
-@Transactional
 @Sql("/data/test-mjarticle-data.sql")
+@Transactional
 class MjArticleControllerIntTest {
   private @Autowired MockMvc mvc;
   private @Autowired ObjectMapper objectMapper;
+  private @LocalServerPort int port;
 
   @Test
   void createMjArticle_ValidInput_ValidOutput() throws Exception {
@@ -68,13 +68,13 @@ class MjArticleControllerIntTest {
 
   @Test
   void get_ValidInput_MjArticleResponse() throws Exception {
-    MjArticleResponseDto mjArticleResponseDto = getMjArticleResponseDtoFixture();
-
     this.mvc.perform(get("/myeongjae/articles/{id}", 1))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(1L))
         .andExpect(jsonPath("$.title").value("title"))
-        .andExpect(jsonPath("$.content").value("content"));
+        .andExpect(jsonPath("$.content").value("content"))
+        .andExpect(jsonPath("$.createdAt").isString())
+        .andExpect(jsonPath("$.updatedAt").isString());
   }
 
   @Test
@@ -94,12 +94,14 @@ class MjArticleControllerIntTest {
     // expect
     this.mvc.perform(put("/myeongjae/articles/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(mjArticleRequestDto)));
+        .content(objectMapper.writeValueAsString(mjArticleRequestDto)))
+        .andExpect(jsonPath("$").doesNotExist());
   }
 
   @Test
   void deleteMjArticle_ValidInput_ValidOutput() throws Exception {
     this.mvc.perform(delete("/myeongjae/articles/{id}", 1L))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
   }
 }

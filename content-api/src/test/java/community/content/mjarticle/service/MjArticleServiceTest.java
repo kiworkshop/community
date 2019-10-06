@@ -127,7 +127,7 @@ class MjArticleServiceTest {
     }
 
     // then
-    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt");
+    then(mjArticle).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt");
     then(mjArticle.getTitle()).isEqualTo(request.getTitle());
     then(mjArticle.getContent()).isEqualTo(request.getContent());
   }

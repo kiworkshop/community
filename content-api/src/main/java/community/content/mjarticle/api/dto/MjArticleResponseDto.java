@@ -12,12 +12,14 @@ public class MjArticleResponseDto {
   private String title;
   private String content;
   private ZonedDateTime createdAt;
+  private ZonedDateTime updatedAt;
 
   private MjArticleResponseDto(MjArticle mjArticle) {
     this.id = mjArticle.getId();
     this.title = mjArticle.getTitle();
     this.content = mjArticle.getContent();
     this.createdAt = mjArticle.getCreatedAt();
+    this.updatedAt = mjArticle.getUpdatedAt();
   }
 
   public static MjArticleResponseDto of(MjArticle mjArticle) {

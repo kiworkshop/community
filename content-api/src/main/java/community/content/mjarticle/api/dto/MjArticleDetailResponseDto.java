@@ -9,6 +9,8 @@ import org.springframework.lang.Nullable;
 @Getter
 @NoArgsConstructor
 public class MjArticleDetailResponseDto extends MjArticleResponseDto {
+  @Getter
+  @NoArgsConstructor
   private class Meta {
     private String prevArticleTitle;
     private String nextArticleTitle;

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class MjArticleDetailResponseDtoTest {
-  public MjArticleDetailResponseDto getMjArticleDetailResponseDtoFixture() {
+  public static MjArticleDetailResponseDto getMjArticleDetailResponseDtoFixture() {
     MjArticle curr = getMjArticleFixture(2L);
     MjArticle prev = getMjArticleFixture(1L);
     MjArticle next = getMjArticleFixture(3L);

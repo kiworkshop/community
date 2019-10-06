@@ -26,7 +26,7 @@ public class MjArticleService {
     return repository.findAll(pageable).map(this::createResponseDtoFrom);
   }
 
-  public MjArticleResponseDto readArticle(Long id) {
+  public MjArticleDetailResponseDto readArticle(Long id) {
     MjArticle curr = findById(id);
     MjArticle prev = repository.findFirstByIdBeforeOrderByIdDesc(id).orElse(null);
     MjArticle next = repository.findFirstByIdAfterOrderByIdAsc(id).orElse(null);

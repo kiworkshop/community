@@ -1,5 +1,6 @@
 package community.content.mjarticle.api;
 
+import community.content.mjarticle.api.dto.MjArticleDetailResponseDto;
 import community.content.mjarticle.api.dto.MjArticleRequestDto;
 import community.content.mjarticle.api.dto.MjArticleResponseDto;
 import community.content.mjarticle.service.MjArticleService;
@@ -44,7 +45,7 @@ public class MjArticleController {
   }
 
   @GetMapping("/{id}")
-  public MjArticleResponseDto read(@PathVariable Long id) {
+  public MjArticleDetailResponseDto read(@PathVariable Long id) {
     return mjArticleService.readArticle(id);
   }
 

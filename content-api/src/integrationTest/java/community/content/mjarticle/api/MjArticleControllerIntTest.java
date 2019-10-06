@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 class MjArticleControllerIntTest {
   private @Autowired MockMvc mvc;
   private @Autowired ObjectMapper objectMapper;
-  private @LocalServerPort int port;
 
   @Test
   void createMjArticle_ValidInput_ValidOutput() throws Exception {
@@ -68,13 +66,31 @@ class MjArticleControllerIntTest {
 
   @Test
   void get_ValidInput_MjArticleResponse() throws Exception {
+    this.mvc.perform(get("/myeongjae/articles/{id}", 2))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(2L))
+        .andExpect(jsonPath("$.title").value("title2"))
+        .andExpect(jsonPath("$.content").value("content"))
+        .andExpect(jsonPath("$.createdAt").isNotEmpty())
+        .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+        .andExpect(jsonPath("$.meta.prevArticleTitle").value("title1"))
+        .andExpect(jsonPath("$.meta.nextArticleTitle").value("title3"));
+  }
+
+  @Test
+  void getFirstArticle_ValidInput_MjArticleResponse() throws Exception {
     this.mvc.perform(get("/myeongjae/articles/{id}", 1))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(1L))
-        .andExpect(jsonPath("$.title").value("title"))
-        .andExpect(jsonPath("$.content").value("content"))
-        .andExpect(jsonPath("$.createdAt").isString())
-        .andExpect(jsonPath("$.updatedAt").isString());
+        .andExpect(jsonPath("$.meta.prevArticleTitle").isEmpty())
+        .andExpect(jsonPath("$.meta.nextArticleTitle").value("title2"));
+  }
+
+  @Test
+  void getLastArticle_ValidInput_MjArticleResponse() throws Exception {
+    this.mvc.perform(get("/myeongjae/articles/{id}", 10))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.meta.prevArticleTitle").value("title9"))
+        .andExpect(jsonPath("$.meta.nextArticleTitle").isEmpty());
   }
 
   @Test

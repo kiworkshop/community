@@ -1,5 +1,6 @@
 package community.content.mjarticle.api;
 
+import static community.content.mjarticle.api.dto.MjArticleDetailResponseDtoTest.getMjArticleDetailResponseDtoFixture;
 import static community.content.mjarticle.api.dto.MjArticleRequestDtoTest.getMjArticleRequestDtoFixture;
 import static community.content.mjarticle.api.dto.MjArticleResponseDtoTest.getMjArticleResponseDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
@@ -13,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import community.content.mjarticle.api.dto.MjArticleDetailResponseDto;
 import community.content.mjarticle.api.dto.MjArticleRequestDto;
 import community.content.mjarticle.api.dto.MjArticleResponseDto;
 import community.content.mjarticle.exception.MjArticleNotFoundException;
@@ -89,16 +91,18 @@ class MjArticleControllerTest {
 
   @Test
   void get_ValidInput_MjArticleResponse() throws Exception {
-    MjArticleResponseDto mjArticleResponseDto = getMjArticleResponseDtoFixture();
-    given(mjArticleService.readArticle(anyLong())).willReturn(mjArticleResponseDto);
+    MjArticleDetailResponseDto mjArticleDetailResponseDto = getMjArticleDetailResponseDtoFixture();
+    given(mjArticleService.readArticle(anyLong())).willReturn(mjArticleDetailResponseDto);
 
-    this.mvc.perform(get("/myeongjae/articles/{id}", 1))
+    this.mvc.perform(get("/myeongjae/articles/{id}", 2))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(1L))
+        .andExpect(jsonPath("$.id").value(2L))
         .andExpect(jsonPath("$.title").value("title"))
         .andExpect(jsonPath("$.content").value("content"))
-        .andExpect(jsonPath("$.createdAt").isString())
-        .andExpect(jsonPath("$.updatedAt").isString());
+        .andExpect(jsonPath("$.createdAt").isNotEmpty())
+        .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+        .andExpect(jsonPath("$.meta.prevArticleTitle").value("prevArticleTitle"))
+        .andExpect(jsonPath("$.meta.nextArticleTitle").value("nextArticleTitle"));
   }
 
   @Test
@@ -109,7 +113,8 @@ class MjArticleControllerTest {
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("status").isNumber())
         .andExpect(jsonPath("error").isNotEmpty())
-        .andExpect(jsonPath("message").isNotEmpty());
+        .andExpect(jsonPath("message").isNotEmpty())
+        .andExpect(jsonPath("timestamp").isNotEmpty());
   }
 
   @Test

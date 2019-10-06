@@ -41,7 +41,7 @@ class MjArticleControllerTest {
   void createMjArticle_ValidInput_ValidOutput() throws Exception {
     // given
     MjArticleRequestDto mjArticleRequestDto = getMjArticleRequestDtoFixture();
-    given(mjArticleService.createMjArticle(any(MjArticleRequestDto.class))).willReturn(1L);
+    given(mjArticleService.createArticle(any(MjArticleRequestDto.class))).willReturn(1L);
 
     // expect
     this.mvc.perform(post("/myeongjae/articles")
@@ -76,7 +76,7 @@ class MjArticleControllerTest {
         mjArticleResponseDtos,
         PageRequest.of(0, 10, Sort.Direction.DESC, "id"),
         10);
-    given(mjArticleService.readMjArticlePage(any(Pageable.class))).willReturn(mjArticleResponseDtoPage);
+    given(mjArticleService.readArticlePage(any(Pageable.class))).willReturn(mjArticleResponseDtoPage);
 
     // expect
     this.mvc.perform(get("/myeongjae/articles"))
@@ -90,7 +90,7 @@ class MjArticleControllerTest {
   @Test
   void get_ValidInput_MjArticleResponse() throws Exception {
     MjArticleResponseDto mjArticleResponseDto = getMjArticleResponseDtoFixture();
-    given(mjArticleService.readMjArticle(anyLong())).willReturn(mjArticleResponseDto);
+    given(mjArticleService.readArticle(anyLong())).willReturn(mjArticleResponseDto);
 
     this.mvc.perform(get("/myeongjae/articles/{id}", 1))
         .andExpect(status().isOk())
@@ -103,7 +103,7 @@ class MjArticleControllerTest {
 
   @Test
   void get_NonExistentId_ApiError() throws Exception {
-    given(mjArticleService.readMjArticle(anyLong())).willThrow(new MjArticleNotFoundException(1L));
+    given(mjArticleService.readArticle(anyLong())).willThrow(new MjArticleNotFoundException(1L));
 
     this.mvc.perform(get("/myeongjae/articles/{id}", 1))
         .andExpect(status().isNotFound())

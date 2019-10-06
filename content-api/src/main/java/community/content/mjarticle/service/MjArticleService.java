@@ -1,5 +1,6 @@
 package community.content.mjarticle.service;
 
+import community.content.mjarticle.api.dto.MjArticleDetailResponseDto;
 import community.content.mjarticle.api.dto.MjArticleRequestDto;
 import community.content.mjarticle.api.dto.MjArticleResponseDto;
 import community.content.mjarticle.domain.MjArticle;
@@ -14,34 +15,38 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MjArticleService {
-  private final MjArticleRepository mjArticleRepository;
+  private final MjArticleRepository repository;
   private final ModelMapper modelMapper;
 
-  public Long createMjArticle(MjArticleRequestDto mjArticleRequestDto) {
-    return mjArticleRepository.save(createEntityFrom(mjArticleRequestDto)).getId();
+  public Long createArticle(MjArticleRequestDto mjArticleRequestDto) {
+    return repository.save(createEntityFrom(mjArticleRequestDto)).getId();
   }
 
-  public Page<MjArticleResponseDto> readMjArticlePage(Pageable pageable) {
-    return mjArticleRepository.findAll(pageable).map(this::createResponseDtoFrom);
+  public Page<MjArticleResponseDto> readArticlePage(Pageable pageable) {
+    return repository.findAll(pageable).map(this::createResponseDtoFrom);
   }
 
-  public MjArticleResponseDto readMjArticle(Long id) {
-    return createResponseDtoFrom(findById(id));
+  public MjArticleResponseDto readArticle(Long id) {
+    MjArticle curr = findById(id);
+    MjArticle prev = repository.findFirstByIdBeforeOrderByIdDesc(id).orElse(null);
+    MjArticle next = repository.findFirstByIdAfterOrderByIdAsc(id).orElse(null);
+
+    return MjArticleDetailResponseDto.builder().curr(curr).prev(prev).next(next).build();
   }
 
-  public void updateMjArticle(Long id, MjArticleRequestDto mjArticleRequestDto) {
+  public void updateArticle(Long id, MjArticleRequestDto mjArticleRequestDto) {
     MjArticle mjArticleToUpdate = findById(id);
     mjArticleToUpdate.updateMjArticle(createEntityFrom(mjArticleRequestDto));
-    mjArticleRepository.save(mjArticleToUpdate);
+    repository.save(mjArticleToUpdate);
   }
 
   public void deleteById(Long id) {
     MjArticle mjArticleToDelete = findById(id);
-    mjArticleRepository.delete(mjArticleToDelete);
+    repository.delete(mjArticleToDelete);
   }
 
   private MjArticle findById(Long id) {
-    return mjArticleRepository.findById(id).orElseThrow(() -> new MjArticleNotFoundException(id));
+    return repository.findById(id).orElseThrow(() -> new MjArticleNotFoundException(id));
   }
 
   private MjArticle createEntityFrom(MjArticleRequestDto request) {

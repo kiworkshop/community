@@ -14,7 +14,7 @@ public class MjArticleResponseDto {
   private ZonedDateTime createdAt;
   private ZonedDateTime updatedAt;
 
-  private MjArticleResponseDto(MjArticle mjArticle) {
+  MjArticleResponseDto(MjArticle mjArticle) {
     this.id = mjArticle.getId();
     this.title = mjArticle.getTitle();
     this.content = mjArticle.getContent();

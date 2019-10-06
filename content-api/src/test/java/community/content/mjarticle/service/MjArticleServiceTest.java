@@ -55,7 +55,7 @@ class MjArticleServiceTest {
     given(mjArticleRepository.save(any(MjArticle.class))).willReturn(mjArticleToSave);
 
     // when
-    Long id = mjArticleService.createMjArticle(mjArticleRequestDto);
+    Long id = mjArticleService.createArticle(mjArticleRequestDto);
 
     then(id).isEqualTo(mjArticleToSave.getId());
   }
@@ -74,7 +74,7 @@ class MjArticleServiceTest {
     given(mjArticleRepository.findAll(any(Pageable.class))).willReturn(mjArticlePage);
 
     // when
-    Page<MjArticleResponseDto> mjArticleResponseDtoPage = mjArticleService.readMjArticlePage(
+    Page<MjArticleResponseDto> mjArticleResponseDtoPage = mjArticleService.readArticlePage(
         PageRequest.of(0, numMjArticles.intValue()));
 
     // expect
@@ -86,7 +86,7 @@ class MjArticleServiceTest {
     MjArticle mjArticle = getMjArticleFixture();
     given(mjArticleRepository.findById(anyLong())).willReturn(Optional.of(mjArticle));
 
-    MjArticleResponseDto foundMjArticle = mjArticleService.readMjArticle(1L);
+    MjArticleResponseDto foundMjArticle = mjArticleService.readArticle(1L);
 
     then(foundMjArticle)
         .hasFieldOrPropertyWithValue("id", mjArticle.getId())
@@ -102,7 +102,7 @@ class MjArticleServiceTest {
     given(mjArticleRepository.findById(any(Long.class))).willReturn(Optional.of(mjArticle));
     given(mjArticleRepository.save(any(MjArticle.class))).willReturn(mjArticle);
 
-    mjArticleService.updateMjArticle(1L, mjArticleRequestDto);
+    mjArticleService.updateArticle(1L, mjArticleRequestDto);
   }
 
   @Test

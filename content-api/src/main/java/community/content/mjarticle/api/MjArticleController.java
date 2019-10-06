@@ -28,7 +28,7 @@ public class MjArticleController {
 
   @PostMapping
   public Long create(@RequestBody @Valid MjArticleRequestDto mjArticleRequestDto) {
-    return mjArticleService.createMjArticle(mjArticleRequestDto);
+    return mjArticleService.createArticle(mjArticleRequestDto);
   }
 
   @DeleteMapping("/{id}")
@@ -40,16 +40,16 @@ public class MjArticleController {
   public Page<MjArticleResponseDto> readPage(
       @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
   ) {
-    return mjArticleService.readMjArticlePage(pageable);
+    return mjArticleService.readArticlePage(pageable);
   }
 
   @GetMapping("/{id}")
   public MjArticleResponseDto read(@PathVariable Long id) {
-    return mjArticleService.readMjArticle(id);
+    return mjArticleService.readArticle(id);
   }
 
   @PutMapping(value = "/{id}")
   public void update(@PathVariable Long id, @RequestBody @Valid MjArticleRequestDto mjArticleRequestDto) {
-    mjArticleService.updateMjArticle(id, mjArticleRequestDto);
+    mjArticleService.updateArticle(id, mjArticleRequestDto);
   }
 }

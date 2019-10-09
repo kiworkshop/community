@@ -73,4 +73,12 @@ class PostServiceTest {
 
     postService.updatePost(1L, request);
   }
+
+  @Test
+  void deletePost_ValidInput_postDeleted() throws Exception {
+    Post post = getPostFixture();
+    given(postRepository.findById(any(Long.class))).willReturn(Optional.of(post));
+
+    postService.deletePost(post.getId());
+  }
 }

@@ -5,6 +5,7 @@ import static community.content.myanglog.api.dto.PostResponseDtoTest.getPostResp
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -72,5 +73,10 @@ class PostControllerTest {
         .content(objectMapper.writeValueAsString(postRequestDto)))
         .andExpect(status().isOk());
   }
+
+  @Test
+  void delete_ValidInput_ValidOutput() throws Exception {
+    this.mvc.perform(delete("/myanglog/posts/1"))
+        .andExpect(status().isOk());
   }
 }

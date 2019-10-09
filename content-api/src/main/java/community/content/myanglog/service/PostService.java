@@ -35,4 +35,9 @@ public class PostService {
     postToUpdate.updatePost(postRequestDto.getTitle(), postRequestDto.getContent());
     postRepository.save(postToUpdate);
   }
+
+  public void deletePost(Long id) {
+    Post postToDelete = findPostById(id);
+    postRepository.delete(postToDelete);
+  }
 }

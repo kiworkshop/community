@@ -31,8 +31,8 @@ public class PostController {
     return postService.createPost(postRequestDto);
   }
 
-  @PutMapping
-  public void update(Long id, @RequestBody @Valid PostRequestDto postRequestDto) {
+  @PutMapping(value = "/{id}")
+  public void update(@PathVariable Long id, @RequestBody @Valid PostRequestDto postRequestDto) {
     postService.updatePost(id, postRequestDto);
   }
 }

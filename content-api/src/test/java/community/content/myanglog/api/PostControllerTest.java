@@ -67,8 +67,10 @@ class PostControllerTest {
   void update_ValidInput_ValidOutput() throws Exception {
     PostRequestDto postRequestDto = getPostRequestDtoFixture();
 
-    this.mvc.perform(put("/myanglog/1")
+    this.mvc.perform(put("/myanglog/posts/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(postRequestDto)));
+        .content(objectMapper.writeValueAsString(postRequestDto)))
+        .andExpect(status().isOk());
+  }
   }
 }

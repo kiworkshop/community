@@ -63,4 +63,14 @@ class PostServiceTest {
 
     then(id).isEqualTo(postToSave.getId());
   }
+
+  @Test
+  void updatePost_ValidInput_postUpdated() throws Exception {
+    PostRequestDto request = getPostRequestDtoFixture();
+    Post post = getPostFixture();
+    given(postRepository.findById(any(Long.class))).willReturn(Optional.of(post));
+    given(postRepository.save(any(Post.class))).willReturn(post);
+
+    postService.updatePost(1L, request);
+  }
 }

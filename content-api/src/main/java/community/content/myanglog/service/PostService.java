@@ -30,4 +30,9 @@ public class PostService {
         .build()).getId();
   }
 
+  public void updatePost(Long id, PostRequestDto postRequestDto) {
+    Post postToUpdate = findPostById(id);
+    postToUpdate.updatePost(postRequestDto.getTitle(), postRequestDto.getContent());
+    postRepository.save(postToUpdate);
+  }
 }

@@ -71,4 +71,9 @@ public class Post {
   public void incrementViewCount() {
     this.viewCount++;
   }
+
+  public void updatePost(String title, String content) {
+    this.title = title;
+    this.content = content;
+  }
 }

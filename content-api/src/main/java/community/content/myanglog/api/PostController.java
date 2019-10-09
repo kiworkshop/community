@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,10 @@ public class PostController {
   @PostMapping
   public Long create(@RequestBody @Valid PostRequestDto postRequestDto) {
     return postService.createPost(postRequestDto);
+  }
+
+  @PutMapping
+  public void update(Long id, @RequestBody @Valid PostRequestDto postRequestDto) {
+    postService.updatePost(id, postRequestDto);
   }
 }

@@ -2,7 +2,10 @@ package community.content.myanglog.api;
 
 import static community.content.myanglog.api.dto.PostRequestDtoTest.getPostRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,5 +38,33 @@ public class PostControllerIntTest {
         .content(objectMapper.writeValueAsString(postRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isNumber());
+  }
+
+  @Test
+  void update_ValidInput_ValidOutput() throws Exception {
+    String updatedTitle = "updated title";
+    String updatedContent = "updated content";
+    PostRequestDto postRequestDto = getPostRequestDtoFixture(updatedTitle, updatedContent);
+
+    this.mvc.perform(put("/myanglog/posts/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(postRequestDto)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    this.mvc.perform(get("/myanglog/posts/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title").value(updatedTitle))
+        .andExpect(jsonPath("$.content").value(updatedContent));
+  }
+
+  @Test
+  void delete_ValidInput_PostNotFoundAfterDeletion() throws Exception {
+    this.mvc.perform(delete("/myanglog/posts/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").doesNotExist());
+
+    this.mvc.perform(get("/myanglog/posts/1"))
+        .andExpect(status().isNotFound());
   }
 }

@@ -21,6 +21,15 @@ public class PostRequestDtoTest {
     return postRequestDto;
   }
 
+  public static PostRequestDto getPostRequestDtoFixture(String title, String content) throws Exception {
+    PostRequestDto postRequestDto = new PostRequestDto();
+
+    MyReflectionUtils.setField(postRequestDto, "title", title);
+    MyReflectionUtils.setField(postRequestDto, "content", content);
+
+    return postRequestDto;
+  }
+
   @Test
   void getPostResponseFromPost_ValidPost_ValidPostResponse() throws Exception {
     PostRequestDto postRequestDto = getPostRequestDtoFixture();

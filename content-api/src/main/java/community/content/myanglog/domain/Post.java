@@ -67,4 +67,8 @@ public class Post {
     this.createdAt = ZonedDateTime.now();
     this.updatedAt = ZonedDateTime.now();
   }
+
+  public void incrementViewCount() {
+    this.viewCount++;
+  }
 }

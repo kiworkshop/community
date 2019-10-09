@@ -14,6 +14,8 @@ public class PostService {
   private final PostRepository postRepository;
 
   public PostResponseDto readPost(Long id) {
+    Post postToRead= findPostById(id);
+    postToRead.incrementViewCount();
     return PostResponseDto.of(findPostById(id));
   }
 

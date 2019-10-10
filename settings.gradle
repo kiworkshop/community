@@ -7,4 +7,6 @@ rootProject.name = 'community'
 include 'mother-api'
 include 'common'
 include 'content-api'
+include 'user-api'
+include 'auth-api'
 

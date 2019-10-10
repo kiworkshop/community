@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 @Getter
@@ -55,6 +56,7 @@ public class Post {
   private Post(
       String title,
       String content,
+      @Nullable Set<Tag> tags,
       int likeCount,
       int viewCount
   ) {
@@ -62,6 +64,7 @@ public class Post {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
+    this.tags = tags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();

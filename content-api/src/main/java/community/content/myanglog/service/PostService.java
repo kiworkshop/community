@@ -27,6 +27,7 @@ public class PostService {
     return postRepository.save(Post.builder()
         .title(postRequestDto.getTitle())
         .content(postRequestDto.getContent())
+        .tags(postRequestDto.getTags())
         .build()).getId();
   }
 

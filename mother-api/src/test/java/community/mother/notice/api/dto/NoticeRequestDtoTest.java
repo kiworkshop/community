@@ -1,13 +1,13 @@
 package community.mother.notice.api.dto;
 
-import community.common.util.MyReflectionUtils;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class NoticeRequestDtoTest {
   public static NoticeRequestDto getNoticeRequestDtoFixture() throws Exception {
     NoticeRequestDto noticeRequestDto = new NoticeRequestDto();
 
-    MyReflectionUtils.setField(noticeRequestDto, "title", "title");
-    MyReflectionUtils.setField(noticeRequestDto, "content", "content");
+    ReflectionTestUtils.setField(noticeRequestDto, "title", "title");
+    ReflectionTestUtils.setField(noticeRequestDto, "content", "content");
 
     return noticeRequestDto;
   }
@@ -15,8 +15,8 @@ public class NoticeRequestDtoTest {
   public static NoticeRequestDto getNoticeRequestDtoFixture(String title, String content) throws Exception {
     NoticeRequestDto noticeRequestDto = new NoticeRequestDto();
 
-    MyReflectionUtils.setField(noticeRequestDto, "title", title);
-    MyReflectionUtils.setField(noticeRequestDto, "content", content);
+    ReflectionTestUtils.setField(noticeRequestDto, "title", title);
+    ReflectionTestUtils.setField(noticeRequestDto, "content", content);
 
     return noticeRequestDto;
   }

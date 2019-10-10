@@ -4,9 +4,9 @@ import static community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequ
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
-import community.common.util.MyReflectionUtils;
 import community.mother.notice.api.dto.NoticeRequestDto;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class NoticeTest {
   public static Notice getNoticeFixture() throws Exception {
@@ -15,7 +15,7 @@ public class NoticeTest {
 
   public static Notice getNoticeFixture(Long id) throws Exception {
     Notice notice = Notice.builder().title("title").content("content").build();
-    MyReflectionUtils.setField(notice, "id", id);
+    ReflectionTestUtils.setField(notice, "id", id);
 
     return notice;
   }

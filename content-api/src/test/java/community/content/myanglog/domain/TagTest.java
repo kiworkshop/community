@@ -5,8 +5,8 @@ public class TagTest {
     return getTagFixture("tagName");
   }
 
-  public static Tag getTagFixture(String tagName) {
-    return Tag.builder().name(tagName).build();
+  public static Tag getTagFixture(String name) {
+    return Tag.builder().name(name).build();
   }
 
 }

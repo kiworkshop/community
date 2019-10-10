@@ -11,3 +11,4 @@ public class ContentApiApplication {
     SpringApplication.run(ContentApiApplication.class, args);
   }
 }
+

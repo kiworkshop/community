@@ -22,7 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest
+@WebMvcTest(PostController.class)
 class PostControllerTest {
   private @Autowired MockMvc mvc;
   private @MockBean PostService service;

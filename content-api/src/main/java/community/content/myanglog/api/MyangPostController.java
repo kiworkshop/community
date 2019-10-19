@@ -1,8 +1,8 @@
 package community.content.myanglog.api;
 
-import community.content.myanglog.api.dto.PostRequestDto;
-import community.content.myanglog.api.dto.PostResponseDto;
-import community.content.myanglog.service.PostService;
+import community.content.myanglog.api.dto.MyangPostRequestDto;
+import community.content.myanglog.api.dto.MyangPostResponseDto;
+import community.content.myanglog.service.MyangPostService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,26 +19,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/myanglog/posts")
-public class PostController {
-  private final PostService postService;
+public class MyangPostController {
+  private final MyangPostService myangPostService;
 
   @GetMapping(value = "/{id}")
-  public PostResponseDto read(@PathVariable Long id) {
-    return postService.readPost(id);
+  public MyangPostResponseDto read(@PathVariable Long id) {
+    return myangPostService.readPost(id);
   }
 
   @PostMapping
-  public Long create(@RequestBody @Valid PostRequestDto postRequestDto) {
-    return postService.createPost(postRequestDto);
+  public Long create(@RequestBody @Valid MyangPostRequestDto myangPostRequestDto) {
+    return myangPostService.createPost(myangPostRequestDto);
   }
 
   @PutMapping(value = "/{id}")
-  public void update(@PathVariable Long id, @RequestBody @Valid PostRequestDto postRequestDto) {
-    postService.updatePost(id, postRequestDto);
+  public void update(@PathVariable Long id, @RequestBody @Valid MyangPostRequestDto myangPostRequestDto) {
+    myangPostService.updatePost(id, myangPostRequestDto);
   }
 
   @DeleteMapping(value = "/{id}")
   public void delete(@PathVariable Long id) {
-    postService.deletePost(id);
+    myangPostService.deletePost(id);
   }
 }

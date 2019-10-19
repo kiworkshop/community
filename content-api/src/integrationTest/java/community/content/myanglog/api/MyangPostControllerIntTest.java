@@ -1,6 +1,6 @@
 package community.content.myanglog.api;
 
-import static community.content.myanglog.api.dto.PostRequestDtoTest.getPostRequestDtoFixture;
+import static community.content.myanglog.api.dto.MyangPostRequestDtoTest.getMyangPostRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.content.ContentApiApplication;
-import community.content.myanglog.api.dto.PostRequestDto;
+import community.content.myanglog.api.dto.MyangPostRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,17 +25,17 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = ContentApiApplication.class, webEnvironment = RANDOM_PORT)
 @Transactional
 @Sql("/data/posts.sql")
-public class PostControllerIntTest {
+public class MyangPostControllerIntTest {
   private @Autowired MockMvc mvc;
   private @Autowired ObjectMapper objectMapper;
 
   @Test
   void create_ValidInput_ValidOutput() throws Exception {
-    PostRequestDto postRequestDto = getPostRequestDtoFixture();
+    MyangPostRequestDto myangPostRequestDto = getMyangPostRequestDtoFixture();
 
     this.mvc.perform(post("/myanglog/posts")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(postRequestDto)))
+        .content(objectMapper.writeValueAsString(myangPostRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").isNumber());
   }
@@ -44,11 +44,11 @@ public class PostControllerIntTest {
   void update_ValidInput_ValidOutput() throws Exception {
     String updatedTitle = "updated title";
     String updatedContent = "updated content";
-    PostRequestDto postRequestDto = getPostRequestDtoFixture(updatedTitle, updatedContent);
+    MyangPostRequestDto myangPostRequestDto = getMyangPostRequestDtoFixture(updatedTitle, updatedContent);
 
     this.mvc.perform(put("/myanglog/posts/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(postRequestDto)))
+        .content(objectMapper.writeValueAsString(myangPostRequestDto)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$").doesNotExist());
 

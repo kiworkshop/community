@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class PostRequestDto {
+public class MyangPostRequestDto {
   private @NotEmpty String title;
   private @NotEmpty String content;
   private Set<Tag> tags;

@@ -21,7 +21,7 @@ import org.springframework.util.Assert;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Post {
+public class MyangPost {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -53,7 +53,7 @@ public class Post {
   private ZonedDateTime updatedAt;
 
   @Builder
-  private Post(
+  private MyangPost(
       String title,
       String content,
       @Nullable Set<Tag> tags,

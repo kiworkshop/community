@@ -2,6 +2,7 @@ package community.content.jgraphy.domain;
 
 import community.common.util.MyReflectionUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -9,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JgraphyPostTest {
 
-  public static JgraphyPost getJgraphyPostFixture() throws Exception{
+  public static JgraphyPost getJgraphyPostFixture() {
     return getJgraphyPostFixture(1L);
   }
 
-  private static JgraphyPost getJgraphyPostFixture(long id) throws Exception{
+  public static JgraphyPost getJgraphyPostFixture(long id) {
     JgraphyPost jgraphyPost = JgraphyPost.builder().title("title").content("content").build();
-    MyReflectionUtils.setField(jgraphyPost, "id", id);
+    ReflectionTestUtils.setField(jgraphyPost, "id", id);
     return jgraphyPost;
   }
 
@@ -48,5 +49,25 @@ public class JgraphyPostTest {
           .content("")
           .build()
     ).isInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void updateEntity_validInput_validOutput() {
+    JgraphyPost jgraphyPost = JgraphyPost.builder()
+        .title("title")
+        .content("content")
+        .build();
+
+    JgraphyPost newJgraphyPost = JgraphyPost.builder()
+        .title("new title")
+        .content("new content")
+        .build();
+
+    jgraphyPost.update(newJgraphyPost);
+
+    then(jgraphyPost)
+        .hasNoNullFieldsOrPropertiesExcept("id")
+        .hasFieldOrPropertyWithValue("title", "new title")
+        .hasFieldOrPropertyWithValue("content", "new content");
   }
 }

@@ -1,19 +1,16 @@
 package community.content.jgraphy.api.dto;
 
-import community.common.util.MyReflectionUtils;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class JgraphyPostRequestDtoTest {
-  public static JgraphyPostRequestDto getJgraphyPostRequestDtoFixture() throws Exception {
+  public static JgraphyPostRequestDto getJgraphyPostRequestDtoFixture() {
     return getJgraphyPostRequestDtoFixture("title", "content");
   }
 
-  private static JgraphyPostRequestDto getJgraphyPostRequestDtoFixture(String title, String content) throws Exception {
+  public static JgraphyPostRequestDto getJgraphyPostRequestDtoFixture(String title, String content) {
     JgraphyPostRequestDto jgraphyPostRequestDto = new JgraphyPostRequestDto();
-    MyReflectionUtils.setField(jgraphyPostRequestDto, "title", title);
-    MyReflectionUtils.setField(jgraphyPostRequestDto, "content", content);
+    ReflectionTestUtils.setField(jgraphyPostRequestDto, "title", title);
+    ReflectionTestUtils.setField(jgraphyPostRequestDto, "content", content);
     return jgraphyPostRequestDto;
   }
-
 }

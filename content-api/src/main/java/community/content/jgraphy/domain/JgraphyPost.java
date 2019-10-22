@@ -41,4 +41,9 @@ public class JgraphyPost {
     this.content = content;
   }
 
+  public void update(final JgraphyPost jgraphyPost) {
+    this.title = jgraphyPost.getTitle();
+    this.content = jgraphyPost.getContent();
+  }
+
 }

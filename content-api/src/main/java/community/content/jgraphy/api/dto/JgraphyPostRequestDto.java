@@ -3,11 +3,11 @@ package community.content.jgraphy.api.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @NoArgsConstructor
 public class JgraphyPostRequestDto {
-  private String title;
-  private String content;
+  private @NotEmpty String title;
+  private @NotEmpty String content;
 }

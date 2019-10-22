@@ -1,17 +1,15 @@
 package community.content.jgraphy.api.dto;
 
-import community.common.util.MyReflectionUtils;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.test.util.ReflectionTestUtils;
 
 class JgraphyTagRequestDtoTest {
-  public static JgraphyTagRequestDto getJgraphyTagRequestDtoFixture() throws Exception{
+  public static JgraphyTagRequestDto getJgraphyTagRequestDtoFixture() {
     return getJgraphyTagRequestDtoFixture("tag");
   }
 
-  public static JgraphyTagRequestDto getJgraphyTagRequestDtoFixture(String tag) throws Exception {
+  public static JgraphyTagRequestDto getJgraphyTagRequestDtoFixture(String tag) {
     JgraphyTagRequestDto jgraphyTagRequestDto = new JgraphyTagRequestDto();
-    MyReflectionUtils.setField(jgraphyTagRequestDto, "tag", tag);
+    ReflectionTestUtils.setField(jgraphyTagRequestDto, "tag", tag);
     return jgraphyTagRequestDto;
   }
 

@@ -4,9 +4,7 @@ import community.common.dto.ApiError;
 import community.common.exception.CommonExceptionController;
 import community.content.jgraphy.exception.JgraphyPostNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice

@@ -1,9 +1,9 @@
 package community.content.jgraphy.api.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotEmpty;
 
 @Getter
 @NoArgsConstructor

@@ -1,23 +1,13 @@
 package community.content.jgraphy.domain;
 
 import community.common.model.BaseEntity;
-import jdk.jfr.Timestamp;
+
+import javax.persistence.Entity;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.util.Assert;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import java.time.ZonedDateTime;
-import java.util.Set;
 
 @Getter
 @NoArgsConstructor

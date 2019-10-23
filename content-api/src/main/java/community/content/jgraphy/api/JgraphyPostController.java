@@ -3,6 +3,7 @@ package community.content.jgraphy.api;
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
 import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
 import community.content.jgraphy.service.JgraphyPostService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 @CrossOrigin
 @RequiredArgsConstructor

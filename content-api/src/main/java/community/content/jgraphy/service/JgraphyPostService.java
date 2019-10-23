@@ -1,19 +1,20 @@
 package community.content.jgraphy.service;
 
+import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toEntity;
+import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toResponseDto;
+
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
 import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
 import community.content.jgraphy.domain.JgraphyPost;
 import community.content.jgraphy.domain.JgraphyPostRepository;
 import community.content.jgraphy.exception.JgraphyPostNotFoundException;
+
+import javax.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-
-import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toEntity;
-import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toResponseDto;
 
 @RequiredArgsConstructor
 @Service
@@ -48,8 +49,6 @@ public class JgraphyPostService {
   private JgraphyPost findJgraphyPostById(Long id) {
     return jgraphyPostRepository.findById(id).orElseThrow(() -> new JgraphyPostNotFoundException(id));
   }
-
-
 
   protected static class JgraphyPostAssembler {
     static JgraphyPost toEntity(JgraphyPostRequestDto jgraphyPostRequestDto) {

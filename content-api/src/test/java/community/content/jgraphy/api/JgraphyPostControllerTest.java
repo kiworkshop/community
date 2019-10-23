@@ -3,7 +3,6 @@ package community.content.jgraphy.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
 import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
-import community.content.jgraphy.domain.JgraphyPost;
 import community.content.jgraphy.exception.JgraphyPostNotFoundException;
 import community.content.jgraphy.service.JgraphyPostService;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,6 @@ import java.util.List;
 
 import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
 import static community.content.jgraphy.api.dto.JgraphyPostResponseDtoTest.getJgraphyPostResponseDtoFixture;
-import static community.content.jgraphy.domain.JgraphyPostTest.getJgraphyPostFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;

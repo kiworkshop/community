@@ -1,11 +1,10 @@
 package community.content.jgraphy.api.dto;
 
-import community.content.jgraphy.domain.JgraphyPost;
+import java.time.ZonedDateTime;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.ZonedDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -17,7 +16,10 @@ public class JgraphyPostResponseDto {
   private ZonedDateTime updatedAt;
 
   @Builder
-  public JgraphyPostResponseDto(Long id, String title, String content, ZonedDateTime createdAt, ZonedDateTime updatedAt) {
+  public JgraphyPostResponseDto(
+      Long id, String title, String content,
+      ZonedDateTime createdAt, ZonedDateTime updatedAt
+  ) {
     this.id = id;
     this.title = title;
     this.content = content;

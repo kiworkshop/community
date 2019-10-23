@@ -1,5 +1,6 @@
 package community.content.jgraphy.domain;
 
+import community.common.model.BaseEntity;
 import jdk.jfr.Timestamp;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +22,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
-public class JgraphyPost {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class JgraphyPost extends BaseEntity {
 
   private String title;
   private String content;

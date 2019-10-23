@@ -64,6 +64,8 @@ public class JgraphyPostService {
           .id(jgrpahyPost.getId())
           .title(jgrpahyPost.getTitle())
           .content(jgrpahyPost.getContent())
+          .createdAt(jgrpahyPost.getCreatedAt())
+          .updatedAt(jgrpahyPost.getUpdatedAt())
           .build();
     }
   }

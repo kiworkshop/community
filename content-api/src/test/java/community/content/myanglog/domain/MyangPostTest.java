@@ -32,7 +32,7 @@ public class MyangPostTest {
         .build();
 
     then(myangPost)
-        .hasNoNullFieldsOrPropertiesExcept("id", "tags")
+        .hasNoNullFieldsOrPropertiesExcept("id", "myangTags")
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("content", "content")
         .hasFieldOrPropertyWithValue("likeCount", 0)

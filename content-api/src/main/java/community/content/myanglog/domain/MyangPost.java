@@ -38,7 +38,7 @@ public class MyangPost {
       joinColumns = @JoinColumn(name = "POST_ID"),
       inverseJoinColumns = @JoinColumn(name = "TAG_ID")
   )
-  private Set<Tag> tags;
+  private Set<MyangTag> myangTags;
 
   private int likeCount;
 
@@ -56,7 +56,7 @@ public class MyangPost {
   private MyangPost(
       String title,
       String content,
-      @Nullable Set<Tag> tags,
+      @Nullable Set<MyangTag> myangTags,
       int likeCount,
       int viewCount
   ) {
@@ -64,7 +64,7 @@ public class MyangPost {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
-    this.tags = tags;
+    this.myangTags = myangTags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();
@@ -75,26 +75,30 @@ public class MyangPost {
     this.viewCount++;
   }
 
-  public void setTags(Set<Tag> tags) {
-    this.tags = tags;
-    tags.forEach(tag -> tag.getMyangPosts().add(this));
+  public void setMyangTags(Set<MyangTag> myangTags) {
+    this.myangTags = myangTags;
+    if (myangTags != null) {
+      myangTags.forEach(tag -> tag.addNewMyangPosts(this));
+    }
   }
 
   public void updatePost(MyangPost myangPost) {
     this.title = myangPost.title;
     this.content = myangPost.content;
-    updateTags(myangPost.getTags());
+    updateTags(myangPost.getMyangTags());
   }
 
-  private void updateTags(Set<Tag> tags) {
+  private void updateTags(Set<MyangTag> myangTags) {
     removeTags();
-    this.tags = tags;
-    tags.forEach(tag -> tag.getMyangPosts().add(this));
+    this.myangTags = myangTags;
+    if (myangTags != null) {
+      myangTags.forEach(tag -> tag.getMyangPosts().add(this));
+    }
   }
 
   private void removeTags() {
-    if (this.tags != null) {
-      this.tags.forEach(tag -> tag.getMyangPosts().remove(this));
+    if (this.myangTags != null) {
+      this.myangTags.forEach(tag -> tag.getMyangPosts().remove(this));
     }
   }
 }

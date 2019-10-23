@@ -1,7 +1,7 @@
 package community.content.myanglog.api.dto;
 
 import community.content.myanglog.domain.MyangPost;
-import community.content.myanglog.domain.Tag;
+import community.content.myanglog.domain.MyangTag;
 import java.time.ZonedDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class MyangPostResponseDto {
   private Long id;
   private String title;
   private String content;
-  private Set<Tag> tags;
+  private Set<MyangTag> myangTags;
   private int likeCount;
   private int viewCount;
   private ZonedDateTime createdAt;
@@ -23,7 +23,7 @@ public class MyangPostResponseDto {
     this.id = myangPost.getId();
     this.title = myangPost.getTitle();
     this.content = myangPost.getContent();
-    this.tags = myangPost.getTags();
+    this.myangTags = myangPost.getMyangTags();
     this.likeCount = myangPost.getLikeCount();
     this.viewCount = myangPost.getViewCount();
     this.createdAt = myangPost.getCreatedAt();

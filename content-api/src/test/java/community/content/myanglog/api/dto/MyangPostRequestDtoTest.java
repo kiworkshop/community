@@ -1,23 +1,23 @@
 package community.content.myanglog.api.dto;
 
-import static community.content.myanglog.domain.TagTest.getTagFixture;
+import static community.content.myanglog.domain.MyangTagTest.getTagFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
-import community.content.myanglog.domain.Tag;
+import community.content.myanglog.domain.MyangTag;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class MyangPostRequestDtoTest {
-  private static Set<Tag> tagFixture = Set.of(getTagFixture());
+  private static Set<MyangTag> myangTagFixture = Set.of(getTagFixture());
 
   public static MyangPostRequestDto getMyangPostRequestDtoFixture() throws Exception {
     MyangPostRequestDto myangPostRequestDto = new MyangPostRequestDto();
 
     setField(myangPostRequestDto, "title", "title");
     setField(myangPostRequestDto, "content", "content");
-    setField(myangPostRequestDto, "tags", tagFixture);
+    setField(myangPostRequestDto, "myangTags", myangTagFixture);
 
     return myangPostRequestDto;
   }
@@ -39,6 +39,6 @@ public class MyangPostRequestDtoTest {
         .hasNoNullFieldsOrProperties()
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("content", "content")
-        .hasFieldOrPropertyWithValue("tags", tagFixture);
+        .hasFieldOrPropertyWithValue("myangTags", myangTagFixture);
   }
 }

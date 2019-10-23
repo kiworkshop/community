@@ -17,7 +17,7 @@ public class MyangPostResponseDtoTest {
     MyangPostResponseDto myangPostResponseDto = MyangPostResponseDto.of(myangPost);
 
     then(myangPostResponseDto)
-        .hasNoNullFieldsOrPropertiesExcept("tags")
+        .hasNoNullFieldsOrPropertiesExcept("myangTags")
         .hasFieldOrPropertyWithValue("id", myangPost.getId())
         .hasFieldOrPropertyWithValue("title", myangPost.getTitle())
         .hasFieldOrPropertyWithValue("content", myangPost.getContent());

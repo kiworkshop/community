@@ -4,7 +4,6 @@ import community.content.myanglog.api.dto.MyangPostRequestDto;
 import community.content.myanglog.api.dto.MyangPostResponseDto;
 import community.content.myanglog.domain.MyangPost;
 import community.content.myanglog.domain.MyangPostRepository;
-import community.content.myanglog.domain.TagRepository;
 import community.content.myanglog.exception.MyangPostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MyangPostService {
   private final MyangPostRepository myangPostRepository;
-  private final TagRepository tagRepository;
   private final ModelMapper modelMapper;
 
   public MyangPostResponseDto readPost(Long id) {
@@ -32,7 +30,7 @@ public class MyangPostService {
         .title(myangPostRequestDto.getTitle())
         .content(myangPostRequestDto.getContent())
         .build();
-    myangPost.setTags(myangPostRequestDto.getTags());
+    myangPost.setMyangTags(myangPostRequestDto.getMyangTags());
     return myangPostRepository.save(myangPost).getId();
   }
 

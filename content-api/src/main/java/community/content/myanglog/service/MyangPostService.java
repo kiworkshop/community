@@ -4,14 +4,18 @@ import community.content.myanglog.api.dto.MyangPostRequestDto;
 import community.content.myanglog.api.dto.MyangPostResponseDto;
 import community.content.myanglog.domain.MyangPost;
 import community.content.myanglog.domain.MyangPostRepository;
+import community.content.myanglog.domain.TagRepository;
 import community.content.myanglog.exception.MyangPostNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class MyangPostService {
   private final MyangPostRepository myangPostRepository;
+  private final TagRepository tagRepository;
+  private final ModelMapper modelMapper;
 
   public MyangPostResponseDto readPost(Long id) {
     MyangPost myangPostToRead = findPostById(id);
@@ -24,21 +28,26 @@ public class MyangPostService {
   }
 
   public Long createPost(MyangPostRequestDto myangPostRequestDto) {
-    return myangPostRepository.save(MyangPost.builder()
+    MyangPost myangPost = MyangPost.builder()
         .title(myangPostRequestDto.getTitle())
         .content(myangPostRequestDto.getContent())
-        .tags(myangPostRequestDto.getTags())
-        .build()).getId();
+        .build();
+    myangPost.setTags(myangPostRequestDto.getTags());
+    return myangPostRepository.save(myangPost).getId();
   }
 
   public void updatePost(Long id, MyangPostRequestDto myangPostRequestDto) {
     MyangPost myangPostToUpdate = findPostById(id);
-    myangPostToUpdate.updatePost(myangPostRequestDto.getTitle(), myangPostRequestDto.getContent());
+    myangPostToUpdate.updatePost(createEntityFrom(myangPostRequestDto));
     myangPostRepository.save(myangPostToUpdate);
   }
 
   public void deletePost(Long id) {
     MyangPost myangPostToDelete = findPostById(id);
     myangPostRepository.delete(myangPostToDelete);
+  }
+
+  private MyangPost createEntityFrom(MyangPostRequestDto myangPostRequestDto) {
+    return modelMapper.map(myangPostRequestDto, MyangPost.class);
   }
 }

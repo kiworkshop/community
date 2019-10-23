@@ -8,10 +8,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
+import community.common.config.CommonBeanCreators;
 import community.content.myanglog.api.dto.MyangPostRequestDto;
 import community.content.myanglog.api.dto.MyangPostResponseDto;
 import community.content.myanglog.domain.MyangPost;
 import community.content.myanglog.domain.MyangPostRepository;
+import community.content.myanglog.domain.TagRepository;
 import community.content.myanglog.exception.MyangPostNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,12 +26,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class MyangPostServiceTest {
   private MyangPostService myangPostService;
 
-  private @Mock
-  MyangPostRepository myangPostRepository;
+  private @Mock MyangPostRepository myangPostRepository;
+
+  private @Mock TagRepository tagRepository;
 
   @BeforeEach
   void setUp() {
-    myangPostService = new MyangPostService(myangPostRepository);
+    myangPostService = new MyangPostService(myangPostRepository, tagRepository, CommonBeanCreators.modelMapper());
   }
 
   @Test

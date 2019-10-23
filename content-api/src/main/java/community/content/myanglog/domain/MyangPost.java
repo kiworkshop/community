@@ -75,8 +75,26 @@ public class MyangPost {
     this.viewCount++;
   }
 
-  public void updatePost(String title, String content) {
-    this.title = title;
-    this.content = content;
+  public void setTags(Set<Tag> tags) {
+    this.tags = tags;
+    tags.forEach(tag -> tag.getMyangPosts().add(this));
+  }
+
+  public void updatePost(MyangPost myangPost) {
+    this.title = myangPost.title;
+    this.content = myangPost.content;
+    updateTags(myangPost.getTags());
+  }
+
+  private void updateTags(Set<Tag> tags) {
+    removeTags();
+    this.tags = tags;
+    tags.forEach(tag -> tag.getMyangPosts().add(this));
+  }
+
+  private void removeTags() {
+    if (this.tags != null) {
+      this.tags.forEach(tag -> tag.getMyangPosts().remove(this));
+    }
   }
 }

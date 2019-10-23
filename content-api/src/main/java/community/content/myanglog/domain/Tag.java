@@ -25,7 +25,7 @@ public class Tag {
   private String name;
 
   @ManyToMany(mappedBy = "tags")
-  private Set<MyangPost> myangPost;
+  private Set<MyangPost> myangPosts;
 
   @Builder
   private Tag(String name) {

@@ -25,10 +25,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(MyangPostController.class)
-class MyangMyangPostControllerTest {
+class MyangPostControllerTest {
   private @Autowired MockMvc mvc;
-  private @MockBean
-  MyangPostService service;
+  private @MockBean MyangPostService service;
   private @Autowired ObjectMapper objectMapper;
 
   @Test

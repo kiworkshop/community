@@ -3,14 +3,23 @@ package community.content.jgraphy.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
 import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
+import community.content.jgraphy.domain.JgraphyPost;
 import community.content.jgraphy.exception.JgraphyPostNotFoundException;
 import community.content.jgraphy.service.JgraphyPostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
 import static community.content.jgraphy.api.dto.JgraphyPostResponseDtoTest.getJgraphyPostResponseDtoFixture;
@@ -59,6 +68,31 @@ class JgraphyPostControllerTest {
   }
 
   @Test
+  void readJgraphyPosts_validInput_validOutput() throws Exception {
+    // given
+    List<JgraphyPostResponseDto> jgraphyPostResponseDtos = new ArrayList<>();
+    for (long i = 1; i < 11; i++) {
+      jgraphyPostResponseDtos.add(getJgraphyPostResponseDtoFixture(i));
+    }
+
+    Collections.reverse(jgraphyPostResponseDtos);
+    PageImpl<JgraphyPostResponseDto> jgraphyPostResponseDtoPage = new PageImpl<>(
+        jgraphyPostResponseDtos,
+        PageRequest.of(0, 10, Sort.Direction.DESC, "id"),
+        10);
+
+    given(jgraphyPostService.readPostPage(any(Pageable.class))).willReturn(jgraphyPostResponseDtoPage);
+
+    // expect
+    this.mvc.perform(get("/jgraphy/posts"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].id").value(10))
+        .andExpect(jsonPath("$.content[0].id").value(1))
+        .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
+        .andExpect(jsonPath("$.pageable.pageSize").value(10));
+  }
+
+  @Test
   void readJgraphyPost_validInput_validOutput() throws Exception {
     // given
     JgraphyPostResponseDto jgraphyPostResponseDto = getJgraphyPostResponseDtoFixture();
@@ -69,7 +103,9 @@ class JgraphyPostControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("id").value(jgraphyPostResponseDto.getId()))
         .andExpect(jsonPath("title").value(jgraphyPostResponseDto.getTitle()))
-        .andExpect(jsonPath("content").value(jgraphyPostResponseDto.getContent()));
+        .andExpect(jsonPath("content").value(jgraphyPostResponseDto.getContent()))
+        .andExpect(jsonPath("createdAt").isNotEmpty())
+        .andExpect(jsonPath("updatedAt").isNotEmpty());
   }
 
   @Test

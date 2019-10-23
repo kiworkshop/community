@@ -3,6 +3,7 @@ package community.content.jgraphy.domain;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import static java.time.ZonedDateTime.now;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
@@ -13,8 +14,14 @@ public class JgraphyPostTest {
   }
 
   public static JgraphyPost getJgraphyPostFixture(long id) {
-    JgraphyPost jgraphyPost = JgraphyPost.builder().title("title").content("content").build();
+    JgraphyPost jgraphyPost = JgraphyPost.builder()
+        .title("title")
+        .content("content").build();
+
     ReflectionTestUtils.setField(jgraphyPost, "id", id);
+    ReflectionTestUtils.setField(jgraphyPost, "createdAt", now());
+    ReflectionTestUtils.setField(jgraphyPost, "updatedAt", now());
+
     return jgraphyPost;
   }
 
@@ -27,7 +34,7 @@ public class JgraphyPostTest {
 
     //then
     then(jgraphyPost)
-        .hasNoNullFieldsOrPropertiesExcept("id")
+        .hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("content", "content");
   }
@@ -64,7 +71,7 @@ public class JgraphyPostTest {
     jgraphyPost.update(newJgraphyPost);
 
     then(jgraphyPost)
-        .hasNoNullFieldsOrPropertiesExcept("id")
+        .hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
         .hasFieldOrPropertyWithValue("title", "new title")
         .hasFieldOrPropertyWithValue("content", "new content");
   }

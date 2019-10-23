@@ -13,10 +13,12 @@ public class JgraphyPostResponseDtoTest {
 
   public static JgraphyPostResponseDto getJgraphyPostResponseDtoFixture(Long id) {
     JgraphyPost jgraphyPost = getJgraphyPostFixture(id);
-    JgraphyPostResponseDto jgraphyPostResponseDto = new JgraphyPostResponseDto();
-    ReflectionTestUtils.setField(jgraphyPost, "id" , jgraphyPost.getId());
-    ReflectionTestUtils.setField(jgraphyPost, "title", jgraphyPost.getTitle());
-    ReflectionTestUtils.setField(jgraphyPost, "content", jgraphyPost.getContent());
-    return jgraphyPostResponseDto;
+    return JgraphyPostResponseDto.builder()
+        .id(jgraphyPost.getId())
+        .title(jgraphyPost.getTitle())
+        .content(jgraphyPost.getContent())
+        .createdAt(jgraphyPost.getCreatedAt())
+        .updatedAt(jgraphyPost.getUpdatedAt())
+        .build();
   }
 }

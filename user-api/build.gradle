@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'org.kiworkshop'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = "11"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.6.RELEASE'
+    
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    runtimeOnly 'com.h2database:h2'
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    sourceDir 'docs'
+    outputDir = file('build/docs')
+    dependsOn test
+}

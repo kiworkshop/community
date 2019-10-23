@@ -1,12 +1,10 @@
 package community.content.jgraphy.domain;
 
-import community.common.util.MyReflectionUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class JgraphyPostTest {
 

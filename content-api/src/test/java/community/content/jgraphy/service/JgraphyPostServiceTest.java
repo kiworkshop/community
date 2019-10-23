@@ -8,9 +8,17 @@ import community.content.jgraphy.exception.JgraphyPostNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
@@ -30,6 +38,27 @@ class JgraphyPostServiceTest {
 
   @BeforeEach
   void setUp() { jgraphyPostService = new JgraphyPostService(jgraphyPostRepository); }
+
+  @Test
+  void readJgraphyPostPage_validInput_validOutput() {
+    //given
+    final Long numJgraphyPost = 10L;
+    List<JgraphyPost> jgraphyPosts = new ArrayList<>();
+
+    for (long i = 1; i < 11L; i++) {
+      jgraphyPosts.add(getJgraphyPostFixture(i));
+    }
+
+    PageImpl<JgraphyPost> jgraphyPostPage = new PageImpl<>(jgraphyPosts);
+    given(jgraphyPostRepository.findAll(any(Pageable.class))).willReturn(jgraphyPostPage);
+
+    //when
+    Page<JgraphyPostResponseDto> jgraphyPostResponseDtoPage = jgraphyPostService.readPostPage(
+        PageRequest.of(0, numJgraphyPost.intValue()));
+
+    //expect
+    then(jgraphyPostResponseDtoPage.getTotalElements()).isEqualTo(numJgraphyPost);
+  }
 
   @Test
   void createJgraphyPost_validInput_validOutput() {
@@ -75,6 +104,14 @@ class JgraphyPostServiceTest {
   }
 
   @Test
+  void deleteJgraphyPost_validInput_validOutput() {
+   JgraphyPost jgraphyPostToDelete = getJgraphyPostFixture();
+   given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.of(jgraphyPostToDelete));
+
+   jgraphyPostService.deletePost(jgraphyPostToDelete.getId());
+  }
+
+  @Test
   void updateJgraphyPost_validInput_validOutput() {
     JgraphyPostRequestDto jgraphyPostRequestDto = getJgraphyPostRequestDtoFixture();
     JgraphyPost jgraphyPost = getJgraphyPostFixture();
@@ -88,6 +125,29 @@ class JgraphyPostServiceTest {
         .hasFieldOrPropertyWithValue("id", jgraphyPost.getId())
         .hasFieldOrPropertyWithValue("title", jgraphyPostRequestDto.getTitle())
         .hasFieldOrPropertyWithValue("content", jgraphyPostRequestDto.getContent());
+
+  }
+
+  @Test
+  void findJgrpahyPost_validInput_validOutput() {
+    JgraphyPost jgraphyPostToFind = getJgraphyPostFixture();
+    given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.of(jgraphyPostToFind));
+
+    JgraphyPost jgraphyPost = ReflectionTestUtils.invokeMethod(jgraphyPostService, "findJgraphyPostById", jgraphyPostToFind.getId());
+    then(jgraphyPost)
+        .hasNoNullFieldsOrProperties()
+        .hasFieldOrPropertyWithValue("id", jgraphyPostToFind.getId())
+        .hasFieldOrPropertyWithValue("title", jgraphyPostToFind.getTitle())
+        .hasFieldOrPropertyWithValue("content", jgraphyPostToFind.getContent());
+
+  }
+
+  @Test
+  void findJgraphyPost_invalidInput_Exception() {
+    given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.empty());
+
+    thenThrownBy(() -> ReflectionTestUtils.invokeMethod(jgraphyPostService, "findJgraphyPostById", 1L))
+        .isExactlyInstanceOf(JgraphyPostNotFoundException.class);
 
   }
 }

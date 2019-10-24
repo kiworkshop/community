@@ -1,6 +1,5 @@
-package community.content.simplelife.tag.domain;
+package community.content.simplelife.article.domain;
 
-import community.content.simplelife.post.domain.Post;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -18,20 +17,24 @@ import org.springframework.util.Assert;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Tag {
+public class SimpleTag {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
   @ManyToMany(fetch = FetchType.LAZY,
-          cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "tags")
-  private Set<Post> posts = new HashSet<>();
+          cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "simpleTags")
+  private Set<SimpleArticle> simpleArticles = new HashSet<>();
 
   @Builder
-  private Tag(String name
+  private SimpleTag(String name
   ) {
     Assert.hasLength(name, "tagName should not be empty.");
 
     this.name = name;
+  }
+
+  public void addArticle(SimpleArticle simpleArticle) {
+    this.simpleArticles.add(simpleArticle);
   }
 }

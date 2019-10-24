@@ -1,6 +1,5 @@
-package community.content.simplelife.post.domain;
+package community.content.simplelife.article.domain;
 
-import community.content.simplelife.tag.domain.Tag;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,7 @@ import org.springframework.util.Assert;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Post {
+public class SimpleArticle {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -34,19 +33,19 @@ public class Post {
   private ZonedDateTime createdAt;
   @UpdateTimestamp
   private ZonedDateTime updatedAt;
-  private int viewCount;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "post_tags",
           joinColumns = { @JoinColumn(name = "post_id") },
           inverseJoinColumns = { @JoinColumn(name = "tag_id") })
-  private Set<Tag> tags = new HashSet<>();
+  private Set<SimpleTag> simpleTags = new HashSet<>();
 
   @Builder
-  private Post(
+  private SimpleArticle(
       String title,
       String description,
-      String content
+      String content,
+      Set<SimpleTag> simpleTags
   ) {
     Assert.hasLength(title, "title should not be empty.");
     Assert.hasLength(description, "description should not be empty.");
@@ -55,5 +54,18 @@ public class Post {
     this.title = title;
     this.description = description;
     this.content = content;
+    this.simpleTags = simpleTags;
+  }
+
+  public void addTags(Set<SimpleTag> simpleTags) {
+    simpleTags.forEach(tag -> tag.addArticle(this));
+    this.simpleTags.addAll(simpleTags);
+  }
+
+  public void update(String title, String description, String content, Set<SimpleTag> simpleTags) {
+    this.title = title;
+    this.description = description;
+    this.content = content;
+    this.simpleTags.addAll(simpleTags);
   }
 }

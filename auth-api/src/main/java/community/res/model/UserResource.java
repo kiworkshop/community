@@ -19,6 +19,7 @@ class UserResource extends BaseEntity {
   @Column(nullable = false, unique = true, length = 36)
   private @UUID String username; // TODO: map OneToOne with User.
   private Social social;
+  @Column(unique = true)
   private String nickname;
   private @Email String contactEmail;
 

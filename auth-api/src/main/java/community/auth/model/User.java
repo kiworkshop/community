@@ -3,7 +3,7 @@ package community.auth.model;
 import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +28,7 @@ public class User extends BaseEntity implements UserDetails, CredentialsContaine
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinColumn(nullable = false)
-  private List<Authority> authorities;
+  private Set<Authority> authorities;
   private boolean accountNonExpired;
   private boolean accountNonLocked;
   private boolean credentialsNonExpired;
@@ -41,7 +41,7 @@ public class User extends BaseEntity implements UserDetails, CredentialsContaine
   ) {
     this.username = username;
     this.password = password;
-    this.authorities = Collections.singletonList(Authority.USER);
+    this.authorities = Collections.singleton(Authority.USER);
     this.accountNonExpired = true;
     this.accountNonLocked = true;
     this.credentialsNonExpired = true;

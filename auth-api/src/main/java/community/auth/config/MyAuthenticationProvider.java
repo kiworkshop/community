@@ -1,7 +1,7 @@
 package community.auth.config;
 
 import community.auth.service.UserService;
-import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +27,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
       throw new BadCredentialsException("not matching username or password");
     }
 
-    List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
+    Set<GrantedAuthority> authorities = (Set<GrantedAuthority>) userInfo.getAuthorities();
 
     return new UsernamePasswordAuthenticationToken(userInfo,null,authorities);
   }

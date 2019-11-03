@@ -10,6 +10,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
   @Bean
   @Override
   public UserDetailsService userDetailsService() {

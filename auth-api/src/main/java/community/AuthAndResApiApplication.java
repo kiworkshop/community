@@ -1,4 +1,4 @@
-package community.auth;
+package community;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @EnableAuthorizationServer
 @SpringBootApplication
-public class AuthApiApplication {
+public class AuthAndResApiApplication {
   public static void main(String[] args) {
-    SpringApplication.run(AuthApiApplication.class, args);
+    SpringApplication.run(AuthAndResApiApplication.class, args);
   }
 }

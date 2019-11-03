@@ -1,5 +1,6 @@
-package community.auth.model;
+package community.res.model;
 
+import community.auth.model.Social;
 import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import javax.persistence.Column;

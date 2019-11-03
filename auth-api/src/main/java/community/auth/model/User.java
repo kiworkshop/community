@@ -1,13 +1,12 @@
 package community.auth.model;
 
+import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import java.util.Collections;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import lombok.Builder;
@@ -20,15 +19,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @Entity
 @NoArgsConstructor
-public class User implements UserDetails, CredentialsContainer {
+public class User extends BaseEntity implements UserDetails, CredentialsContainer {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  private String password;
-
+  @Column(nullable = false, unique = true, length = 36)
   private @UUID String username;
+  @Column(nullable = false)
+  private String password;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinColumn(nullable = false)

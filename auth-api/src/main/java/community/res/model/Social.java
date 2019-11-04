@@ -1,4 +1,4 @@
-package community.auth.model;
+package community.res.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -13,7 +13,7 @@ import lombok.NonNull;
 @Embeddable
 @NoArgsConstructor
 public class Social {
-  private enum Provider {
+  public enum Provider {
     GOOGLE, FACEBOOK, TWITTER, NAVER
   }
 
@@ -22,14 +22,14 @@ public class Social {
   private Provider provider;
 
   @Column(name="social_id", length = 50)
-  private String id;
+  private String socialId;
 
   @Builder
   private Social(
       @NonNull Provider provider,
-      @NonNull String id
+      @NonNull String socialId
   ) {
     this.provider = provider;
-    this.id = id;
+    this.socialId = socialId;
   }
 }

@@ -1,6 +1,5 @@
 package community.res.model;
 
-import community.auth.model.Social;
 import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import javax.persistence.Column;
@@ -18,7 +17,7 @@ import lombok.NonNull;
 class UserResource extends BaseEntity {
 
   @Column(nullable = false, unique = true, length = 36)
-  private @UUID String username; // TODO: map OneToOne with User.
+  private @UUID String username;
   private @Embedded Social social;
   @Column(unique = true)
   private String nickname;

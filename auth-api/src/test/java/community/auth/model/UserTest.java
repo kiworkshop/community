@@ -10,8 +10,19 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 class UserTest {
+
+  static User getUserFixture() {
+    User user = User.builder()
+        .username(UUID.randomUUID().toString())
+        .password("password").build();
+
+    ReflectionTestUtils.setField(user, "id", 1L);
+
+    return user;
+  }
 
   private static Validator validator;
 

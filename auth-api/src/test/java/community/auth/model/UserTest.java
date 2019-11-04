@@ -55,7 +55,7 @@ class UserTest {
   }
 
   @Test
-  void build_UsernameIsNotUUID_ConstraintViolation() {
+  void build_UsernameIsNotUuid_ConstraintViolation() {
     User user = User.builder().username("username").password("password").build();
 
     Set<ConstraintViolation<User>> violations = validator.validate(user);

@@ -17,11 +17,11 @@ public class Social {
     GOOGLE, FACEBOOK, TWITTER, NAVER
   }
 
-  @Column(name="social_provider", length = 20)
+  @Column(name = "social_provider", length = 20)
   @Enumerated(EnumType.STRING)
   private Provider provider;
 
-  @Column(name="social_id", length = 50)
+  @Column(name = "social_id", length = 50)
   private String socialId;
 
   @Builder

@@ -54,7 +54,7 @@ class AuthControllerIntTest {
         .andExpect(jsonPath("$.scope").isString());
   }
 
-@Test
+  @Test
   void checkToken_ValidInput_ValidOutput() throws Exception {
     String responseBody = this.mvc.perform(post("/oauth/token")
         .header("Authorization", authorization)

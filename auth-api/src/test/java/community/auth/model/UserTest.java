@@ -12,9 +12,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-class UserTest {
+public class UserTest {
 
-  static User getUserFixture() {
+  public static User getUserFixture() {
     User user = User.builder()
         .username(UUID.randomUUID().toString())
         .password("password").build();
@@ -61,5 +61,18 @@ class UserTest {
     Set<ConstraintViolation<User>> violations = validator.validate(user);
 
     then(violations.size()).isEqualTo(1);
+  }
+
+  @Test
+  void eraseCredentials_ValidInput_NullPassword() {
+    // given
+    String username = UUID.randomUUID().toString();
+
+    // when
+    User user = User.builder().username(username).password("password").build();
+    user.eraseCredentials();
+
+    // then
+    then(user.getPassword()).isNull();
   }
 }

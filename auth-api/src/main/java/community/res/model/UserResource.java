@@ -9,7 +9,6 @@ import javax.validation.constraints.Email;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @Getter
@@ -25,10 +24,10 @@ class UserResource extends BaseEntity {
 
   @Builder
   private UserResource(
-      @NonNull String username,
-      @NonNull Social social,
-      @NonNull String nickname,
-      @Email String contactEmail
+      String username,
+      Social social,
+      String nickname,
+      String contactEmail
   ) {
     this.username = username;
     this.social = social;

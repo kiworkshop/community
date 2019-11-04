@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -35,10 +34,7 @@ public class User extends BaseEntity implements UserDetails, CredentialsContaine
   private boolean enabled;
 
   @Builder
-  private User(
-      @NonNull String username,
-      @NonNull String password
-  ) {
+  private User(String username, String password) {
     this.username = username;
     this.password = password;
     this.authorities = Collections.singleton(Authority.USER);

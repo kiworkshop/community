@@ -7,7 +7,6 @@ import javax.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Getter
 @Embeddable
@@ -25,10 +24,7 @@ public class Social {
   private String socialId;
 
   @Builder
-  private Social(
-      @NonNull Provider provider,
-      @NonNull String socialId
-  ) {
+  private Social(Provider provider, String socialId) {
     this.provider = provider;
     this.socialId = socialId;
   }

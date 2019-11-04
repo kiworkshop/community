@@ -76,7 +76,7 @@ subprojects {
 	jacocoTestReport {
 		afterEvaluate {
 			getClassDirectories().setFrom(classDirectories.files.collect {
-				fileTree(dir: it, exclude: ['**/*Application*', '**/*Config*'])
+				fileTree(dir: it, exclude: ['**/*Application*', '**/*Config*', '**/config/*'])
 			})
 		}
 

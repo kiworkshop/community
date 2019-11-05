@@ -1,8 +1,7 @@
 package community.content.myanglog.domain;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class MyangTag {
   private String name;
 
   @ManyToMany(mappedBy = "myangTags")
-  private Set<MyangPost> myangPosts;
+  private Set<MyangPost> myangPosts = new HashSet<>();
 
   @Builder
   private MyangTag(String name) {
@@ -37,7 +36,11 @@ public class MyangTag {
     this.name = name;
   }
 
-  public void addNewMyangPosts(MyangPost myangPost) {
-    this.myangPosts = Stream.of(myangPost).collect(Collectors.toSet());
+  public void addMyangPosts(MyangPost myangPost) {
+    myangPosts.add(myangPost);
+  }
+
+  public void removeMyangPosts(MyangPost myangPost) {
+    myangPosts.remove(myangPost);
   }
 }

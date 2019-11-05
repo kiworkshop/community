@@ -1,6 +1,7 @@
 package community.content.myanglog.domain;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +39,8 @@ public class MyangPost {
       joinColumns = @JoinColumn(name = "POST_ID"),
       inverseJoinColumns = @JoinColumn(name = "TAG_ID")
   )
-  private Set<MyangTag> myangTags;
+  @Nullable
+  private Set<MyangTag> myangTags = new HashSet<>();
 
   private int likeCount;
 
@@ -64,7 +66,7 @@ public class MyangPost {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
-    this.myangTags = myangTags;
+    this.myangTags = myangTags == null ? this.myangTags : myangTags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();
@@ -77,9 +79,7 @@ public class MyangPost {
 
   public void setMyangTags(Set<MyangTag> myangTags) {
     this.myangTags = myangTags;
-    if (myangTags != null) {
-      myangTags.forEach(tag -> tag.addNewMyangPosts(this));
-    }
+    myangTags.forEach(tag -> tag.addMyangPosts(this));
   }
 
   public void updatePost(MyangPost myangPost) {
@@ -92,13 +92,13 @@ public class MyangPost {
     removeTags();
     this.myangTags = myangTags;
     if (myangTags != null) {
-      myangTags.forEach(tag -> tag.getMyangPosts().add(this));
+      myangTags.forEach(tag -> tag.addMyangPosts(this));
     }
   }
 
   private void removeTags() {
     if (this.myangTags != null) {
-      this.myangTags.forEach(tag -> tag.getMyangPosts().remove(this));
+      this.myangTags.forEach(tag -> tag.removeMyangPosts(this));
     }
   }
 }

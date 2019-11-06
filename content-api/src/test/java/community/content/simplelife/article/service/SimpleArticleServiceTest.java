@@ -12,6 +12,7 @@ import community.content.simplelife.article.api.dto.SimpleArticleRequestDto;
 import community.content.simplelife.article.api.dto.SimpleArticleResponseDto;
 import community.content.simplelife.article.domain.SimpleArticle;
 import community.content.simplelife.article.domain.SimpleArticleRepository;
+import community.content.simplelife.article.domain.SimpleTagRepository;
 import community.content.simplelife.article.exception.SimpleArticleNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +31,11 @@ import org.springframework.data.domain.Pageable;
 class SimpleArticleServiceTest {
   private SimpleArticleService simpleArticleService;
   private @Mock SimpleArticleRepository simpleArticleRepository;
+  private @Mock SimpleTagRepository simpleTagRepository;
 
   @BeforeEach
   void setUp() {
-    simpleArticleService = new SimpleArticleService(simpleArticleRepository);
+    simpleArticleService = new SimpleArticleService(simpleArticleRepository, simpleTagRepository);
   }
 
   @Test
@@ -45,7 +47,7 @@ class SimpleArticleServiceTest {
     given(simpleArticleRepository.save(any(SimpleArticle.class))).willReturn(simpleArticleToSave);
 
     // when
-    Long id = simpleArticleService.createPost(simpleArticleRequestDto);
+    Long id = simpleArticleService.createArticle(simpleArticleRequestDto);
 
     then(id).isEqualTo(simpleArticleToSave.getId());
   }
@@ -64,7 +66,7 @@ class SimpleArticleServiceTest {
     given(simpleArticleRepository.findAll(any(Pageable.class))).willReturn(postPage);
 
     // when
-    Page<SimpleArticleResponseDto> postResponseDtoPage = simpleArticleService.readPostPage(
+    Page<SimpleArticleResponseDto> postResponseDtoPage = simpleArticleService.readArticlePage(
         PageRequest.of(0, numOfPosts.intValue()));
 
     // expect
@@ -96,7 +98,7 @@ class SimpleArticleServiceTest {
     SimpleArticle simpleArticle = getArticleFixture(1L);
     given(simpleArticleRepository.findById(any(Long.class))).willReturn(Optional.of(simpleArticle));
 
-    simpleArticleService.updatePost(1L, simpleArticleRequestDto);
+    simpleArticleService.updateArticle(1L, simpleArticleRequestDto);
   }
 
   @Test
@@ -104,7 +106,7 @@ class SimpleArticleServiceTest {
     SimpleArticleRequestDto postUpdatingRequestDto = getArticleRequestDtoFixture();
     given(simpleArticleRepository.findById(anyLong())).willReturn(Optional.empty());
 
-    thenThrownBy(() -> simpleArticleService.updatePost(1L, postUpdatingRequestDto))
+    thenThrownBy(() -> simpleArticleService.updateArticle(1L, postUpdatingRequestDto))
         .isInstanceOf(SimpleArticleNotFoundException.class);
   }
 
@@ -115,13 +117,13 @@ class SimpleArticleServiceTest {
     given(simpleArticleRepository.findById(any(Long.class))).willReturn(Optional.of(simpleArticleToDelete));
 
     // when
-    simpleArticleService.deletePost(simpleArticleToDelete.getId());
+    simpleArticleService.deleteArticle(simpleArticleToDelete.getId());
   }
 
   @Test
   void deletePost_InvalidInput_Exception() {
     given(simpleArticleRepository.findById(any(Long.class))).willReturn(Optional.empty());
-    thenThrownBy(() -> simpleArticleService.deletePost(1L))
+    thenThrownBy(() -> simpleArticleService.deleteArticle(1L))
         .isExactlyInstanceOf(SimpleArticleNotFoundException.class);
   }
 }

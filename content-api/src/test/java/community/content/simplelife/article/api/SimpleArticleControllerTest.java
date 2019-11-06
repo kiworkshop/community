@@ -40,10 +40,10 @@ class SimpleArticleControllerTest {
   void createPost_ValidInput_ValidOutput() throws Exception {
     // given
     SimpleArticleRequestDto simpleArticleRequestDto = getArticleRequestDtoFixture();
-    given(simpleArticleService.createPost(any(SimpleArticleRequestDto.class))).willReturn(1L);
+    given(simpleArticleService.createArticle(any(SimpleArticleRequestDto.class))).willReturn(1L);
 
     // expect
-    this.mvc.perform(post("/simplelife/posts")
+    this.mvc.perform(post("/simplelife/articles")
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(simpleArticleRequestDto)))
         .andExpect(status().isOk())
@@ -56,7 +56,7 @@ class SimpleArticleControllerTest {
     SimpleArticleRequestDto simpleArticleRequestDto = new SimpleArticleRequestDto();
 
     // expect
-    this.mvc.perform(post("/simplelife/posts")
+    this.mvc.perform(post("/simplelife/articles")
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(simpleArticleRequestDto)))
         .andExpect(status().isBadRequest());
@@ -75,10 +75,10 @@ class SimpleArticleControllerTest {
         simpleArticleResponseDtos,
         PageRequest.of(0, 10, Sort.Direction.DESC, "id"),
         10);
-    given(simpleArticleService.readPostPage(any(Pageable.class))).willReturn(postResponseDtoPage);
+    given(simpleArticleService.readArticlePage(any(Pageable.class))).willReturn(postResponseDtoPage);
 
     // expect
-    this.mvc.perform(get("/simplelife/posts"))
+    this.mvc.perform(get("/simplelife/articles"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content[0].id").value(10))
         .andExpect(jsonPath("$.content[9].id").value(1))
@@ -91,7 +91,7 @@ class SimpleArticleControllerTest {
     SimpleArticleResponseDto simpleArticleResponseDto = getPostResponseDtoFixture();
     given(simpleArticleService.readPost(anyLong())).willReturn(simpleArticleResponseDto);
 
-    this.mvc.perform(get("/simplelife/posts/{id}", 1L))
+    this.mvc.perform(get("/simplelife/articles/{id}", 1L))
         .andExpect(status().isOk())
         .andExpect(jsonPath("id").value(1L))
         .andExpect(jsonPath("title").value("title"))
@@ -103,7 +103,7 @@ class SimpleArticleControllerTest {
   void getPost_NonExistentId_ApiError() throws Exception {
     given(simpleArticleService.readPost(anyLong())).willThrow(new SimpleArticleNotFoundException(1L));
 
-    this.mvc.perform(get("/simplelife/posts/{id}", 1L))
+    this.mvc.perform(get("/simplelife/articles/{id}", 1L))
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("status").isNumber())
         .andExpect(jsonPath("error").isNotEmpty())
@@ -116,7 +116,7 @@ class SimpleArticleControllerTest {
     SimpleArticleRequestDto simpleArticleRequestDto = getArticleRequestDtoFixture();
 
     // expect
-    this.mvc.perform(post("/simplelife/posts/{id}", 1)
+    this.mvc.perform(post("/simplelife/articles/{id}", 1)
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(simpleArticleRequestDto)))
         .andExpect(status().isOk());
@@ -124,7 +124,7 @@ class SimpleArticleControllerTest {
 
   @Test
   void deletePost_ValidInput_ValidOutput() throws Exception {
-    this.mvc.perform(delete("/simplelife/posts/{id}", 1))
+    this.mvc.perform(delete("/simplelife/articles/{id}", 1))
         .andExpect(status().isOk());
   }
 }

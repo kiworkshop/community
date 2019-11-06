@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/simplelife/posts")
+@RequestMapping("/simplelife/articles")
 public class SimpleArticleController {
   private final SimpleArticleService simpleArticleService;
 
   @PostMapping
   public Long create(@RequestBody @Valid SimpleArticleRequestDto simpleArticleRequestDto) {
-    return simpleArticleService.createPost(simpleArticleRequestDto);
+    return simpleArticleService.createArticle(simpleArticleRequestDto);
   }
 
   @GetMapping("/{id}")
@@ -39,16 +39,16 @@ public class SimpleArticleController {
   public Page<SimpleArticleResponseDto> readPage(
       @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
   ) {
-    return simpleArticleService.readPostPage(pageable);
+    return simpleArticleService.readArticlePage(pageable);
   }
 
   @PostMapping("/{id}")
   public void update(@PathVariable Long id, @RequestBody @Valid SimpleArticleRequestDto simpleArticleRequestDto) {
-    simpleArticleService.updatePost(id, simpleArticleRequestDto);
+    simpleArticleService.updateArticle(id, simpleArticleRequestDto);
   }
 
   @DeleteMapping("/{id}")
   public void delete(@PathVariable Long id) {
-    simpleArticleService.deletePost(id);
+    simpleArticleService.deleteArticle(id);
   }
 }

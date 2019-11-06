@@ -28,10 +28,6 @@ public class SimpleArticleService {
     return simpleArticleRepository.save(simpleArticle).getId();
   }
 
-  private Set<SimpleTag> createSimpleTag(Set<String> simpleTags) {
-    return simpleTags.stream().map(this::findTagByName).collect(Collectors.toSet());
-  }
-
   public SimpleArticleResponseDto readPost(Long id) {
     return SimpleArticleResponseDto.of(findArticleById(id));
   }
@@ -50,6 +46,10 @@ public class SimpleArticleService {
 
   public Page<SimpleArticleResponseDto> readArticlePage(Pageable pageable) {
     return simpleArticleRepository.findAll(pageable).map(SimpleArticleResponseDto::of);
+  }
+
+  private Set<SimpleTag> createSimpleTag(Set<String> simpleTags) {
+    return simpleTags.stream().map(this::findTagByName).collect(Collectors.toSet());
   }
 
   private SimpleArticle findArticleById(Long id) {

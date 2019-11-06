@@ -32,7 +32,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(JgraphyPostController.class)
 class JgraphyPostControllerTest {
   private @Autowired MockMvc mvc;
   private @MockBean JgraphyPostService jgraphyPostService;

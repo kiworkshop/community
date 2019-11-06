@@ -29,8 +29,8 @@ public class JgraphyPost extends BaseEntity {
   }
 
   public void update(final JgraphyPost jgraphyPost) {
-    this.title = jgraphyPost.getTitle();
-    this.content = jgraphyPost.getContent();
+    this.title = jgraphyPost.title;
+    this.content = jgraphyPost.content;
   }
 
 }

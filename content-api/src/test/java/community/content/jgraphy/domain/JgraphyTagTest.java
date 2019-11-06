@@ -1,11 +1,14 @@
 package community.content.jgraphy.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
+@ExtendWith(MockitoExtension.class)
 class JgraphyTagTest {
 
   public static JgraphyTag getJgraphyTagFixture() throws Exception{

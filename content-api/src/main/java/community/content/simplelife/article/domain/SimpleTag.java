@@ -27,8 +27,7 @@ public class SimpleTag {
   private Set<SimpleArticle> simpleArticles = new HashSet<>();
 
   @Builder
-  private SimpleTag(String name
-  ) {
+  private SimpleTag(String name) {
     Assert.hasLength(name, "tagName should not be empty.");
 
     this.name = name;
@@ -36,5 +35,9 @@ public class SimpleTag {
 
   public void addArticle(SimpleArticle simpleArticle) {
     this.simpleArticles.add(simpleArticle);
+  }
+
+  public void deletePost(SimpleArticle simpleArticle) {
+    this.simpleArticles.remove(simpleArticle);
   }
 }

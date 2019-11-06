@@ -59,8 +59,13 @@ public class SimpleArticleTest {
         .content("content")
         .simpleTags(simpleTags).build();
 
+    SimpleArticle articleToUpdate = SimpleArticle.builder()
+        .title("updated title")
+        .description("updated description")
+        .content("updated content").build();
+
     // when
-    simpleArticle.update("updated title", "updated description", "updated content", newSimpleTags);
+    simpleArticle.update(articleToUpdate, newSimpleTags);
 
     // then
     simpleTags.addAll(newSimpleTags);
@@ -68,7 +73,7 @@ public class SimpleArticleTest {
     then(simpleArticle.getTitle()).isEqualTo("updated title");
     then(simpleArticle.getDescription()).isEqualTo("updated description");
     then(simpleArticle.getContent()).isEqualTo("updated content");
-    then(simpleArticle.getSimpleTags()).isEqualTo(simpleTags);
+    then(simpleArticle.getSimpleTags()).isEqualTo(newSimpleTags);
   }
 
   @Test

@@ -35,7 +35,7 @@ public class SimpleArticle {
   private ZonedDateTime updatedAt;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "post_tags",
+  @JoinTable(name = "post_tag",
           joinColumns = { @JoinColumn(name = "post_id") },
           inverseJoinColumns = { @JoinColumn(name = "tag_id") })
   private Set<SimpleTag> simpleTags = new HashSet<>();
@@ -62,10 +62,16 @@ public class SimpleArticle {
     this.simpleTags.addAll(simpleTags);
   }
 
-  public void update(String title, String description, String content, Set<SimpleTag> simpleTags) {
-    this.title = title;
-    this.description = description;
-    this.content = content;
-    this.simpleTags.addAll(simpleTags);
+  public void updateTag(Set<SimpleTag> simpleTags) {
+    this.simpleTags = simpleTags;
+  }
+
+  public void update(SimpleArticle simpleArticle, Set<SimpleTag> simpleTags) {
+    this.simpleTags.forEach(simpleTag -> simpleTag.deletePost(this));
+
+    this.title = simpleArticle.title;
+    this.description = simpleArticle.description;
+    this.content = simpleArticle.content;
+    this.simpleTags = simpleTags;
   }
 }

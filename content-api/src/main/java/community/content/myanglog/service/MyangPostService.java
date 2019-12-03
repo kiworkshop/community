@@ -20,7 +20,7 @@ public class MyangPostService {
   public MyangPostResponseDto readPost(Long id) {
     MyangPost myangPostToRead = findPostById(id);
     myangPostToRead.incrementViewCount();
-    return MyangPostResponseDto.of(findPostById(id));
+    return MyangPostResponseDto.from(findPostById(id));
   }
 
   private MyangPost findPostById(Long id) {

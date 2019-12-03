@@ -2,6 +2,7 @@ package community.content.myanglog.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,13 +12,11 @@ import javax.persistence.ManyToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.util.Assert;
 
 @Getter
 @Entity
 @NoArgsConstructor
-@ToString(exclude = "myangPosts")
 public class MyangTag {
 
   @Id
@@ -27,7 +26,7 @@ public class MyangTag {
   @Column
   private String name;
 
-  @ManyToMany(mappedBy = "myangTags")
+  @ManyToMany(cascade = {CascadeType.PERSIST}, mappedBy = "myangTags")
   private Set<MyangPost> myangPosts = new HashSet<>();
 
   @Builder

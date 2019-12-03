@@ -1,9 +1,9 @@
 package community.content.myanglog.api.dto;
 
 import community.content.myanglog.domain.MyangPost;
-import community.content.myanglog.domain.MyangTag;
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +13,7 @@ public class MyangPostResponseDto {
   private Long id;
   private String title;
   private String content;
-  private Set<MyangTag> myangTags;
+  private Set<MyangTagResponseDto> myangTags;
   private int likeCount;
   private int viewCount;
   private ZonedDateTime createdAt;
@@ -23,14 +23,14 @@ public class MyangPostResponseDto {
     this.id = myangPost.getId();
     this.title = myangPost.getTitle();
     this.content = myangPost.getContent();
-    this.myangTags = myangPost.getMyangTags();
+    this.myangTags = myangPost.getMyangTags().stream().map(MyangTagResponseDto::from).collect(Collectors.toSet());
     this.likeCount = myangPost.getLikeCount();
     this.viewCount = myangPost.getViewCount();
     this.createdAt = myangPost.getCreatedAt();
     this.updatedAt = myangPost.getUpdatedAt();
   }
 
-  public static MyangPostResponseDto of(MyangPost myangPost) {
+  public static MyangPostResponseDto from(MyangPost myangPost) {
     return new MyangPostResponseDto(myangPost);
   }
 }

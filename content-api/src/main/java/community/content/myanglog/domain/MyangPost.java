@@ -3,6 +3,7 @@ package community.content.myanglog.domain;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 @Getter
@@ -33,13 +33,13 @@ public class MyangPost {
   @Column(columnDefinition = "TEXT", nullable = false)
   private String content;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST})
   @JoinTable(
-      name = "POST_TAG",
-      joinColumns = @JoinColumn(name = "POST_ID"),
-      inverseJoinColumns = @JoinColumn(name = "TAG_ID")
+      name = "myang_post_myang_tag",
+      joinColumns = @JoinColumn(name = "myang_post_id"),
+      inverseJoinColumns = @JoinColumn(name = "myang_tag_id")
   )
-  @Nullable
+
   private Set<MyangTag> myangTags = new HashSet<>();
 
   private int likeCount;

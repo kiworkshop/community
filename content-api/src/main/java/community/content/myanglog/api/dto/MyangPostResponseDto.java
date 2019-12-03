@@ -19,7 +19,7 @@ public class MyangPostResponseDto {
   private ZonedDateTime createdAt;
   private ZonedDateTime updatedAt;
 
-  public MyangPostResponseDto(MyangPost myangPost) {
+  private MyangPostResponseDto(MyangPost myangPost) {
     this.id = myangPost.getId();
     this.title = myangPost.getTitle();
     this.content = myangPost.getContent();

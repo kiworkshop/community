@@ -58,7 +58,7 @@ public class MyangPost {
   private MyangPost(
       String title,
       String content,
-      @Nullable Set<MyangTag> myangTags,
+      Set<MyangTag> myangTags,
       int likeCount,
       int viewCount
   ) {
@@ -66,7 +66,7 @@ public class MyangPost {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
-    this.myangTags = myangTags == null ? this.myangTags : myangTags;
+    this.myangTags = myangTags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();
@@ -91,14 +91,10 @@ public class MyangPost {
   private void updateTags(Set<MyangTag> myangTags) {
     removeTags();
     this.myangTags = myangTags;
-    if (myangTags != null) {
-      myangTags.forEach(tag -> tag.addMyangPosts(this));
-    }
+    myangTags.forEach(tag -> tag.addMyangPosts(this));
   }
 
   private void removeTags() {
-    if (this.myangTags != null) {
-      this.myangTags.forEach(tag -> tag.removeMyangPosts(this));
-    }
+    this.myangTags.forEach(tag -> tag.removeMyangPosts(this));
   }
 }

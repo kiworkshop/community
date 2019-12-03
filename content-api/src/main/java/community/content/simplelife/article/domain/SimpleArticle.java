@@ -35,9 +35,9 @@ public class SimpleArticle {
   private ZonedDateTime updatedAt;
   @ManyToMany(fetch = FetchType.LAZY,
           cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "post_tag",
-          joinColumns = { @JoinColumn(name = "post_id") },
-          inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+  @JoinTable(name = "simple_article_simple_tag",
+          joinColumns = { @JoinColumn(name = "simple_article_id") },
+          inverseJoinColumns = { @JoinColumn(name = "simple_tag_id") })
   private Set<SimpleTag> simpleTags = new HashSet<>();
 
   @Builder

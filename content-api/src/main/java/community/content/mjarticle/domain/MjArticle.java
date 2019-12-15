@@ -12,8 +12,8 @@ import org.springframework.util.Assert;
 @Entity
 @NoArgsConstructor
 public class MjArticle extends BaseEntity {
-  @Column(columnDefinition = "text")
   private String title;
+  @Column(columnDefinition = "text")
   private String content;
 
   @Builder

@@ -17,14 +17,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
-  private UserService userService;
+class UserDetailsServiceImplTest {
+  private UserDetailsServiceImpl userDetailsServiceImpl;
 
   private @Mock UserRepository userRepository;
 
   @BeforeEach
   void setUp() {
-    userService = new UserService(userRepository);
+    userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
   }
 
   @Test
@@ -34,7 +34,7 @@ class UserServiceTest {
     given(userRepository.findByUsername(anyString())).willReturn(Optional.of(user));
 
     // expect
-    then(userService.loadUserByUsername("uuid")).isEqualTo(user);
+    then(userDetailsServiceImpl.loadUserByUsername("uuid")).isEqualTo(user);
   }
 
   @Test
@@ -43,7 +43,7 @@ class UserServiceTest {
     given(userRepository.findByUsername(anyString())).willReturn(Optional.empty());
 
     // expect
-    thenThrownBy(() -> userService.loadUserByUsername("uuid"))
+    thenThrownBy(() -> userDetailsServiceImpl.loadUserByUsername("uuid"))
         .isInstanceOf(UsernameNotFoundException.class)
         .hasMessage("uuid");
   }

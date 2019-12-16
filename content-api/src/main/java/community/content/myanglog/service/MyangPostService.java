@@ -4,7 +4,10 @@ import community.content.myanglog.api.dto.MyangPostRequestDto;
 import community.content.myanglog.api.dto.MyangPostResponseDto;
 import community.content.myanglog.domain.MyangPost;
 import community.content.myanglog.domain.MyangPostRepository;
+import community.content.myanglog.domain.MyangTag;
+import community.content.myanglog.domain.MyangTagRepository;
 import community.content.myanglog.exception.MyangPostNotFoundException;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MyangPostService {
   private final MyangPostRepository myangPostRepository;
+  private final MyangTagRepository myangTagRepository;
   private final ModelMapper modelMapper;
 
   @Transactional
@@ -32,8 +36,14 @@ public class MyangPostService {
         .title(myangPostRequestDto.getTitle())
         .content(myangPostRequestDto.getContent())
         .build();
-    myangPost.setMyangTags(myangPostRequestDto.getMyangTags());
+    myangPost.setMyangTags(myangPostRequestDto.getMyangTags().stream()
+        .map(this::findTagByName)
+        .collect(Collectors.toSet()));
     return myangPostRepository.save(myangPost).getId();
+  }
+
+  private MyangTag findTagByName(MyangTag tag) {
+    return myangTagRepository.findByName(tag.getName()).orElse(MyangTag.builder().name(tag.getName()).build());
   }
 
   public void updatePost(Long id, MyangPostRequestDto myangPostRequestDto) {

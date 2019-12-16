@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 
 public class MyangPostResponseDtoTest {
   public static MyangPostResponseDto getMyangPostResponseFixture() throws Exception {
-    return MyangPostResponseDto.of(getMyangPostFixture());
+    return MyangPostResponseDto.from(getMyangPostFixture());
   }
 
   @Test
   void getMyangPostResponseFromPost_ValidPost_ValidPostResponse() throws Exception {
     MyangPost myangPost = getMyangPostFixture();
-    MyangPostResponseDto myangPostResponseDto = MyangPostResponseDto.of(myangPost);
+    MyangPostResponseDto myangPostResponseDto = MyangPostResponseDto.from(myangPost);
 
     then(myangPostResponseDto)
         .hasNoNullFieldsOrPropertiesExcept("myangTags")

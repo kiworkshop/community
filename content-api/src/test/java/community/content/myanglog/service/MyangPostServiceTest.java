@@ -13,6 +13,7 @@ import community.content.myanglog.api.dto.MyangPostRequestDto;
 import community.content.myanglog.api.dto.MyangPostResponseDto;
 import community.content.myanglog.domain.MyangPost;
 import community.content.myanglog.domain.MyangPostRepository;
+import community.content.myanglog.domain.MyangTagRepository;
 import community.content.myanglog.exception.MyangPostNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,10 +27,11 @@ class MyangPostServiceTest {
   private MyangPostService myangPostService;
 
   private @Mock MyangPostRepository myangPostRepository;
+  private @Mock MyangTagRepository myangTagRepository;
 
   @BeforeEach
   void setUp() {
-    myangPostService = new MyangPostService(myangPostRepository, CommonBeanCreators.modelMapper());
+    myangPostService = new MyangPostService(myangPostRepository, myangTagRepository, CommonBeanCreators.modelMapper());
   }
 
   @Test

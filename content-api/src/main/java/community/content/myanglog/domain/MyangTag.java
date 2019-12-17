@@ -9,15 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.Assert;
 
 @Getter
 @Entity
 @NoArgsConstructor
 public class MyangTag {
+
+  public MyangTag(String name) {
+    this.name = name;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +30,6 @@ public class MyangTag {
 
   @ManyToMany(cascade = {CascadeType.PERSIST}, mappedBy = "myangTags")
   private Set<MyangPost> myangPosts = new HashSet<>();
-
-  @Builder
-  private MyangTag(String name) {
-    Assert.hasLength(name, "tag name should not be empty.");
-    this.name = name;
-  }
 
   public void addMyangPosts(MyangPost myangPost) {
     myangPosts.add(myangPost);

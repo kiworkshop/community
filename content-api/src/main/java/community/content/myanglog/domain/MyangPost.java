@@ -66,7 +66,7 @@ public class MyangPost {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
-    this.myangTags = myangTags == null ? this.myangTags : myangTags;
+    this.myangTags = myangTags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();

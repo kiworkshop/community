@@ -3,6 +3,7 @@ package community.content.myanglog.domain;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -11,10 +12,11 @@ public class MyangPostTest {
     return getMyangPostFixture(1L);
   }
 
-  public static MyangPost getMyangPostFixture(Long id) throws Exception {
+  public static MyangPost getMyangPostFixture(Long id) {
     MyangPost myangPost = MyangPost.builder()
         .title("title")
         .content("content")
+        .myangTags(new HashSet<>())
         .likeCount(0)
         .viewCount(0)
         .build();

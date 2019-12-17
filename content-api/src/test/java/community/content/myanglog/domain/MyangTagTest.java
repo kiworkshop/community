@@ -6,7 +6,7 @@ public class MyangTagTest {
   }
 
   public static MyangTag getTagFixture(String name) {
-    return MyangTag.builder().name(name).build();
+    return new MyangTag(name);
   }
 
 }

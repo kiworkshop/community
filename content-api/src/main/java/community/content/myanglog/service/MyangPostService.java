@@ -43,7 +43,7 @@ public class MyangPostService {
   }
 
   private MyangTag findTagByName(MyangTag tag) {
-    return myangTagRepository.findByName(tag.getName()).orElse(MyangTag.builder().name(tag.getName()).build());
+    return myangTagRepository.findByName(tag.getName()).orElse(new MyangTag(tag.getName()));
   }
 
   public void updatePost(Long id, MyangPostRequestDto myangPostRequestDto) {

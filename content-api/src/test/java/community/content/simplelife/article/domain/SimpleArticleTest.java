@@ -4,17 +4,17 @@ import static community.content.simplelife.article.domain.SimpleTagTest.getTagsF
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
-import community.common.util.MyReflectionUtils;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class SimpleArticleTest {
   public static SimpleArticle getArticleFixture(Long id) throws Exception {
     Set<SimpleTag> simpleTags = getTagsFixture();
     SimpleArticle simpleArticle = SimpleArticle.builder()
         .title("title").description("description").content("content").simpleTags(simpleTags).build();
-    MyReflectionUtils.setField(simpleArticle, "id", id);
+    ReflectionTestUtils.setField(simpleArticle, "id", id);
     return simpleArticle;
   }
 

@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 @AutoConfigureMockMvc
@@ -33,11 +34,18 @@ public class MyangPostControllerIntTest {
   void create_ValidInput_ValidOutput() throws Exception {
     MyangPostRequestDto myangPostRequestDto = getMyangPostRequestDtoFixture();
 
-    this.mvc.perform(post("/myanglog/posts")
+    MvcResult result = this.mvc.perform(post("/myanglog/posts")
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(myangPostRequestDto)))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$").isNumber());
+        .andReturn();
+
+    String id = result.getResponse().getContentAsString();
+
+    this.mvc.perform(get("/myanglog/posts/" + id))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.title").value("title"))
+        .andExpect(jsonPath("$.myangTags[0].name").value("tagName"));
   }
 
   @Test

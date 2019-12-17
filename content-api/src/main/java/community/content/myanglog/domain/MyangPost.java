@@ -1,7 +1,9 @@
 package community.content.myanglog.domain;
 
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import org.springframework.util.Assert;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Post {
+public class MyangPost {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -31,13 +33,14 @@ public class Post {
   @Column(columnDefinition = "TEXT", nullable = false)
   private String content;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST})
   @JoinTable(
-      name = "POST_TAG",
-      joinColumns = @JoinColumn(name = "POST_ID"),
-      inverseJoinColumns = @JoinColumn(name = "TAG_ID")
+      name = "myang_post_myang_tag",
+      joinColumns = @JoinColumn(name = "myang_post_id"),
+      inverseJoinColumns = @JoinColumn(name = "myang_tag_id")
   )
-  private Set<Tag> tags;
+
+  private Set<MyangTag> myangTags = new HashSet<>();
 
   private int likeCount;
 
@@ -52,9 +55,10 @@ public class Post {
   private ZonedDateTime updatedAt;
 
   @Builder
-  private Post(
+  private MyangPost(
       String title,
       String content,
+      Set<MyangTag> myangTags,
       int likeCount,
       int viewCount
   ) {
@@ -62,9 +66,35 @@ public class Post {
     Assert.hasLength(content, "content should not be empty.");
     this.title = title;
     this.content = content;
+    this.myangTags = myangTags;
     this.likeCount = likeCount;
     this.viewCount = viewCount;
     this.createdAt = ZonedDateTime.now();
     this.updatedAt = ZonedDateTime.now();
+  }
+
+  public void incrementViewCount() {
+    this.viewCount++;
+  }
+
+  public void setMyangTags(Set<MyangTag> myangTags) {
+    this.myangTags = myangTags;
+    myangTags.forEach(tag -> tag.addMyangPosts(this));
+  }
+
+  public void updatePost(MyangPost myangPost) {
+    this.title = myangPost.title;
+    this.content = myangPost.content;
+    updateTags(myangPost.getMyangTags());
+  }
+
+  private void updateTags(Set<MyangTag> myangTags) {
+    removeTags();
+    this.myangTags = myangTags;
+    myangTags.forEach(tag -> tag.addMyangPosts(this));
+  }
+
+  private void removeTags() {
+    this.myangTags.forEach(tag -> tag.removeMyangPosts(this));
   }
 }

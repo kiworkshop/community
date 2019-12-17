@@ -3,36 +3,38 @@ package community.content.myanglog.domain;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
+import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-public class PostTest {
-  public static Post getPostFixture() throws Exception {
-    return getPostFixture(1L);
+public class MyangPostTest {
+  public static MyangPost getMyangPostFixture() throws Exception {
+    return getMyangPostFixture(1L);
   }
 
-  public static Post getPostFixture(Long id) throws Exception {
-    Post post = Post.builder()
+  public static MyangPost getMyangPostFixture(Long id) {
+    MyangPost myangPost = MyangPost.builder()
         .title("title")
         .content("content")
+        .myangTags(new HashSet<>())
         .likeCount(0)
         .viewCount(0)
         .build();
-    ReflectionTestUtils.setField(post, "id", id);
-    return post;
+    ReflectionTestUtils.setField(myangPost, "id", id);
+    return myangPost;
   }
 
   @Test
   void build_ValidInput_ValidOutput() {
-    Post post = Post.builder()
+    MyangPost myangPost = MyangPost.builder()
         .title("title")
         .content("content")
         .likeCount(0)
         .viewCount(0)
         .build();
 
-    then(post)
-        .hasNoNullFieldsOrPropertiesExcept("id", "tags")
+    then(myangPost)
+        .hasNoNullFieldsOrPropertiesExcept("id", "myangTags")
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("content", "content")
         .hasFieldOrPropertyWithValue("likeCount", 0)
@@ -42,7 +44,7 @@ public class PostTest {
   @Test
   void build_EmptyContent_ThrowException() {
     thenThrownBy(() ->
-          Post.builder()
+          MyangPost.builder()
               .title("title")
               .content("").build()
     ).isInstanceOf(IllegalArgumentException.class);

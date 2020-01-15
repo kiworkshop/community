@@ -30,7 +30,7 @@ COPY mother-api mother-api/
 
 # build
 RUN ./gradlew :mother-api:bootJar
-COPY mother-api/build/libs/mother-api-0.0.1-SNAPSHOT.jar ../
+RUN mv build/libs/mother-api-0.0.1-SNAPSHOT.jar ../
 WORKDIR /usr/local/community
 
 # remove redundant resources

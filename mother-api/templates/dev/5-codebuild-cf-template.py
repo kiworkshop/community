@@ -56,7 +56,7 @@ environment = Environment(
                                             [Select(0, Split("-", Ref("AWS::StackName"))),
                                              Select(1, Split("-", Ref("AWS::StackName"))),
                                              Select(2, Split("-", Ref("AWS::StackName"))),
-                                             Select(4, Split("-", Ref("AWS::StackName")))]
+                                             Select(3, Split("-", Ref("AWS::StackName")))]
                                         )},
         {'Name': 'REPOSITORY_URI',
          'Value': Join("", [

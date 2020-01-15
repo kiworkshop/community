@@ -179,7 +179,7 @@ t.add_resource(Pipeline(
                                          [Select(0, Split("-", Ref("AWS::StackName"))),
                                           Select(1, Split("-", Ref("AWS::StackName"))),
                                           Select(2, Split("-", Ref("AWS::StackName"))),
-                                          Select(4, Split("-", Ref("AWS::StackName"))),
+                                          Select(3, Split("-", Ref("AWS::StackName"))),
                                           "service"]
                                      ),
                         "Capabilities": "CAPABILITY_NAMED_IAM",

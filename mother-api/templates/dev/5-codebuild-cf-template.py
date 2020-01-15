@@ -81,7 +81,7 @@ phases:
       - $(aws ecr get-login --no-include-email)
   build:
     commands:
-      - docker build --build-arg -t "$(cat /tmp/build_tag.txt)" .
+      - docker build -f mother-api.Dockerfile --build-arg -t "$(cat /tmp/build_tag.txt)" .
   post_build:
     commands:
       - docker push "$(cat /tmp/build_tag.txt)"

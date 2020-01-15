@@ -10,6 +10,9 @@ from troposphere import (
     Ref,
     GetAtt,
     Template,
+    Join,
+    Select,
+    Split,
 )
 from troposphere.codepipeline import (
     Actions,
@@ -25,7 +28,7 @@ from troposphere.iam import Policy as IAMPolicy
 from troposphere.s3 import Bucket, VersioningConfiguration
 
 t = Template()
-t.set_description("community_mother_api: community_mother_api Pipeline")
+t.set_description("community-mother-api: community-mother-api Pipeline")
 
 t.add_resource(Bucket(
     "S3Bucket",
@@ -158,7 +161,7 @@ t.add_resource(Pipeline(
             ]
         ),
         Stages(
-            Name="Staging",
+            Name="Run",
             Actions=[
                 Actions(
                     Name="Deploy",
@@ -171,7 +174,14 @@ t.add_resource(Pipeline(
                     Configuration={
                         "ChangeSetName": "Deploy",
                         "ActionMode": "CREATE_UPDATE",
-                        "StackName": "community_mother_api-staging-service",
+                        "StackName": Join(
+                                         "-",
+                                         [Select(0, Split("-", Ref("AWS::StackName"))),
+                                          Select(1, Split("-", Ref("AWS::StackName"))),
+                                          Select(2, Split("-", Ref("AWS::StackName"))),
+                                          Select(4, Split("-", Ref("AWS::StackName"))),
+                                          "service"]
+                                     ),
                         "Capabilities": "CAPABILITY_NAMED_IAM",
                         "TemplatePath": "App::templates/dev/4-ecs-service-cf.template",
                         "RoleArn": GetAtt("CloudFormationCommunityMotherApiRole", "Arn"),
@@ -179,8 +189,8 @@ t.add_resource(Pipeline(
                             "Tag": {
                                 "Fn::GetParam" : [ "BuildOutput", "build.json", "tag" ]
                             },
-                            "NodeEnv": {
-                                "Fn::GetParam" : [ "BuildOutput", "build.json", "node_env" ]
+                            "ApplicationEnv": {
+                                "Fn::GetParam" : [ "BuildOutput", "build.json", "application_env" ]
                             }
                         }"""
                     },

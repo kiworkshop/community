@@ -28,7 +28,7 @@ from awacs.sts import AssumeRole
 
 t = Template()
 
-t.set_description("community_mother_api: ECS service")
+t.set_description("community-mother-api: ECS service")
 
 t.add_parameter(Parameter(
     "Tag",
@@ -37,7 +37,7 @@ t.add_parameter(Parameter(
     Description="Tag to deploy"
 ))
 t.add_parameter(Parameter(
-    "NodeEnv",
+    "ApplicationEnv",
     Type="String",
     Default="",
     Description="Runtime environment variables"
@@ -53,15 +53,20 @@ t.add_resource(TaskDefinition(
                 Ref("AWS::Region"),
                 ".amazonaws.com",
                 "/",
-                ImportValue("community_mother_api-repo"),
+                ImportValue("community-mother-api-dev-repo"),
                 ":",
                 Ref("Tag")]),
             Memory=957,
             Cpu=2048,
-            Name=Select(0, Split("-", Ref("AWS::StackName"))),
+            Name=Join(
+                "-",
+                [Select(0, Split("-", Ref("AWS::StackName"))),
+                 Select(1, Split("-", Ref("AWS::StackName"))),
+                 Select(2, Split("-", Ref("AWS::StackName")))]
+            ),
             Environment=[Environment(
-                Name="node_env",
-                Value=Ref("NodeEnv"))],
+                Name="application_env",
+                Value=Ref("ApplicationEnv"))],
             PortMappings=[ecs.PortMapping(
                 ContainerPort=80)]
         )
@@ -91,19 +96,28 @@ t.add_resource(ecs.Service(
             "-",
             [Select(0, Split("-", Ref("AWS::StackName"))),
              Select(1, Split("-", Ref("AWS::StackName"))),
+             Select(2, Split("-", Ref("AWS::StackName"))),
+             Select(3, Split("-", Ref("AWS::StackName"))),
                 "cluster-id"]
         )
     ),
     DesiredCount=1,
     TaskDefinition=Ref("task"),
     LoadBalancers=[ecs.LoadBalancer(
-        ContainerName=Select(0, Split("-", Ref("AWS::StackName"))),
+        ContainerName=Join(
+                        "-",
+                        [Select(0, Split("-", Ref("AWS::StackName"))),
+                         Select(1, Split("-", Ref("AWS::StackName"))),
+                         Select(2, Split("-", Ref("AWS::StackName")))]
+        ),
         ContainerPort=80,
         TargetGroupArn=ImportValue(
             Join(
                 "-",
                 [Select(0, Split("-", Ref("AWS::StackName"))),
                  Select(1, Split("-", Ref("AWS::StackName"))),
+                 Select(2, Split("-", Ref("AWS::StackName"))),
+                 Select(3, Split("-", Ref("AWS::StackName"))),
                     "alb-target-group"]
             ),
         ),

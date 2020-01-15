@@ -8,6 +8,8 @@ from awacs.aws import (
 
 from awacs.sts import AssumeRole
 from troposphere import (
+    Select,
+    Split,
     Join,
     Ref,
     Template
@@ -21,7 +23,7 @@ from troposphere.codebuild import (
 from troposphere.iam import Role
 
 t = Template()
-t.set_description("community_mother_api: CodeBuild - community_mother_api container")
+t.set_description("community-mother-api: CodeBuild - community-mother-api container")
 
 t.add_resource(Role(
     "ServiceRole",
@@ -49,7 +51,13 @@ environment = Environment(
     Image='aws/codebuild/docker:18.09.0',
     Type='LINUX_CONTAINER',
     EnvironmentVariables=[
-        {'Name': 'REPOSITORY_NAME', 'Value': 'community_mother_api'},
+        {'Name': 'REPOSITORY_NAME', 'Value': Join(
+                                            "-",
+                                            [Select(0, Split("-", Ref("AWS::StackName"))),
+                                             Select(1, Split("-", Ref("AWS::StackName"))),
+                                             Select(2, Split("-", Ref("AWS::StackName"))),
+                                             Select(4, Split("-", Ref("AWS::StackName")))]
+                                        )},
         {'Name': 'REPOSITORY_URI',
          'Value': Join("", [
              Ref("AWS::AccountId"),
@@ -57,10 +65,8 @@ environment = Environment(
              Ref("AWS::Region"),
              ".amazonaws.com",
              "/",
-             "community_mother_api"])},
-        {'Name': 'BROWSER_ENV',
-            'Value': 'FOO=foo WARNING="DO NOT WRITE SECRET VALUES HERE. INSTEAD, USE NODE_ENV"}'},
-        {'Name': 'NODE_ENV', 'Value': 'BAR=bar BAZ=baz'},
+             "community-mother-api"])},
+        {'Name': 'APPLICATION_ENV', 'Value': 'BAR=bar BAZ=baz'},
     ]
 )
 
@@ -71,11 +77,11 @@ phases:
       - aws codepipeline get-pipeline-state --name "${CODEBUILD_INITIATOR##*/}" --query stageStates[?actionStates[0].latestExecution.externalExecutionId==\`$CODEBUILD_BUILD_ID\`].latestExecution.pipelineExecutionId --output=text > /tmp/execution_id.txt
       - aws codepipeline get-pipeline-execution --pipeline-name "${CODEBUILD_INITIATOR##*/}" --pipeline-execution-id $(cat /tmp/execution_id.txt) --query 'pipelineExecution.artifactRevisions[0].revisionId' --output=text > /tmp/tag.txt
       - printf "%s:%s" "$REPOSITORY_URI" "$(cat /tmp/tag.txt)" > /tmp/build_tag.txt
-      - printf '{"tag":"%s", "node_env":"%s"}' "$(cat /tmp/tag.txt)" "$(echo $NODE_ENV)" | tee /tmp/build.json
+      - printf '{"tag":"%s", "application_env":"%s"}' "$(cat /tmp/tag.txt)" "$(echo $APPLICATION_ENV)" | tee /tmp/build.json
       - $(aws ecr get-login --no-include-email)
   build:
     commands:
-      - docker build --build-arg browser_env="$(echo $BROWSER_ENV)" -t "$(cat /tmp/build_tag.txt)" .
+      - docker build --build-arg -t "$(cat /tmp/build_tag.txt)" .
   post_build:
     commands:
       - docker push "$(cat /tmp/build_tag.txt)"

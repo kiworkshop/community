@@ -12,7 +12,7 @@ from troposphere.ecr import Repository
 
 t = Template()
 
-t.set_description("community_mother_api: ECR Repository")
+t.set_description("community-mother-api: ECR Repository")
 
 t.add_parameter(Parameter(
     "RepoName",

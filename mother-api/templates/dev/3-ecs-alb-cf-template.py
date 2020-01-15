@@ -18,7 +18,7 @@ from troposphere import (
 
 t = Template()
 
-t.set_description("community_mother_api: ALB for the ECS Cluster")
+t.set_description("community-mother-api: ALB for the ECS Cluster")
 
 t.add_resource(ec2.SecurityGroup(
     "LoadBalancerSecurityGroup",
@@ -28,6 +28,8 @@ t.add_resource(ec2.SecurityGroup(
             "-",
             [Select(0, Split("-", Ref("AWS::StackName"))),
              Select(1, Split("-", Ref("AWS::StackName"))),
+             Select(2, Split("-", Ref("AWS::StackName"))),
+             Select(3, Split("-", Ref("AWS::StackName"))),
                 "cluster-vpc-id"]
         )
     ),
@@ -56,6 +58,8 @@ t.add_resource(elb.LoadBalancer(
             Join("-",
                  [Select(0, Split("-", Ref("AWS::StackName"))),
                   Select(1, Split("-", Ref("AWS::StackName"))),
+                  Select(2, Split("-", Ref("AWS::StackName"))),
+                  Select(3, Split("-", Ref("AWS::StackName"))),
                   "cluster-public-subnets"]
                  )
         )
@@ -80,6 +84,8 @@ t.add_resource(elb.TargetGroup(
             "-",
             [Select(0, Split("-", Ref("AWS::StackName"))),
              Select(1, Split("-", Ref("AWS::StackName"))),
+             Select(2, Split("-", Ref("AWS::StackName"))),
+             Select(3, Split("-", Ref("AWS::StackName"))),
                 "cluster-vpc-id"]
         )
     ),
@@ -96,7 +102,7 @@ t.add_resource(elb.Listener(
     )],
     # SSL certificate for https.
     Certificates=[elb.Certificate(
-        CertificateArn="arn:aws:acm:ap-northeast-2:772278550552:certificate/e2c0a8da-d802-42c9-9bcc-8cf54ea040f6")]
+        CertificateArn="arn:aws:acm:ap-northeast-2:540379673889:certificate/acbb8020-82db-4753-9686-f7d21faa98d2")]
 ))
 
 t.add_resource(elb.Listener(
@@ -123,7 +129,7 @@ t.add_output(Output(
 
 t.add_output(Output(
     "URL",
-    Description="myeongjae.kim URL",
+    Description="community-mother-api URL",
     Value=Join("", ["https://", GetAtt("LoadBalancer", "DNSName"), ":443"])
 ))
 

@@ -37,7 +37,7 @@ PublicCidrIp = str(ip_network(get_ip()))
 
 t = Template()
 
-t.set_description("community_mother_api: ECS Cluster")
+t.set_description("community-mother-api: ECS Cluster")
 
 t.add_parameter(Parameter(
     "KeyPair",
@@ -123,8 +123,8 @@ t.add_resource(LaunchConfiguration(
         "\n"])),
     ImageId='ami-024fbf9337a64471d',
     KeyName=Ref("KeyPair"),
-    # Security group sg-06c3ae.. is for a database.
-    SecurityGroups=[Ref("SecurityGroup"), "sg-06c3ae770a78d7179"],
+    # Security group sg-.. is for a database.
+    SecurityGroups=[Ref("SecurityGroup"), "sg-0ae023b9ab65cbb0e"],
     IamInstanceProfile=Ref('EC2InstanceProfile'),
     InstanceType='t3.micro',
     AssociatePublicIpAddress='true',

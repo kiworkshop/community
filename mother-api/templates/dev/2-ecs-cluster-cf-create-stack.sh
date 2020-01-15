@@ -2,11 +2,11 @@
 
 python3 ./2-ecs-cluster-cf-template.py > 2-ecs-cluster-cf.template
 
-awsecr cloudformation update-stack \
---stack-name community_mother_api_staging-cluster \
+aws --profile ki cloudformation create-stack \
+--stack-name community-mother-api-dev-cluster \
 --capabilities CAPABILITY_IAM \
 --template-body file://2-ecs-cluster-cf.template \
 --parameters \
-ParameterKey=KeyPair,ParameterValue=MjEffectiveDevOpsAWS \
-ParameterKey=VpcId,ParameterValue=vpc-d84b50b0 \
-ParameterKey=PublicSubnet,ParameterValue=subnet-7105c00a\\,subnet-50552c1c\\,subnet-69170201
+ParameterKey=KeyPair,ParameterValue=community-dev \
+ParameterKey=VpcId,ParameterValue=vpc-aa07c7c1 \
+ParameterKey=PublicSubnet,ParameterValue=subnet-43a3850f\\,subnet-4d03ac36\\,subnet-6f5aa804

@@ -28,7 +28,7 @@ from troposphere.iam import Policy as IAMPolicy
 from troposphere.s3 import Bucket, VersioningConfiguration
 
 t = Template()
-t.set_description("community-mother-api: community-mother-api Pipeline")
+t.set_description("community-mother-api-dev: community-mother-api-dev Pipeline")
 
 t.add_resource(Bucket(
     "S3Bucket",
@@ -52,7 +52,7 @@ t.add_resource(Role(
     Path="/",
     Policies=[
         IAMPolicy(
-            PolicyName="communityMotherApiCodePipeline",
+            PolicyName="communityMotherApiDevCodePipeline",
             PolicyDocument={
                 "Statement": [
                     {"Effect": "Allow", "Action": "cloudformation:*", "Resource": "*"},
@@ -69,8 +69,8 @@ t.add_resource(Role(
 ))
 
 t.add_resource(Role(
-    "CloudFormationCommunityMotherApiRole",
-    RoleName="CloudFormationCommunityMotherApiRole",
+    "CloudFormationCommunityMotherApiDevRole",
+    RoleName="CloudFormationCommunityMotherApiDevRole",
     Path="/",
     AssumeRolePolicyDocument=Policy(
         Statement=[
@@ -86,7 +86,7 @@ t.add_resource(Role(
     ),
     Policies=[
         IAMPolicy(
-            PolicyName="CommunityMotherApiCloudFormation",
+            PolicyName="CommunityMotherApiDevCloudFormation",
             PolicyDocument={
                 "Statement": [
                     {"Effect": "Allow", "Action": "cloudformation:*", "Resource": "*"},
@@ -101,7 +101,7 @@ t.add_resource(Role(
 ))
 
 t.add_resource(Pipeline(
-    "CommunityMotherApiPipeline",
+    "CommunityMotherApiDevPipeline",
     RoleArn=GetAtt("PipelineRole", "Arn"),
     ArtifactStore=ArtifactStore(
         Type="S3",
@@ -145,7 +145,7 @@ t.add_resource(Pipeline(
                         Provider="CodeBuild"
                     ),
                     Configuration={
-                        "ProjectName": "CommunityMotherApiContainer",
+                        "ProjectName": "CommunityMotherApiDevContainer",
                     },
                     InputArtifacts=[
                         InputArtifacts(
@@ -184,7 +184,7 @@ t.add_resource(Pipeline(
                                      ),
                         "Capabilities": "CAPABILITY_NAMED_IAM",
                         "TemplatePath": "App::templates/dev/4-ecs-service-cf.template",
-                        "RoleArn": GetAtt("CloudFormationCommunityMotherApiRole", "Arn"),
+                        "RoleArn": GetAtt("CloudFormationCommunityMotherApiDevRole", "Arn"),
                         "ParameterOverrides": """{
                             "Tag": {
                                 "Fn::GetParam" : [ "BuildOutput", "build.json", "tag" ]

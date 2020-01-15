@@ -23,7 +23,7 @@ from troposphere.codebuild import (
 from troposphere.iam import Role
 
 t = Template()
-t.set_description("community-mother-api: CodeBuild - community-mother-api container")
+t.set_description("community-mother-api-dev: CodeBuild - community-mother-api-dev container")
 
 t.add_resource(Role(
     "ServiceRole",
@@ -65,7 +65,7 @@ environment = Environment(
              Ref("AWS::Region"),
              ".amazonaws.com",
              "/",
-             "community-mother-api"])},
+             "community-mother-api-dev"])},
         {'Name': 'APPLICATION_ENV', 'Value': 'BAR=bar BAZ=baz'},
     ]
 )
@@ -94,7 +94,7 @@ artifacts:
 
 t.add_resource(Project(
     "CodeBuild",
-    Name='communitymotherContainer',
+    Name='CommunityMotherApiDevContainer',
     Environment=environment,
     ServiceRole=Ref("ServiceRole"),
     Source=Source(

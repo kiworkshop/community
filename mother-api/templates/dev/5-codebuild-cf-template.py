@@ -67,6 +67,7 @@ environment = Environment(
              "/",
              "community-mother-api-dev"])},
         {'Name': 'APPLICATION_ENV', 'Value': 'BAR=bar BAZ=baz'},
+        {'Name': 'PROFILE', 'Value': 'dev'},
     ]
 )
 

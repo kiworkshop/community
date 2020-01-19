@@ -1,0 +1,14 @@
+POST https://{{host}}/notices
+Content-Type: application/json
+
+{
+  "title": "title",
+  "content": "content"
+}
+
+###
+GET https://{{host}}/notices/1
+
+###
+
+

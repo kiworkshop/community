@@ -1,3 +1,7 @@
+server:
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
 spring:
   main:
     banner-mode: 'off'
@@ -13,5 +17,8 @@ spring:
         one-indexed-parameters: true
   jackson:
     mapper:
-      DEFAULT_VIEW_INCLUSION: true
+      default-view-inclusion: true
+      accept-case-insensitive-enums: true
+  flyway:
+    enabled: false
 

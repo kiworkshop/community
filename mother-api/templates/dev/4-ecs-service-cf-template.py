@@ -56,8 +56,8 @@ t.add_resource(TaskDefinition(
                 ImportValue("community-mother-api-dev-repo"),
                 ":",
                 Ref("Tag")]),
-            Memory=957,
-            Cpu=2048,
+            Memory=900,
+            Cpu=1024,
             Name=Join(
                 "-",
                 [Select(0, Split("-", Ref("AWS::StackName"))),

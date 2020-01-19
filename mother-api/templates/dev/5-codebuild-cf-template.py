@@ -67,7 +67,6 @@ environment = Environment(
              "/",
              "community-mother-api-dev"])},
         {'Name': 'APPLICATION_ENV', 'Value': 'BAR=bar BAZ=baz'},
-        {'Name': 'PROFILE', 'Value': 'dev'},
     ]
 )
 
@@ -82,7 +81,7 @@ phases:
       - $(aws ecr get-login --no-include-email)
   build:
     commands:
-      - docker build --build-arg profile="$(echo $PROFILE)" -f mother-api.Dockerfile -t "$(cat /tmp/build_tag.txt)" .
+      - docker build -f mother-api.Dockerfile -t "$(cat /tmp/build_tag.txt)" .
   post_build:
     commands:
       - docker push "$(cat /tmp/build_tag.txt)"

@@ -56,7 +56,7 @@ t.add_resource(TaskDefinition(
                 ImportValue("community-mother-api-dev-repo"),
                 ":",
                 Ref("Tag")]),
-            Memory=900,
+            Memory=976,
             Cpu=1024,
             Name=Join(
                 "-",

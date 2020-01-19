@@ -260,7 +260,7 @@
                                 ]
                             ]
                         },
-                        "Memory": 900,
+                        "Memory": 976,
                         "Name": {
                             "Fn::Join": [
                                 "-",

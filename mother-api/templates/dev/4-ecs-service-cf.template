@@ -228,7 +228,7 @@
             "Properties": {
                 "ContainerDefinitions": [
                     {
-                        "Cpu": 1024,
+                        "Cpu": 2048,
                         "Environment": [
                             {
                                 "Name": "application_env",
@@ -260,7 +260,7 @@
                                 ]
                             ]
                         },
-                        "Memory": 976,
+                        "Memory": 957,
                         "Name": {
                             "Fn::Join": [
                                 "-",

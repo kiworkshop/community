@@ -1,0 +1,8 @@
+cloud:
+  aws:
+    s3:
+      bucket: kiworkshop
+        dirName:
+          picture: picture
+      region:
+        static: ap-northeast-2

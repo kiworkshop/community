@@ -33,7 +33,7 @@
 [[resources-notice]]
 == Notice API
 
-[[resource-post-notice]]
+[[resource-myangPost-notice]]
 
 === Read a notice
 A `GET` request to read a notice.

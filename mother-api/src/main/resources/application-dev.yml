@@ -1,0 +1,34 @@
+server:
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+spring:
+  main:
+    banner-mode: 'off'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 3000
+    platform: mysql
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: false
+    hibernate:
+      ddl-auto: none
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  jackson:
+    mapper:
+      default-view-inclusion: true
+      accept-case-insensitive-enums: true
+  flyway:
+    enabled: false
+

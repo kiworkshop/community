@@ -1,6 +1,7 @@
 package community.mother.notice.domain;
 
-import community.mother.notice.api.dto.NoticeRequestDto;
+import java.time.ZonedDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,8 @@ import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.Assert;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Entity
@@ -17,17 +19,22 @@ public class Notice {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @CreationTimestamp
+  @Column(columnDefinition = "datetime(6)")
+  private ZonedDateTime createdAt;
+
+  @UpdateTimestamp
+  @Column(columnDefinition = "datetime(6)")
+  private ZonedDateTime updatedAt;
+
   private String title;
+
+  @Column(columnDefinition = "text")
   private String content;
 
   @Builder
-  private Notice(
-      String content,
-      String title
-  ) {
-    Assert.hasLength(title, "title should not be empty.");
-    Assert.hasLength(content, "content should not be empty.");
-
+  private Notice(String content, String title) {
     this.title = title;
     this.content = content;
   }

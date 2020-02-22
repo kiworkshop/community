@@ -1,10 +1,22 @@
 package community.content.jgraphy.service;
 
+import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
+import static community.content.jgraphy.domain.JgraphyPostTest.getJgraphyPostFixture;
+import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toEntity;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
 import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
 import community.content.jgraphy.domain.JgraphyPost;
 import community.content.jgraphy.domain.JgraphyPostRepository;
 import community.content.jgraphy.exception.JgraphyPostNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,19 +28,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
-import static community.content.jgraphy.domain.JgraphyPostTest.getJgraphyPostFixture;
-import static community.content.jgraphy.service.JgraphyPostService.JgraphyPostAssembler.toEntity;
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
-
 @ExtendWith(MockitoExtension.class)
 class JgraphyPostServiceTest {
   private JgraphyPostService jgraphyPostService;
@@ -36,7 +35,9 @@ class JgraphyPostServiceTest {
   private @Mock JgraphyPostRepository jgraphyPostRepository;
 
   @BeforeEach
-  void setUp() { jgraphyPostService = new JgraphyPostService(jgraphyPostRepository); }
+  void setUp() {
+    jgraphyPostService = new JgraphyPostService(jgraphyPostRepository);
+  }
 
   @Test
   void readJgraphyPostPage_validInput_validOutput() {
@@ -104,10 +105,10 @@ class JgraphyPostServiceTest {
 
   @Test
   void deleteJgraphyPost_validInput_validOutput() {
-   JgraphyPost jgraphyPostToDelete = getJgraphyPostFixture();
-   given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.of(jgraphyPostToDelete));
+    JgraphyPost jgraphyPostToDelete = getJgraphyPostFixture();
+    given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.of(jgraphyPostToDelete));
 
-   jgraphyPostService.deletePost(jgraphyPostToDelete.getId());
+    jgraphyPostService.deletePost(jgraphyPostToDelete.getId());
   }
 
   @Test
@@ -132,7 +133,9 @@ class JgraphyPostServiceTest {
     JgraphyPost jgraphyPostToFind = getJgraphyPostFixture();
     given(jgraphyPostRepository.findById(any(Long.class))).willReturn(Optional.of(jgraphyPostToFind));
 
-    JgraphyPost jgraphyPost = ReflectionTestUtils.invokeMethod(jgraphyPostService, "findJgraphyPostById", jgraphyPostToFind.getId());
+    JgraphyPost jgraphyPost = ReflectionTestUtils.invokeMethod(
+        jgraphyPostService, "findJgraphyPostById", jgraphyPostToFind.getId());
+
     then(jgraphyPost)
         .hasNoNullFieldsOrProperties()
         .hasFieldOrPropertyWithValue("id", jgraphyPostToFind.getId())

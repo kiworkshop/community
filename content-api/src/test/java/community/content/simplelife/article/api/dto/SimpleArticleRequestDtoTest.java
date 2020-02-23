@@ -1,7 +1,7 @@
 package community.content.simplelife.article.api.dto;
 
-import community.common.util.MyReflectionUtils;
 import java.util.Set;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class SimpleArticleRequestDtoTest {
 
@@ -9,10 +9,10 @@ public class SimpleArticleRequestDtoTest {
     SimpleArticleRequestDto simpleArticleRequestDto = new SimpleArticleRequestDto();
     Set<String> tags = Set.of("tag");
 
-    MyReflectionUtils.setField(simpleArticleRequestDto, "title", "title");
-    MyReflectionUtils.setField(simpleArticleRequestDto, "description", "description");
-    MyReflectionUtils.setField(simpleArticleRequestDto, "content", "content");
-    MyReflectionUtils.setField(simpleArticleRequestDto, "simpleTags", tags);
+    ReflectionTestUtils.setField(simpleArticleRequestDto, "title", "title");
+    ReflectionTestUtils.setField(simpleArticleRequestDto, "description", "description");
+    ReflectionTestUtils.setField(simpleArticleRequestDto, "content", "content");
+    ReflectionTestUtils.setField(simpleArticleRequestDto, "simpleTags", tags);
 
     return simpleArticleRequestDto;
   }

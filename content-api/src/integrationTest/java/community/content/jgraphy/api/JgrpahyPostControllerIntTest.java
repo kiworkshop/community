@@ -1,5 +1,14 @@
 package community.content.jgraphy.api;
 
+import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.content.ContentApiApplication;
 import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
@@ -11,15 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = ContentApiApplication.class, webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -95,7 +95,7 @@ class JgrpahyPostControllerIntTest {
   @Test
   void updateNotice_ValidInput_ValidOutput() throws Exception {
     // given
-   JgraphyPostRequestDto jgraphyPostRequestDto = getJgraphyPostRequestDtoFixture("updated title", "updated content");
+    JgraphyPostRequestDto jgraphyPostRequestDto = getJgraphyPostRequestDtoFixture("updated title", "updated content");
 
     // expect
     this.mvc.perform(put("/jgraphy/posts/1")

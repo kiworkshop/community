@@ -1,21 +1,21 @@
 package community.content.jgraphy.domain;
 
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-
 @ExtendWith(MockitoExtension.class)
 class JgraphyTagTest {
 
-  public static JgraphyTag getJgraphyTagFixture() throws Exception{
+  public static JgraphyTag getJgraphyTagFixture() throws Exception {
     return getJgraphyTagFixture(1L);
   }
 
-  private static JgraphyTag getJgraphyTagFixture(long id) throws Exception{
+  private static JgraphyTag getJgraphyTagFixture(long id) {
     JgraphyTag jgraphyTag = JgraphyTag.builder().tag("tag").build();
     ReflectionTestUtils.setField(jgraphyTag, "id", id);
     return jgraphyTag;

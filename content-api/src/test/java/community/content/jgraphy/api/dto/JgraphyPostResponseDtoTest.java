@@ -1,10 +1,8 @@
 package community.content.jgraphy.api.dto;
 
-import community.content.jgraphy.domain.JgraphyPost;
-import org.springframework.test.util.ReflectionTestUtils;
-
 import static community.content.jgraphy.domain.JgraphyPostTest.getJgraphyPostFixture;
-import static org.assertj.core.api.BDDAssertions.then;
+
+import community.content.jgraphy.domain.JgraphyPost;
 
 public class JgraphyPostResponseDtoTest {
   public static JgraphyPostResponseDto getJgraphyPostResponseDtoFixture() throws Exception {

@@ -1,0 +1,2 @@
+*.template
+!4-ecs-service-cf.template

@@ -1,13 +1,13 @@
 package community.content.jgraphy.domain;
 
+import static java.time.ZonedDateTime.now;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static java.time.ZonedDateTime.now;
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 @ExtendWith(MockitoExtension.class)
 public class JgraphyPostTest {

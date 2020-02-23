@@ -1,25 +1,5 @@
 package community.content.jgraphy.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
-import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
-import community.content.jgraphy.exception.JgraphyPostNotFoundException;
-import community.content.jgraphy.service.JgraphyPostService;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import static community.content.jgraphy.api.dto.JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture;
 import static community.content.jgraphy.api.dto.JgraphyPostResponseDtoTest.getJgraphyPostResponseDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,6 +12,25 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import community.content.jgraphy.api.dto.JgraphyPostRequestDto;
+import community.content.jgraphy.api.dto.JgraphyPostResponseDto;
+import community.content.jgraphy.exception.JgraphyPostNotFoundException;
+import community.content.jgraphy.service.JgraphyPostService;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
 @WebMvcTest(JgraphyPostController.class)
 class JgraphyPostControllerTest {
   private @Autowired MockMvc mvc;
@@ -39,7 +38,7 @@ class JgraphyPostControllerTest {
   private @Autowired ObjectMapper objectMapper;
 
   @Test
-  void createJgraphyPost_validInput_validOutput() throws Exception{
+  void createJgraphyPost_validInput_validOutput() throws Exception {
     // given
     JgraphyPostRequestDto jgraphyPostRequestDto = getJgraphyPostRequestDtoFixture();
     given(jgraphyPostService.createPost(any(JgraphyPostRequestDto.class))).willReturn(1L);
@@ -85,7 +84,7 @@ class JgraphyPostControllerTest {
     this.mvc.perform(get("/jgraphy/posts"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content[0].id").value(10))
-        .andExpect(jsonPath("$.content[0].id").value(1))
+        .andExpect(jsonPath("$.content[9].id").value(1))
         .andExpect(jsonPath("$.pageable.sort.sorted").value(true))
         .andExpect(jsonPath("$.pageable.pageSize").value(10));
   }

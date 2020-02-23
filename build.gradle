@@ -52,6 +52,8 @@ subprojects {
 
 	dependencies {
 		compileOnly 'org.projectlombok:lombok:1.18.6'
+		testImplementation 'org.projectlombok:lombok:1.18.6'
+
 		annotationProcessor 'org.projectlombok:lombok'
 		implementation 'org.modelmapper:modelmapper:2.3.5'
 

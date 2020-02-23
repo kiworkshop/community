@@ -4,7 +4,7 @@ import community.auth.model.Social;
 import lombok.Getter;
 
 @Getter
-public class SignUpDto {
+public class SignUpDto implements SocialResourceReqeustDto {
   private Social.Provider provider;
   private String providerAccessToken;
 }

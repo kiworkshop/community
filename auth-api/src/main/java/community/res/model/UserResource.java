@@ -1,7 +1,6 @@
 package community.res.model;
 
 import community.common.model.BaseEntity;
-import community.common.utils.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import lombok.Builder;
@@ -13,19 +12,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 class UserResource extends BaseEntity {
 
-  @Column(nullable = false, unique = true, length = 36)
-  private @UUID String username;
+  @Column(unique = true)
+  private Long userId;
   @Column(unique = true)
   private String nickname;
   private String contactEmail;
 
   @Builder
   private UserResource(
-      String username,
+      Long userId,
       String nickname,
       String contactEmail
   ) {
-    this.username = username;
+    this.userId = userId;
     this.nickname = nickname;
     this.contactEmail = contactEmail;
   }

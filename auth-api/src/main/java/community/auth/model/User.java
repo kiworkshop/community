@@ -1,5 +1,7 @@
 package community.auth.model;
 
+import static java.util.UUID.randomUUID;
+
 import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import java.io.Serializable;
@@ -33,18 +35,14 @@ public class User extends BaseEntity implements Serializable {
   private boolean enabled;
 
   @Builder
-  private User(String username, Social social) {
-    this.username = username;
+  private User(Social social) {
+    this.username = randomUUID().toString();
     this.social = social;
     this.authorities = Collections.singleton(Authority.USER);
     this.accountNonExpired = true;
     this.accountNonLocked = true;
     this.credentialsNonExpired = true;
     this.enabled = true;
-  }
-
-  public void eraseCredentials() {
-    this.social = Social.empty;
   }
 
   public String getSocialId() {

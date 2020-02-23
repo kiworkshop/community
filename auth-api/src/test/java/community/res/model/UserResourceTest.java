@@ -3,7 +3,6 @@ package community.res.model;
 import static java.time.ZonedDateTime.now;
 import static org.assertj.core.api.BDDAssertions.then;
 
-import java.util.UUID;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -15,7 +14,7 @@ class UserResourceTest {
 
   public static UserResource getUserResourceFixture() {
     UserResource userResource = UserResource.builder()
-        .username(UUID.randomUUID().toString())
+        .userId(1L)
         .nickname("nickname")
         .contactEmail("foo@bar.com").build();
 
@@ -38,13 +37,13 @@ class UserResourceTest {
   void build_ValidInput_ValidOutput() {
     // when
     UserResource userResource = UserResource.builder()
-        .username(UUID.randomUUID().toString())
+        .userId(1L)
         .nickname("nickname")
         .contactEmail("foo@bar.com").build();
 
     // then
     then(userResource).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt");
-    then(userResource.getUsername()).isNotEmpty();
+    then(userResource.getUserId()).isEqualTo(1L);
     then(userResource.getNickname()).isEqualTo("nickname");
     then(userResource.getContactEmail()).isEqualTo("foo@bar.com");
 

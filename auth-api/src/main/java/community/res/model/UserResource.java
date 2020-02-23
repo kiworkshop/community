@@ -4,7 +4,6 @@ import community.common.model.BaseEntity;
 import community.common.utils.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.Email;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ class UserResource extends BaseEntity {
   private @UUID String username;
   @Column(unique = true)
   private String nickname;
-  private @Email String contactEmail;
+  private String contactEmail;
 
   @Builder
   private UserResource(

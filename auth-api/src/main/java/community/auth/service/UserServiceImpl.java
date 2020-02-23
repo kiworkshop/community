@@ -1,7 +1,12 @@
 package community.auth.service;
 
+import community.auth.api.dto.AuthenticationDto;
+import community.auth.api.dto.SignUpDto;
 import community.auth.api.dto.UserDto;
+import community.auth.model.Social;
+import community.auth.model.User;
 import community.auth.model.UserRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,5 +25,17 @@ public class UserServiceImpl implements UserService {
         userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username)),
         passwordEncoder
     );
+  }
+
+  @Override
+  public AuthenticationDto signUp(SignUpDto signUpDto) {
+    User user = User.builder()
+        .social(new Social()) // TODO: get social info from SocialResourceFetcher.
+        .username(UUID.randomUUID().toString())
+        .build();
+
+    userRepository.save(user);
+
+    return new AuthenticationDto(); // TODO: get authentication dto from AuthService.
   }
 }

@@ -1,5 +1,6 @@
-package community.res.model;
+package community.auth.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -11,16 +12,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @Embeddable
 @NoArgsConstructor
-public class Social {
+public class Social implements Serializable {
+
+  public static final Social empty = Social.builder().provider(Provider.NONE).socialId("").build();
+
   public enum Provider {
-    GOOGLE, FACEBOOK, TWITTER, NAVER
+    NONE, GOOGLE, FACEBOOK, TWITTER, NAVER
   }
 
   @Column(name = "social_provider", length = 20)
   @Enumerated(EnumType.STRING)
   private Provider provider;
 
-  @Column(name = "social_id", length = 50)
+  @Column(name = "social_id", length = 256)
   private String socialId;
 
   @Builder

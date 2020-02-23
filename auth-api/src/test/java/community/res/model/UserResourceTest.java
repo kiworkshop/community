@@ -1,6 +1,5 @@
 package community.res.model;
 
-import static community.res.model.SocialTest.getSocialFixture;
 import static java.time.ZonedDateTime.now;
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -18,8 +17,7 @@ class UserResourceTest {
     UserResource userResource = UserResource.builder()
         .username(UUID.randomUUID().toString())
         .nickname("nickname")
-        .contactEmail("foo@bar.com")
-        .social(getSocialFixture()).build();
+        .contactEmail("foo@bar.com").build();
 
     ReflectionTestUtils.setField(userResource, "id", 1L);
     ReflectionTestUtils.setField(userResource, "createdAt", now());
@@ -42,15 +40,13 @@ class UserResourceTest {
     UserResource userResource = UserResource.builder()
         .username(UUID.randomUUID().toString())
         .nickname("nickname")
-        .contactEmail("foo@bar.com")
-        .social(getSocialFixture()).build();
+        .contactEmail("foo@bar.com").build();
 
     // then
     then(userResource).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt");
     then(userResource.getUsername()).isNotEmpty();
     then(userResource.getNickname()).isEqualTo("nickname");
     then(userResource.getContactEmail()).isEqualTo("foo@bar.com");
-    then(userResource.getSocial()).isNotNull();
 
     then(validator.validate(userResource)).isEmpty();
   }

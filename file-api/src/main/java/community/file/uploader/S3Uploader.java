@@ -3,6 +3,7 @@ package community.file.uploader;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import community.file.exception.FileNotConvertedException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,9 +26,7 @@ public class S3Uploader {
   private String bucketName;
 
   public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-    File uploadFile = convert(multipartFile)
-        .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-
+    File uploadFile = convert(multipartFile);
     return upload(uploadFile, dirName);
   }
 
@@ -46,28 +45,29 @@ public class S3Uploader {
 
   private void removeNewFile(File targetFile) {
     if (targetFile.delete()) {
-      log.info("파일이 삭제되었습니다.");
+      log.info("{} 파일이 삭제되었습니다.", targetFile.getName());
     } else {
-      log.info("파일이 삭제되지 못했습니다.");
+      log.info("{} 파일이 삭제되지 못했습니다.", targetFile.getName());
     }
   }
 
-  private Optional<File> convert(MultipartFile multipartFile) throws IOException {
+  private File convert(MultipartFile multipartFile) throws IOException {
     File convertedFile = new File(generateFileName(multipartFile.getOriginalFilename()));
     if (convertedFile.createNewFile()) {
       try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
         fos.write(multipartFile.getBytes());
       }
-      return Optional.of(convertedFile);
+      return convertedFile;
     }
 
-    return Optional.empty();
+    throw new FileNotConvertedException(multipartFile.getOriginalFilename());
   }
 
   private String generateFileName(String fileName) {
     int extensionIndex = fileName.lastIndexOf(".");
     String name = fileName.substring(0, extensionIndex);
     String extension = fileName.substring(extensionIndex + 1);
-    return name + UUID.randomUUID() + "." + extension;
+    String eightDigitUuid = UUID.randomUUID().toString().split("-")[0];
+    return name + "-" + eightDigitUuid + "." + extension;
   }
 }

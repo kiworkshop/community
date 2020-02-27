@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'org.kiworkshop'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = "11"
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/libs-milestone'}
+}
+
+dependencies {
+    implementation project(':common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'com.h2database:h2'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws'
+
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    sourceDir 'docs'
+    outputDir = file('build/docs')
+    dependsOn test
+}

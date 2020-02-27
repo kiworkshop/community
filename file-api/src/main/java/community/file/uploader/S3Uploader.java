@@ -7,7 +7,8 @@ import community.file.exception.FileNotConvertedException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,16 @@ public class S3Uploader {
 
   @Value("${cloud.aws.s3.bucket}")
   private String bucketName;
+
+  public List<String> upload(List<MultipartFile> multipartFiles, String dirName) throws IOException {
+    List<String> urls = new ArrayList<>();
+    for (MultipartFile multipartFile : multipartFiles) {
+      File file = convert(multipartFile);
+      String url = upload(file, dirName);
+      urls.add(url);
+    }
+    return urls;
+  }
 
   public String upload(MultipartFile multipartFile, String dirName) throws IOException {
     File uploadFile = convert(multipartFile);

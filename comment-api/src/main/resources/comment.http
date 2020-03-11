@@ -1,0 +1,15 @@
+GET http://{{baseUrl}}/comments/1/1
+Accept: application/json
+###
+
+POST http://{{baseUrl}}/comments
+Content-Type: application/json
+
+{
+  "boardId" : 1,
+  "postId" : 1,
+  "userKey": "user1",
+  "content": "댓글1"
+}
+
+###

@@ -11,7 +11,17 @@ Content-Type: application/json
   "userKey": "user1",
   "content": "댓글1"
 }
+###
 
+PUT http://{{baseUrl}}/comments/1
+Content-Type: application/json
+
+{
+  "boardId" : 1,
+  "postId" : 1,
+  "userKey": "user1",
+  "content": "수정된댓글1"
+}
 ###
 
 DELETE http://{{baseUrl}}/comments/1

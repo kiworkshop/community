@@ -40,6 +40,13 @@ public class Comment {
     return new Comment(requestDto);
   }
 
+  public void update(CommentRequestDto requestDto) {
+    this.boardId = requestDto.getBoardId();
+    this.postId = requestDto.getPostId();
+    this.parentId = requestDto.getParentId();
+    this.content = requestDto.getContent();
+  }
+
   public void deactivate() {
     this.active = false;
   }

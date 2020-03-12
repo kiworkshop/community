@@ -26,6 +26,8 @@ public class Comment {
 
   private String content;
 
+  private boolean active = true;
+
   private Comment(CommentRequestDto requestDto) {
     this.boardId = requestDto.getBoardId();
     this.postId = requestDto.getPostId();
@@ -36,5 +38,9 @@ public class Comment {
 
   public static Comment from(CommentRequestDto requestDto) {
     return new Comment(requestDto);
+  }
+
+  public void deactivate() {
+    this.active = false;
   }
 }

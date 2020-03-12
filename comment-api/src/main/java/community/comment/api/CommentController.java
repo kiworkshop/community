@@ -6,6 +6,7 @@ import community.comment.service.CommentService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,10 @@ public class CommentController {
   @PostMapping(value = {"", "/"})
   public void post(@Valid @RequestBody CommentRequestDto request) {
     commentService.createComment(request);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  public void delete(@PathVariable Long id) {
+    commentService.deleteComment(id);
   }
 }

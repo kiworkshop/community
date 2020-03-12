@@ -9,12 +9,14 @@ public class CommentResponseDto {
   private String userKey;
   private String content;
   private Long parentId;
+  private boolean active;
 
   private CommentResponseDto(Comment comment) {
     this.id = comment.getId();
     this.userKey = comment.getUserKey();
     this.content = comment.getContent();
     this.parentId = comment.getParentId();
+    this.active = comment.isActive();
   }
 
   public static CommentResponseDto of(Comment comment) {

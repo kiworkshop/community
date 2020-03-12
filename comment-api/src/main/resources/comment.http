@@ -13,3 +13,6 @@ Content-Type: application/json
 }
 
 ###
+
+DELETE http://{{baseUrl}}/comments/1
+###

@@ -4,6 +4,7 @@ import community.comment.api.dto.CommentRequestDto;
 import community.comment.api.dto.CommentResponseDto;
 import community.comment.domain.Comment;
 import community.comment.domain.CommentRepository;
+import community.comment.exception.CommentNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,12 @@ public class CommentService {
 
   public void createComment(CommentRequestDto request) {
     commentRepository.save(Comment.from(request));
+  }
+
+  public void deleteComment(Long id) {
+    Comment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new CommentNotFoundException(id));
+    comment.deactivate();
+    commentRepository.save(comment);
   }
 }

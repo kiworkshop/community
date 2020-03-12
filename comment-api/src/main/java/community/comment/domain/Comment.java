@@ -22,6 +22,8 @@ public class Comment {
 
   private Long parentId;
 
+  private int order;
+
   private String userKey;
 
   private String content;
@@ -34,6 +36,7 @@ public class Comment {
     this.parentId = requestDto.getParentId();
     this.userKey = requestDto.getUserKey();
     this.content = requestDto.getContent();
+    this.order = requestDto.getOrder();
   }
 
   public static Comment from(CommentRequestDto requestDto) {

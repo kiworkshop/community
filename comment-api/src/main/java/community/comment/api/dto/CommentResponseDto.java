@@ -9,6 +9,7 @@ public class CommentResponseDto {
   private String userKey;
   private String content;
   private Long parentId;
+  private int order;
   private boolean active;
 
   private CommentResponseDto(Comment comment) {
@@ -17,6 +18,7 @@ public class CommentResponseDto {
     this.content = comment.getContent();
     this.parentId = comment.getParentId();
     this.active = comment.isActive();
+    this.order = comment.getOrder();
   }
 
   public static CommentResponseDto of(Comment comment) {

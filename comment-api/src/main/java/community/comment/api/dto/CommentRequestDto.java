@@ -8,6 +8,7 @@ public class CommentRequestDto {
   private Long boardId;
   private Long postId;
   private Long parentId;
+  private int order;
 
   @NotEmpty
   private String userKey;

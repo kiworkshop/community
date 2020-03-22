@@ -1,6 +1,8 @@
 package community.mother.support.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
@@ -21,14 +23,12 @@ public class SupportTest {
                 .hasFieldOrPropertyWithValue("content","content");
     }
 
-    @Test
-    void build_EmptyTitle_ThrownException(){
-
-        thenThrownBy(()->
-                Support.builder()
-                        .title("")
-                        .content("content")
-                        .build())
-                .isInstanceOf(IllegalArgumentException.class);
+    @ParameterizedTest
+    @CsvSource(value = {"title,1", "content,2"})
+    void build_EmptyArgument_ThrowException(String emptyField, Long num){
+        thenThrownBy(()-> Support.builder()
+                .title(emptyField.equals("title") ? "" : "title")
+                .content(emptyField.equals("content") ? "" : "content").build()
+        ).isInstanceOf(IllegalArgumentException.class);
     }
 }

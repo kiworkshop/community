@@ -1,11 +1,12 @@
 package community.comment.api.dto;
 
+import community.common.model.BoardType;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
 public class CommentRequestDto {
-  private Long boardId;
+  private BoardType boardType;
   private Long postId;
   private Long parentId;
   private int order;

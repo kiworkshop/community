@@ -1,7 +1,10 @@
 package community.comment.domain;
 
 import community.comment.api.dto.CommentRequestDto;
+import community.common.model.BoardType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +19,8 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Long boardId;
+  @Enumerated(EnumType.STRING)
+  private BoardType boardType;
 
   private Long postId;
 
@@ -31,7 +35,7 @@ public class Comment {
   private boolean active = true;
 
   private Comment(CommentRequestDto requestDto) {
-    this.boardId = requestDto.getBoardId();
+    this.boardType = requestDto.getBoardType();
     this.postId = requestDto.getPostId();
     this.parentId = requestDto.getParentId();
     this.username = requestDto.getUsername();
@@ -44,7 +48,7 @@ public class Comment {
   }
 
   public void update(CommentRequestDto requestDto) {
-    this.boardId = requestDto.getBoardId();
+    this.boardType = requestDto.getBoardType();
     this.postId = requestDto.getPostId();
     this.parentId = requestDto.getParentId();
     this.content = requestDto.getContent();

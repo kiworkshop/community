@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class CommentResponseDto {
   private Long id;
-  private String userKey;
+  private String username;
   private String content;
   private Long parentId;
   private int order;
@@ -14,7 +14,7 @@ public class CommentResponseDto {
 
   private CommentResponseDto(Comment comment) {
     this.id = comment.getId();
-    this.userKey = comment.getUserKey();
+    this.username = comment.getUsername();
     this.content = comment.getContent();
     this.parentId = comment.getParentId();
     this.active = comment.isActive();

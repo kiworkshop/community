@@ -24,7 +24,7 @@ public class Comment {
 
   private int order;
 
-  private String userKey;
+  private String username;
 
   private String content;
 
@@ -34,7 +34,7 @@ public class Comment {
     this.boardId = requestDto.getBoardId();
     this.postId = requestDto.getPostId();
     this.parentId = requestDto.getParentId();
-    this.userKey = requestDto.getUserKey();
+    this.username = requestDto.getUsername();
     this.content = requestDto.getContent();
     this.order = requestDto.getOrder();
   }

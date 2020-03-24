@@ -11,7 +11,7 @@ public class CommentRequestDto {
   private int order;
 
   @NotEmpty
-  private String userKey;
+  private String username;
 
   @NotEmpty
   private String content;

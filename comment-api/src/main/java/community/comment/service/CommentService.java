@@ -23,14 +23,14 @@ public class CommentService {
   }
 
   public void createComment(CommentRequestDto request) {
-    validate(request);
+    assertThatParentDoesNotExistOrParentIsActive(request);
     commentRepository.save(Comment.from(request));
   }
 
   @Transactional
   public void updateComment(Long id, CommentRequestDto request) {
     Comment commentToUpdate = findCommentById(id);
-    validate(request);
+    assertThatParentDoesNotExistOrParentIsActive(request);
     commentToUpdate.update(request);
     commentRepository.save(commentToUpdate);
   }
@@ -40,14 +40,15 @@ public class CommentService {
         .orElseThrow(() -> new CommentNotFoundException(id));
   }
 
-  private void validate(CommentRequestDto request) {
-    if (request.getParentId() != null) {
-      Comment parentComment = findCommentById(request.getParentId());
-      if (!parentComment.isActive()) {
-        throw new IllegalArgumentException("삭제된 댓글에 대댓글을 달 수 없습니다.");
-      }
+  private void assertThatParentDoesNotExistOrParentIsActive(CommentRequestDto request) {
+    if (request.getParentId() == null) {
+      return;
     }
-  }
+    Comment parentComment = findCommentById(request.getParentId());
+    if (!parentComment.isActive()) {
+      throw new IllegalArgumentException("삭제된 댓글에 대댓글을 달 수 없습니다.");
+    }
+}
 
   public void deleteComment(Long id) {
     Comment comment = findCommentById(id);

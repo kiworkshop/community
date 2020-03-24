@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class Comment {
+  private static final String DELETED_COMMENT_MESSAGE = "삭제된 댓글입니다";
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -56,5 +58,12 @@ public class Comment {
 
   public void deactivate() {
     this.active = false;
+  }
+
+  public String getContent() {
+    if (this.active) {
+      return DELETED_COMMENT_MESSAGE;
+    }
+    return this.content;
   }
 }

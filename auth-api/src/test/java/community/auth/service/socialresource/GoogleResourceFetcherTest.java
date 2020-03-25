@@ -5,9 +5,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import java.io.IOException;
-import lombok.val;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
@@ -61,7 +61,7 @@ public class GoogleResourceFetcherTest {
     given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);
     given(requestDto.getProviderAccessToken()).willReturn("providerAccessToken");
 
-    val response = fetcher.fetch(requestDto).block();
+    SocialResourceResponseDto response = fetcher.fetch(requestDto).block();
     assert response != null;
 
     then(response.getSocialId()).isEqualTo("socialId");

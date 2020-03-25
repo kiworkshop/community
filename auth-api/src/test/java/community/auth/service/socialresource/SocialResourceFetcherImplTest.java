@@ -6,8 +6,8 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
 import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
-import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,11 +32,11 @@ public class SocialResourceFetcherImplTest {
     // given
     given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);
 
-    val expected = Mono.just(getSocialResourceResponseDtoFixture());
+    Mono<SocialResourceResponseDto> expected = Mono.just(getSocialResourceResponseDtoFixture());
     given(googleResourceFetcher.fetch(eq(requestDto))).willReturn(expected);
 
     // when
-    val actual = fetcher.fetch(requestDto);
+    Mono<SocialResourceResponseDto> actual = fetcher.fetch(requestDto);
 
     // then
     then(actual).isEqualTo(expected);

@@ -52,6 +52,7 @@ public class UserTest {
   @Test
   void build_UsernameIsNotUuid_ConstraintViolation() {
     User user = User.builder().social(getSocialFixture()).build();
+    ReflectionTestUtils.setField(user, "username", "not uuid");
 
     Set<ConstraintViolation<User>> violations = validator.validate(user);
 

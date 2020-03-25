@@ -3,8 +3,6 @@ package community.auth.service;
 import community.auth.api.dto.AuthenticationDto;
 import community.auth.api.dto.SignUpDto;
 import community.auth.api.dto.UserDto;
-import community.auth.model.Social;
-import community.auth.model.User;
 import community.auth.model.UserRepository;
 import community.auth.service.socialresource.SocialResourceFetcher;
 import lombok.RequiredArgsConstructor;
@@ -34,15 +32,8 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public Mono<AuthenticationDto> signUp(SignUpDto signUpDto) {
-    return socialResourceFetcher.fetch(signUpDto).map(response -> {
-      User user = User.builder()
-          .social(Social.builder()
-              .provider(signUpDto.getProvider())
-              .socialId(response.getSocialId())
-              .build())
-          .build();
-
-      return userRepository.save(user);
-    }).flatMap(tokenService::getTokenOf);
+    return socialResourceFetcher.fetch(signUpDto)
+        .map(response -> userRepository.save(response.createUser(signUpDto.getProvider())))
+        .flatMap(tokenService::getTokenOf);
   }
 }

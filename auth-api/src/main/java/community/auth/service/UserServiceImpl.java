@@ -43,6 +43,6 @@ public class UserServiceImpl implements UserService {
           .build();
 
       return userRepository.save(user);
-    }).flatMap(user -> tokenService.getToken(user.getUsername(), user.getSocialId()));
+    }).flatMap(tokenService::getTokenOf);
   }
 }

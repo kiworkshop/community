@@ -1,12 +1,19 @@
 package community.auth.service;
 
+import static community.auth.api.dto.AuthenticationDtoTest.getAuthenticationDtoFixture;
+import static community.auth.api.dto.SignUpDtoTest.getSignUpDtoFixture;
+import static community.auth.api.dto.SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture;
 import static community.auth.model.UserTest.getUserFixture;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
+import community.auth.api.dto.AuthenticationDto;
+import community.auth.api.dto.SignUpDto;
+import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.User;
 import community.auth.model.UserRepository;
 import community.auth.service.socialresource.SocialResourceFetcher;
@@ -19,6 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import reactor.core.publisher.Mono;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -62,5 +70,24 @@ class UserServiceImplTest {
     thenThrownBy(() -> userServiceImpl.loadUserByUsername("uuid"))
         .isInstanceOf(UsernameNotFoundException.class)
         .hasMessage("uuid");
+  }
+
+  @Test
+  void signUp_ValidInput_ValidOutput() {
+    // given
+    SignUpDto signUpDto = getSignUpDtoFixture();
+    Mono<SocialResourceResponseDto> socialResourceResponseDtoMono = Mono.just(getSocialResourceResponseDtoFixture());
+    User user = getUserFixture();
+    Mono<AuthenticationDto> expected = Mono.just(getAuthenticationDtoFixture());
+
+    given(socialResourceFetcher.fetch(eq(signUpDto))).willReturn(socialResourceResponseDtoMono);
+    given(userRepository.save(any(User.class))).willReturn(user);
+    given(tokenService.getTokenOf(eq(user))).willReturn(expected);
+
+    // when
+    Mono<AuthenticationDto> actual = userServiceImpl.signUp(signUpDto);
+
+    // then
+    then(actual.block()).isEqualTo(expected.block());
   }
 }

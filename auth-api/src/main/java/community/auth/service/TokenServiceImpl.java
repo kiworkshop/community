@@ -1,6 +1,7 @@
 package community.auth.service;
 
 import community.auth.api.dto.AuthenticationDto;
+import community.auth.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,13 @@ public class TokenServiceImpl implements TokenService {
   }
 
   @Override
-  public Mono<AuthenticationDto> getToken(String username, String socialId) {
+  public Mono<AuthenticationDto> getTokenOf(User user) {
     return webClient.post()
         .uri("/oauth/token")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .body(BodyInserters.fromFormData("grant_type", "password")
-            .with("username", username)
-            .with("password", socialId))
+            .with("username", user.getUsername())
+            .with("password", user.getSocialId()))
         .retrieve()
         .bodyToMono(AuthenticationDto.class);
   }

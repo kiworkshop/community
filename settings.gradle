@@ -9,5 +9,4 @@ include 'common'
 include 'content-api'
 include 'auth-api'
 include 'tag-api'
-include 'tag-api'
 

@@ -4,11 +4,13 @@ import community.auth.api.dto.SocialResourceReqeustDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service("SocialResourceFetcher")
+@Service
 @RequiredArgsConstructor
+@Primary
 public class SocialResourceFetcherImpl implements SocialResourceFetcher {
   private final SocialResourceFetcher googleResourceFetcher;
 

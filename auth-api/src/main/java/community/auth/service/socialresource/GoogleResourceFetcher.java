@@ -27,7 +27,6 @@ class GoogleResourceFetcher implements SocialResourceFetcher {
 
     return webClient.get()
         .uri(uriBuilder -> uriBuilder
-            .path("/tokeninfo")
             .queryParam("access_token", socialResourceReqeustDto.getProviderAccessToken())
             .build()
         )

@@ -9,6 +9,7 @@ import static org.mockito.BDDMockito.given;
 
 import community.auth.model.User;
 import community.auth.model.UserRepository;
+import community.auth.service.socialresource.SocialResourceFetcher;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,10 +26,12 @@ class UserServiceImplTest {
 
   private @Mock UserRepository userRepository;
   private @Mock PasswordEncoder passwordEncoder;
+  private @Mock SocialResourceFetcher socialResourceFetcher;
+  private @Mock TokenService tokenService;
 
   @BeforeEach
   void setUp() {
-    userServiceImpl = new UserServiceImpl(userRepository, passwordEncoder);
+    userServiceImpl = new UserServiceImpl(userRepository, passwordEncoder, socialResourceFetcher, tokenService);
   }
 
   @Test

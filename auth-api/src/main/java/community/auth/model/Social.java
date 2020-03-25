@@ -24,7 +24,7 @@ public class Social implements Serializable {
   @Enumerated(EnumType.STRING)
   private Provider provider;
 
-  @Column(name = "social_id", length = 256)
+  @Column(name = "social_id", length = 256, unique = true)
   private String socialId;
 
   @Builder

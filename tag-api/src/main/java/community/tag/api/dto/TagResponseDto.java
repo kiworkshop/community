@@ -13,7 +13,7 @@ public class TagResponseDto {
         this.name = tag.getName();
     }
 
-    public static TagResponseDto of(Tag tag) {
+    public static TagResponseDto from(Tag tag) {
         return new TagResponseDto(tag);
     }
 }

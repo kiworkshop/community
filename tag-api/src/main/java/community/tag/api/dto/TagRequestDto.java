@@ -2,9 +2,9 @@ package community.tag.api.dto;
 
 import lombok.Getter;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class TagRequestDto {
-    private @NotEmpty String name;
+    private @NotNull String name;
 }

@@ -25,7 +25,7 @@ public class TagController {
 
     @PostMapping
     public Long create(@RequestBody @Valid TagRequestDto tagRequestDto) {
-        return tagService.createTag(tagRequestDto);
+        return tagService.createTagIfAbsent(tagRequestDto);
     }
 
     @GetMapping("/{contentType}/{contentId}")

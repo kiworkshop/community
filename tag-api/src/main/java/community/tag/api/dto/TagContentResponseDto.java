@@ -15,7 +15,7 @@ public class TagContentResponseDto {
         this.contentId = tagContent.getContentId();
     }
 
-    public static TagContentResponseDto of(TagContent tagContent) {
+    public static TagContentResponseDto from(TagContent tagContent) {
         return new TagContentResponseDto(tagContent);
     }
 }

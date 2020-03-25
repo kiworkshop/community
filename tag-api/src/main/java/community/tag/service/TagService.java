@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,20 +22,23 @@ public class TagService {
     private final TagContentRepository tagContentRepository;
 
     public List<TagResponseDto> readAllTags() {
+
+        Set.of("aa");
+
         return tagRepository.findAll().stream()
-                        .map(TagResponseDto::of)
+                        .map(TagResponseDto::from)
                         .collect(Collectors.toList());
     }
 
-    public Long createTag(TagRequestDto tagRequestDto) {
-        Tag tag = createTag(tagRequestDto.getName());
+    public Long createTagIfAbsent(TagRequestDto tagRequestDto) {
+        Tag tag = createTagIfAbsent(tagRequestDto.getName());
         return tagRepository.save(tag).getId();
     }
 
     public List<TagContentResponseDto> readTagContentsByTag(String tagName) {
         Tag tag = findTagByTagName(tagName);
         return tagContentRepository.findByTag(tag).stream()
-                .map(TagContentResponseDto::of)
+                .map(TagContentResponseDto::from)
                 .collect(Collectors.toList());
     }
 
@@ -46,8 +50,8 @@ public class TagService {
         String tableName = tagContentRequestDto.getTableName();
         Long contentId = tagContentRequestDto.getContentId();
         List<TagContent> tagContents = tagContentRequestDto.getTagNames().stream()
-                .map(this::createTag)
-                .map(tag -> createContentTable(tag, tableName, contentId))
+                .map(this::createTagIfAbsent)
+                .map(tag -> createTagContent(tag, tableName, contentId))
                 .collect(Collectors.toList());
 
         return tagContentRepository.saveAll(tagContents).stream()
@@ -55,12 +59,12 @@ public class TagService {
                 .collect(Collectors.toList());
     }
 
-    private Tag createTag(String name) {
+    private Tag createTagIfAbsent(String name) {
         return tagRepository.findByName(name)
                 .orElse(Tag.of(name));
     }
 
-    private TagContent createContentTable(Tag tag, String contentType, Long contentId) {
+    private TagContent createTagContent(Tag tag, String contentType, Long contentId) {
         return TagContent.builder().tag(tag)
                 .contentType(contentType)
                 .contentId(contentId).build();
@@ -71,7 +75,7 @@ public class TagService {
 
         return tagContents.stream()
                 .map(TagContent::getTag)
-                .map(TagResponseDto::of)
+                .map(TagResponseDto::from)
                 .collect(Collectors.toList());
     }
 }

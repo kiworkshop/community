@@ -1,6 +1,8 @@
 package community.auth.service.socialresource;
 
+import static community.auth.api.dto.SignUpDtoTest.getSignUpDtoFixture;
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -66,5 +68,17 @@ public class GoogleResourceFetcherTest {
 
     then(response.getSocialId()).isEqualTo("socialId");
     then(response.getContactEmail()).isEqualTo("foo@bar.com");
+  }
+
+  @Test
+  void fetch_ProviderIsNotGoogle_ThrowException() {
+    // given
+    SocialResourceReqeustDto socialResourceReqeustDto = getSignUpDtoFixture();
+    ReflectionTestUtils.setField(socialResourceReqeustDto, "provider", Social.Provider.FACEBOOK);
+
+    // expect
+    thenThrownBy(() -> fetcher.fetch(socialResourceReqeustDto))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Provider must be GOOGLE. Current: FACEBOOK");
   }
 }

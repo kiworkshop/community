@@ -18,7 +18,7 @@ public class S3Controller {
   private final S3Uploader s3Uploader;
 
   @PostMapping("/uploads")
-  public List<String> upload(@RequestParam("data") List<MultipartFile> multipartFiles) throws IOException {
+  public List<String> upload(@RequestParam("data") List<MultipartFile> multipartFiles) {
     return s3Uploader.upload(multipartFiles, PICTURE_DIRECTORY_NAME);
   }
 }

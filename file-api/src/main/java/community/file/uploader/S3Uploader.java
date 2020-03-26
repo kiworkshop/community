@@ -26,7 +26,7 @@ public class S3Uploader {
   @Value("${cloud.aws.s3.bucket}")
   private String bucketName;
 
-  public List<String> upload(List<MultipartFile> multipartFiles, String dirName) throws IOException {
+  public List<String> upload(List<MultipartFile> multipartFiles, String dirName) {
     List<String> urls = new ArrayList<>();
     for (MultipartFile multipartFile : multipartFiles) {
       File file = convert(multipartFile);
@@ -57,16 +57,19 @@ public class S3Uploader {
     }
   }
 
-  private File convert(MultipartFile multipartFile) throws IOException {
+  private File convert(MultipartFile multipartFile) {
     File convertedFile = new File(generateFileName(multipartFile.getOriginalFilename()));
-    if (convertedFile.createNewFile()) {
-      try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
-        fos.write(multipartFile.getBytes());
-      }
-      return convertedFile;
+
+    if (!convertedFile.createNewFile()) {
+      throw new FileNotConvertedException(multipartFile.getOriginalFilename());
     }
 
-    throw new FileNotConvertedException(multipartFile.getOriginalFilename());
+    try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
+      fos.write(multipartFile.getBytes());
+    } catch (IOException ie) {
+      throw new FileNotConvertedException(multipartFile.getOriginalFilename());
+    }
+    return convertedFile;
   }
 
   private String generateFileName(String fileName) {

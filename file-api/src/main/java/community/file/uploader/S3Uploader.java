@@ -27,6 +27,9 @@ public class S3Uploader {
   @Value("${cloud.aws.s3.bucket}")
   private String bucketName;
 
+  @Value("#{systemProperties['java.io.tmpdir']}")
+  private String tmpDir;
+
   public List<String> upload(List<MultipartFile> multipartFiles, String dirName) {
     return multipartFiles.stream()
         .map(this::convert)
@@ -56,12 +59,7 @@ public class S3Uploader {
   }
 
   private File convert(MultipartFile multipartFile) {
-    File convertedFile = new File(generateFileName(multipartFile.getOriginalFilename()));
-
-    if (!convertedFile.createNewFile()) {
-      throw new FileNotConvertedException(multipartFile.getOriginalFilename());
-    }
-
+    File convertedFile = new File(tmpDir + "/" + generateFileName(multipartFile.getOriginalFilename()));
     try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
       fos.write(multipartFile.getBytes());
     } catch (IOException ie) {

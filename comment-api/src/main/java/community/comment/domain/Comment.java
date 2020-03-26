@@ -2,6 +2,7 @@ package community.comment.domain;
 
 import community.comment.api.dto.CommentRequestDto;
 import community.common.model.BoardType;
+import java.time.ZonedDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -35,6 +37,9 @@ public class Comment {
   private String content;
 
   private boolean active = true;
+
+  @CreationTimestamp
+  private ZonedDateTime createdAt;
 
   private Comment(CommentRequestDto requestDto) {
     this.boardType = requestDto.getBoardType();

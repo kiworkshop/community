@@ -59,7 +59,7 @@ public class S3Uploader {
   }
 
   private File convert(MultipartFile multipartFile) {
-    File convertedFile = new File(tmpDir + "/" + generateFileName(multipartFile.getOriginalFilename()));
+    File convertedFile = new File(tmpDir + generateFileName(multipartFile.getOriginalFilename()));
     try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
       fos.write(multipartFile.getBytes());
     } catch (IOException ie) {

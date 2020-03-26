@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +28,10 @@ public class S3Uploader {
   private String bucketName;
 
   public List<String> upload(List<MultipartFile> multipartFiles, String dirName) {
-    List<String> urls = new ArrayList<>();
-    for (MultipartFile multipartFile : multipartFiles) {
-      File file = convert(multipartFile);
-      String url = upload(file, dirName);
-      urls.add(url);
-    }
-    return urls;
+    return multipartFiles.stream()
+        .map(this::convert)
+        .map(file -> upload(file, dirName))
+        .collect(Collectors.toList());
   }
 
   private String upload(File uploadFile, String dirName) {

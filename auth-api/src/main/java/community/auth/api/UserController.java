@@ -1,6 +1,7 @@
 package community.auth.api;
 
 import community.auth.api.dto.AuthenticationDto;
+import community.auth.api.dto.SignInDto;
 import community.auth.api.dto.SignUpDto;
 import community.auth.service.UserService;
 import javax.validation.Valid;
@@ -20,5 +21,10 @@ public class UserController {
   @PostMapping("/sign-up")
   public Mono<AuthenticationDto> signUp(@RequestBody @Valid SignUpDto signUpDto) {
     return userService.signUp(signUpDto);
+  }
+
+  @PostMapping("/sign-in")
+  public Mono<AuthenticationDto> signIn(@RequestBody @Valid SignInDto signInDto) {
+    return userService.signIn(signInDto);
   }
 }

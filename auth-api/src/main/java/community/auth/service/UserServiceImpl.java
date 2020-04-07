@@ -1,8 +1,10 @@
 package community.auth.service;
 
 import community.auth.api.dto.AuthenticationDto;
+import community.auth.api.dto.SignInDto;
 import community.auth.api.dto.SignUpDto;
 import community.auth.api.dto.UserDto;
+import community.auth.exception.UserNotFoundException;
 import community.auth.model.UserRepository;
 import community.auth.service.socialresource.SocialResourceFetcher;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,15 @@ public class UserServiceImpl implements UserService {
   public Mono<AuthenticationDto> signUp(SignUpDto signUpDto) {
     return socialResourceFetcher.fetch(signUpDto)
         .map(response -> userRepository.save(response.createUser(signUpDto.getProvider())))
+        .flatMap(tokenService::getTokenOf);
+  }
+
+  @Override
+  public Mono<AuthenticationDto> signIn(SignInDto signInDto) {
+   return socialResourceFetcher.fetch(signInDto)
+        .map(response -> userRepository
+            .findBySocialSocialId(response.getSocialId())
+            .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
         .flatMap(tokenService::getTokenOf);
   }
 }

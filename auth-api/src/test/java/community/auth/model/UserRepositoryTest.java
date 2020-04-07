@@ -23,4 +23,14 @@ class UserRepositoryTest {
 
     then(userRepository.findByUsername(user.getUsername())).isNotEmpty();
   }
+
+  @Test
+  void findBySocialSocialId_ValidInput_ValidOutput() {
+    // given
+    User user = getUserFixture();
+    ReflectionTestUtils.setField(user, "id", null);
+    userRepository.save(user);
+
+    then(userRepository.findBySocialSocialId(user.getSocialId())).isNotEmpty();
+  }
 }

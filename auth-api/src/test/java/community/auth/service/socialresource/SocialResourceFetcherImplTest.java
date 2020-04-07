@@ -5,7 +5,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceRequestDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,8 @@ public class SocialResourceFetcherImplTest {
 
   private SocialResourceFetcherImpl fetcher;
   private @Mock SocialResourceFetcher googleResourceFetcher;
-  private @Mock SocialResourceReqeustDto requestDto;
+  private @Mock
+  SocialResourceRequestDto requestDto;
 
   @BeforeEach
   void setUp() {

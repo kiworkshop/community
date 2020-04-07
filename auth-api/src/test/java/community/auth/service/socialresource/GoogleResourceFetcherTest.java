@@ -6,7 +6,7 @@ import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceRequestDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import java.io.IOException;
@@ -28,7 +28,8 @@ public class GoogleResourceFetcherTest {
   private GoogleResourceFetcher fetcher;
 
   private static MockWebServer server;
-  private @Mock SocialResourceReqeustDto requestDto;
+  private @Mock
+  SocialResourceRequestDto requestDto;
 
   @BeforeAll
   static void init() throws IOException {
@@ -73,11 +74,11 @@ public class GoogleResourceFetcherTest {
   @Test
   void fetch_ProviderIsNotGoogle_ThrowException() {
     // given
-    SocialResourceReqeustDto socialResourceReqeustDto = getSignUpDtoFixture();
-    ReflectionTestUtils.setField(socialResourceReqeustDto, "provider", Social.Provider.FACEBOOK);
+    SocialResourceRequestDto socialResourceRequestDto = getSignUpDtoFixture();
+    ReflectionTestUtils.setField(socialResourceRequestDto, "provider", Social.Provider.FACEBOOK);
 
     // expect
-    thenThrownBy(() -> fetcher.fetch(socialResourceReqeustDto))
+    thenThrownBy(() -> fetcher.fetch(socialResourceRequestDto))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Provider must be GOOGLE. Current: FACEBOOK");
   }

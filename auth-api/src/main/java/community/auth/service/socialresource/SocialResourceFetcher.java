@@ -1,14 +1,14 @@
 package community.auth.service.socialresource;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceRequestDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import reactor.core.publisher.Mono;
 
 public interface SocialResourceFetcher {
-  Mono<SocialResourceResponseDto> fetch(SocialResourceReqeustDto socialResourceReqeustDto);
+  Mono<SocialResourceResponseDto> fetch(SocialResourceRequestDto socialResourceRequestDto);
 
   static SocialResourceResponseDto createResourceFrom(JsonNode body, String idFieldName) {
     final String socialId = Optional.ofNullable(body.get(idFieldName))

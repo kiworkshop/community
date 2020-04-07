@@ -1,7 +1,7 @@
 package community.auth.service.socialresource;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceRequestDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import org.springframework.stereotype.Service;
@@ -19,15 +19,15 @@ class GoogleResourceFetcher implements SocialResourceFetcher {
   }
 
   @Override
-  public Mono<SocialResourceResponseDto> fetch(SocialResourceReqeustDto socialResourceReqeustDto) {
+  public Mono<SocialResourceResponseDto> fetch(SocialResourceRequestDto socialResourceRequestDto) {
     Assert.isTrue(
-        socialResourceReqeustDto.getProvider() == Social.Provider.GOOGLE,
-        "Provider must be GOOGLE. Current: " + socialResourceReqeustDto.getProvider().name()
+        socialResourceRequestDto.getProvider() == Social.Provider.GOOGLE,
+        "Provider must be GOOGLE. Current: " + socialResourceRequestDto.getProvider().name()
     );
 
     return webClient.get()
         .uri(uriBuilder -> uriBuilder
-            .queryParam("access_token", socialResourceReqeustDto.getProviderAccessToken())
+            .queryParam("access_token", socialResourceRequestDto.getProviderAccessToken())
             .build()
         )
         .retrieve()

@@ -1,6 +1,6 @@
 package community.auth.service.socialresource;
 
-import community.auth.api.dto.SocialResourceReqeustDto;
+import community.auth.api.dto.SocialResourceRequestDto;
 import community.auth.api.dto.SocialResourceResponseDto;
 import community.auth.model.Social;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +15,13 @@ public class SocialResourceFetcherImpl implements SocialResourceFetcher {
   private final SocialResourceFetcher googleResourceFetcher;
 
   @Override
-  public Mono<SocialResourceResponseDto> fetch(SocialResourceReqeustDto socialResourceReqeustDto) {
+  public Mono<SocialResourceResponseDto> fetch(SocialResourceRequestDto socialResourceRequestDto) {
     // TODO: implement social resource fetcher of twitter, facebook, github.
-    if (socialResourceReqeustDto.getProvider() != Social.Provider.GOOGLE) {
+    if (socialResourceRequestDto.getProvider() != Social.Provider.GOOGLE) {
       throw new IllegalStateException(
-          "Only GOOGLE is supported. Input: " + socialResourceReqeustDto.getProvider().toString());
+          "Only GOOGLE is supported. Input: " + socialResourceRequestDto.getProvider().toString());
     }
 
-    return googleResourceFetcher.fetch(socialResourceReqeustDto);
+    return googleResourceFetcher.fetch(socialResourceRequestDto);
   }
 }

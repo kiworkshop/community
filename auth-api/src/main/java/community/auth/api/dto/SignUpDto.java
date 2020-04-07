@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class SignUpDto implements SocialResourceReqeustDto {
+public class SignUpDto implements SocialResourceRequestDto {
   private @NotNull Social.Provider provider;
   private @NotEmpty String providerAccessToken;
 }

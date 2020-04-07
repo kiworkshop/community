@@ -45,7 +45,7 @@ class AuthControllerIntTest {
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("grant_type", "password")
         .param("username", "123e4567-e89b-12d3-a456-426655440000")
-        .param("password", "password"))
+        .param("password", "12345678"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.access_token").isString())
         .andExpect(jsonPath("$.token_type").isString())
@@ -61,7 +61,7 @@ class AuthControllerIntTest {
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("grant_type", "password")
         .param("username", "123e4567-e89b-12d3-a456-426655440000")
-        .param("password", "password"))
+        .param("password", "12345678"))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
@@ -86,7 +86,7 @@ class AuthControllerIntTest {
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .param("grant_type", "password")
         .param("username", "123e4567-e89b-12d3-a456-426655440000")
-        .param("password", "password"))
+        .param("password", "12345678"))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 

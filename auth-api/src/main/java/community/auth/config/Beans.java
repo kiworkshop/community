@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 public class Beans {
 
   @Bean
-  PasswordEncoder passwordEncoder() {
+  public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
   }
 

@@ -1,6 +1,5 @@
 package community.auth.config;
 
-import community.auth.service.UserService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,19 +8,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AuthenticationProviderCustom implements AuthenticationProvider {
+public class AuthenticationProviderImpl implements AuthenticationProvider {
 
   private final PasswordEncoder passwordEncoder;
-  private final UserService userService;
+  private final UserDetailsService userDetailsService;
 
   @Override
   public Authentication authenticate(Authentication authentication) {
-    UserDetails userInfo = userService.loadUserByUsername(authentication.getPrincipal().toString());
+    UserDetails userInfo = userDetailsService.loadUserByUsername(authentication.getPrincipal().toString());
 
     if (!matchPassword(authentication.getCredentials().toString(), userInfo.getPassword())) {
       throw new BadCredentialsException("not matching username or password");

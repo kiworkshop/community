@@ -2,6 +2,7 @@ package community.auth.api;
 
 import community.auth.api.dto.AuthenticationDto;
 import community.auth.api.dto.SignInDto;
+import community.auth.api.dto.SignOutDto;
 import community.auth.api.dto.SignUpDto;
 import community.auth.service.UserService;
 import javax.validation.Valid;
@@ -26,5 +27,10 @@ public class UserController {
   @PostMapping("/sign-in")
   public Mono<AuthenticationDto> signIn(@RequestBody @Valid SignInDto signInDto) {
     return userService.signIn(signInDto);
+  }
+
+  @PostMapping("/sign-out")
+  public Mono<Void> signOut(@RequestBody @Valid SignOutDto signOutDto) {
+    return userService.signOut(signOutDto);
   }
 }

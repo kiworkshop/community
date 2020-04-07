@@ -2,6 +2,7 @@ package community.auth.service;
 
 import community.auth.api.dto.AuthenticationDto;
 import community.auth.api.dto.SignInDto;
+import community.auth.api.dto.SignOutDto;
 import community.auth.api.dto.SignUpDto;
 import community.auth.api.dto.UserDto;
 import community.auth.exception.UserNotFoundException;
@@ -46,5 +47,10 @@ public class UserServiceImpl implements UserService {
             .findBySocialSocialId(response.getSocialId())
             .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
         .flatMap(tokenService::getTokenOf);
+  }
+
+  @Override
+  public Mono<Void> signOut(SignOutDto signOutDto) {
+    return tokenService.refresh(signOutDto.getRefreshToken()).then();
   }
 }

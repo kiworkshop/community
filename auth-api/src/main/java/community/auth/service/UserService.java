@@ -4,6 +4,7 @@ import community.auth.api.dto.AuthenticationDto;
 import community.auth.api.dto.SignInDto;
 import community.auth.api.dto.SignOutDto;
 import community.auth.api.dto.SignUpDto;
+import community.auth.api.dto.TokenRefreshDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import reactor.core.publisher.Mono;
 
@@ -13,4 +14,6 @@ public interface UserService extends UserDetailsService {
   Mono<AuthenticationDto> signIn(SignInDto signInDto);
 
   Mono<Void> signOut(SignOutDto signOutDto);
+
+  Mono<AuthenticationDto> tokenRefresh(TokenRefreshDto tokenRefreshDto);
 }

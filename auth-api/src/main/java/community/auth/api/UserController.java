@@ -4,6 +4,7 @@ import community.auth.api.dto.AuthenticationDto;
 import community.auth.api.dto.SignInDto;
 import community.auth.api.dto.SignOutDto;
 import community.auth.api.dto.SignUpDto;
+import community.auth.api.dto.TokenRefreshDto;
 import community.auth.service.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,10 @@ public class UserController {
   @PostMapping("/sign-out")
   public Mono<Void> signOut(@RequestBody @Valid SignOutDto signOutDto) {
     return userService.signOut(signOutDto);
+  }
+
+  @PostMapping("/token-refresh")
+  public Mono<AuthenticationDto> signOut(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
+    return userService.tokenRefresh(tokenRefreshDto);
   }
 }

@@ -41,11 +41,11 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public Mono<AuthenticationDto> signIn(SocialResourceRequestDto socialResourceRequestDto) {
-   return socialResourceFetcher.fetch(socialResourceRequestDto)
+    return socialResourceFetcher.fetch(socialResourceRequestDto)
         .map(response -> userRepository
             .findBySocialSocialId(response.getSocialId())
             .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
-       .flatMap(tokenService::getTokenOf);
+        .flatMap(tokenService::getTokenOf);
   }
 
   @Override

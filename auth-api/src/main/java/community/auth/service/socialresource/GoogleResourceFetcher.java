@@ -32,6 +32,6 @@ class GoogleResourceFetcher implements SocialResourceFetcher {
         )
         .retrieve()
         .bodyToMono(JsonNode.class)
-        .map(body -> SocialResourceFetcher.createResourceFrom(body , "sub"));
+        .map(body -> SocialResourceFetcher.createResourceFrom(body, "sub"));
   }
 }

@@ -44,11 +44,11 @@ public class TagService {
     }
 
     public List<Long> createTagContents(TagContentRequestDto tagContentRequestDto) {
-        String tableName = tagContentRequestDto.getTableName();
+        String contentType = tagContentRequestDto.getContentType();
         Long contentId = tagContentRequestDto.getContentId();
         List<TagContent> tagContents = tagContentRequestDto.getTagNames().stream()
                 .map(this::createTagIfAbsent)
-                .map(tag -> createTagContent(tag, tableName, contentId))
+                .map(tag -> createTagContent(tag, contentType, contentId))
                 .collect(Collectors.toList());
 
         return tagContentRepository.saveAll(tagContents).stream()

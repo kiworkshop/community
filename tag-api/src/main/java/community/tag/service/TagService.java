@@ -22,9 +22,6 @@ public class TagService {
     private final TagContentRepository tagContentRepository;
 
     public List<TagResponseDto> readAllTags() {
-
-        Set.of("aa");
-
         return tagRepository.findAll().stream()
                         .map(TagResponseDto::from)
                         .collect(Collectors.toList());

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class TagContentRequestDto {
-    private @NotEmpty List<String> tagNames;
-    private @NotNull String tableName;
+    private @NotEmpty List<@NotEmpty String> tagNames;
+    private @NotEmpty String tableName;
     private @NotNull Long contentId;
 }

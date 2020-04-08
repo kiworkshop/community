@@ -1,5 +1,6 @@
 package community.tag.domain;
 
+import community.common.model.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Tag {
+public class Tag extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -31,6 +31,3 @@ out/
 
 ### VS Code ###
 .vscode/
-*.properties
-*.jar
-comment-api/gradle/wrapper/gradle-wrapper.jar

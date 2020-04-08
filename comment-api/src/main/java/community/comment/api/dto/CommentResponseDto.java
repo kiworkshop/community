@@ -1,6 +1,5 @@
 package community.comment.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import community.comment.domain.Comment;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -16,8 +15,6 @@ public class CommentResponseDto {
   private int order;
   private boolean active;
   private List<CommentResponseDto> children = new ArrayList<>();
-
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
   private ZonedDateTime createdAt;
 
   private CommentResponseDto(Comment comment) {

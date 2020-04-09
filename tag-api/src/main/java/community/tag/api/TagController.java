@@ -38,7 +38,7 @@ public class TagController {
         return tagService.readTagContentsByTag(tagName);
     }
 
-    @PostMapping
+    @PostMapping("/tagContents")
     public List<Long> createTagContents(@RequestBody @Valid TagContentRequestDto tagContentRequestDto) {
         return tagService.createTagContents(tagContentRequestDto);
     }

@@ -1,7 +1,28 @@
 package community.comment.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
+import community.common.model.BoardType;
+import org.springframework.test.util.ReflectionTestUtils;
 
-class CommentTest {
+public class CommentTest {
+  public static Comment getCommentFixture() {
+    Comment comment = new Comment();
 
+    ReflectionTestUtils.setField(comment, "boardType", BoardType.NOTICE);
+    ReflectionTestUtils.setField(comment, "postId", 1L);
+    ReflectionTestUtils.setField(comment, "username", "user1");
+    ReflectionTestUtils.setField(comment, "content", "content");
+
+    return comment;
+  }
+  public static Comment getDeactivatedParentCommentFixture() {
+    Comment comment = new Comment();
+
+    ReflectionTestUtils.setField(comment, "boardType", BoardType.NOTICE);
+    ReflectionTestUtils.setField(comment, "postId", 1L);
+    ReflectionTestUtils.setField(comment, "username", "user1");
+    ReflectionTestUtils.setField(comment, "content", "content");
+    ReflectionTestUtils.setField(comment, "active", false);
+
+    return comment;
+  }
 }

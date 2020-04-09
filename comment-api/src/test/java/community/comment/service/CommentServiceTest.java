@@ -1,16 +1,24 @@
 package community.comment.service;
 
+import static community.comment.api.dto.CommentRequestDtoTest.getCommentRequestDtoFixture;
+import static community.comment.domain.CommentTest.getCommentFixture;
+import static community.comment.domain.CommentTest.getDeactivatedParentCommentFixture;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import community.comment.api.dto.CommentRequestDto;
 import community.comment.api.dto.CommentResponseDto;
 import community.comment.domain.Comment;
 import community.comment.domain.CommentRepository;
+import community.comment.exception.CommentNotFoundException;
 import community.common.model.BoardType;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +79,49 @@ public class CommentServiceTest {
     // then
     ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
     System.out.println(mapper.writeValueAsString(forest));
-    return;
   }
 
+  @Test
+  void createComment_ValidInput_ValidOutput() {
+    CommentRequestDto request = getCommentRequestDtoFixture();
+    Comment commentToSave = getCommentFixture();
+    given(commentRepository.save(any(Comment.class))).willReturn(commentToSave);
+
+    commentService.createComment(request);
+  }
+
+  @Test
+  void createComment_CommentToDeletedParentComment_throwsException() {
+    CommentRequestDto request = getCommentRequestDtoFixture();
+    Comment parentComment = getDeactivatedParentCommentFixture();
+    given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(parentComment));
+
+    thenThrownBy(() -> commentService.createComment(request))
+        .isExactlyInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void updateComment_ValidInput_ValidOutput() {
+    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
+    Comment comment = getCommentFixture();
+    given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(comment));
+    given(commentRepository.save(any(Comment.class))).willReturn(comment);
+
+    commentService.updateComment(1L, commentRequestDto);
+  }
+
+  @Test
+  void deleteComment_ValidInput_ValidOutput() {
+    Comment commentToDelete = getCommentFixture();
+    given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(commentToDelete));
+
+    commentService.deleteComment(commentToDelete.getId());
+  }
+
+  @Test
+  void deleteComment_InvalidInput_throwsException() {
+    given(commentRepository.findById(any(Long.class))).willReturn(Optional.empty());
+    thenThrownBy(() -> commentService.deleteComment(1L))
+        .isExactlyInstanceOf(CommentNotFoundException.class);
+  }
 }

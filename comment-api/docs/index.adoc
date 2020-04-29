@@ -1,4 +1,4 @@
-= Kiworkshop community Mother-API Docs
+= Kiworkshop community Comment-API Docs
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -15,16 +15,16 @@
 |===
 | Verb | Usage
 
-| `GET`
+| GET
 | Used to retrieve a resource
 
-| `POST`
+| POST
 | Used to create a new resource
 
-| `PUT`
+| PUT
 | Used to update an existing resource, full updates only
 
-| `DELETE`
+| DELETE
 | Used to delete an existing resource
 |===
 
@@ -35,27 +35,22 @@
 
 [[resource-myangPost-comment]]
 
-=== Read a comment
-A `GET` request to read a comment.
-
-operation::/comments/read-a-comment[snippets='http-request,path-parameters,http-response,response-fields']
-
 === Read comments
-A `GET` request to read comments.
+A GET request to read comments.
 
-operation::/comments/read-comments[snippets='http-request,request-parameters,http-response,response-fields']
+operation::/comments/read-comments[snippets='http-request,path-parameters,http-response,response-fields']
 
 === Create a comment
-A `POST` request to create a comment.
+A POST request to create a comment.
 
 operation::/comments/create-a-comment[snippets='http-request,request-fields,http-response']
 
 === Update a comment
-A `PUT` request to update a comment.
+A PUT request to update a comment.
 
 operation::/comments/update-a-comment[snippets='http-request,path-parameters,request-fields,http-response']
 
 === Delete a comment
-A `DELETE` request to delete a comment.
+A DELETE request to delete a comment.
 
 operation::/comments/delete-a-comment[snippets='http-request,path-parameters,http-response']

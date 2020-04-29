@@ -62,30 +62,40 @@ public class CommentControllerTest {
   };
 
   private FieldDescriptor[] responseFieldDescriptors = new FieldDescriptor[]{
-      fieldWithPath("id").description("Id of a comment"),
-      fieldWithPath("content").description("Content of a comment"),
-      fieldWithPath("parentId").description("Parent Id of a comment"),
-      fieldWithPath("order").description("order of a comment"),
-      fieldWithPath("active").description("whether the comment is active")
+      fieldWithPath("[].id").description("Id of a comment"),
+      fieldWithPath("[].username").description("User name of a comment"),
+      fieldWithPath("[].content").description("Content of a comment"),
+      fieldWithPath("[].parentId").description("Parent Id of a comment"),
+      fieldWithPath("[].order").description("Order of a comment"),
+      fieldWithPath("[].active").description("Whether a comment is active"),
+      fieldWithPath("[].children").description("Nested comments of a comment"),
+      fieldWithPath("[].createdAt").description("Created date time")
   };
 
   @Test
   void get_ValidInput_ValidOutput() throws Exception {
     // given
     List<CommentResponseDto> commentResponseDtos = new ArrayList<>();
-    long numOfComments = 10L;
+    long numOfComments = 2L;
     for (long i = 0; i < numOfComments; i++) {
       commentResponseDtos.add(getCommentResponseDtoFixture(i + 1));
     }
     given(commentService.getComments(eq(BoardType.NOTICE), any(Long.class))).willReturn(commentResponseDtos);
 
     // expect
-    this.mvc.perform(get("/comments/NOTICE/1"))
+    this.mvc.perform(get("/comments/{boardType}/{postId}", BoardType.NOTICE, 1))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].id").value(1))
-        .andExpect(jsonPath("$[9].id").value(10))
+        .andExpect(jsonPath("$[1].id").value(2))
+        .andExpect(jsonPath("$[0].active").value(true))
+        .andExpect(jsonPath("$[0].username").value("user1"))
+        .andExpect(jsonPath("$[0].content").value("content"))
         .andDo(document("comments/read-comments",
             preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+            pathParameters(
+                parameterWithName("boardType").description("(enum) board type: NOTICE, JGRAPHY, MJARTICLE, MYANGLOG, SIMPLELIFE"),
+                parameterWithName("postId").description("id of a post that comment is added")
+            ),
             responseFields(responseFieldDescriptors)));
   }
 

@@ -3,6 +3,7 @@ package community.comment.api;
 import community.comment.api.dto.CommentRequestDto;
 import community.comment.api.dto.CommentResponseDto;
 import community.comment.service.CommentService;
+import community.common.model.BoardType;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
   private final CommentService commentService;
 
-  @GetMapping(value = "/{boardId}/{postId}")
-  public List<CommentResponseDto> get(@PathVariable Long boardId, @PathVariable Long postId) {
-    return commentService.getComments(boardId, postId);
+  @GetMapping(value = "/{boardType}/{postId}")
+  public List<CommentResponseDto> get(@PathVariable BoardType boardType, @PathVariable Long postId) {
+    return commentService.getComments(boardType, postId);
   }
 
   @PostMapping(value = {"", "/"})

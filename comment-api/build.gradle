@@ -30,6 +30,13 @@ dependencies {
     }
 }
 
+asciidoctor {
+    inputs.dir snippetsDir
+    sourceDir 'docs'
+    outputDir = file('build/docs')
+    dependsOn test
+}
+
 test {
     useJUnitPlatform()
 }

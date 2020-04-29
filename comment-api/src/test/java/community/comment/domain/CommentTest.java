@@ -7,6 +7,7 @@ public class CommentTest {
   public static Comment getCommentFixture() {
     Comment comment = new Comment();
 
+    ReflectionTestUtils.setField(comment, "id", 1L);
     ReflectionTestUtils.setField(comment, "boardType", BoardType.NOTICE);
     ReflectionTestUtils.setField(comment, "postId", 1L);
     ReflectionTestUtils.setField(comment, "username", "user1");

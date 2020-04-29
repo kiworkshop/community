@@ -1,0 +1,61 @@
+= Kiworkshop community Mother-API Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+[cols="20%,80%"]
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to update an existing resource, full updates only
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+= Resources
+
+[[resources-comment]]
+== Comment API
+
+[[resource-myangPost-comment]]
+
+=== Read a comment
+A `GET` request to read a comment.
+
+operation::/comments/read-a-comment[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Read comments
+A `GET` request to read comments.
+
+operation::/comments/read-comments[snippets='http-request,request-parameters,http-response,response-fields']
+
+=== Create a comment
+A `POST` request to create a comment.
+
+operation::/comments/create-a-comment[snippets='http-request,request-fields,http-response']
+
+=== Update a comment
+A `PUT` request to update a comment.
+
+operation::/comments/update-a-comment[snippets='http-request,path-parameters,request-fields,http-response']
+
+=== Delete a comment
+A `DELETE` request to delete a comment.
+
+operation::/comments/delete-a-comment[snippets='http-request,path-parameters,http-response']

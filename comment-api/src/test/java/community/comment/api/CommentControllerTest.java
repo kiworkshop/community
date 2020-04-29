@@ -61,7 +61,7 @@ public class CommentControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(noticeRequestDto)))
         .andExpect(status().isOk())
-        .andDo(document("comment/create-a-comment",
+        .andDo(document("comments/create-a-comment",
             preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
             requestFields(requestFieldDescriptors)));
   }

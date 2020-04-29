@@ -6,6 +6,7 @@ import static community.comment.domain.CommentTest.getDeactivatedParentCommentFi
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -71,10 +72,10 @@ public class CommentServiceTest {
 
     comments.sort((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()));
 
-    given(commentRepository.findByBoardIdAndPostId(anyLong(), anyLong())).willReturn(comments);
+    given(commentRepository.findByBoardTypeAndPostId(eq(BoardType.NOTICE), anyLong())).willReturn(comments);
 
     // when
-    List<CommentResponseDto> forest = commentService.getComments(1L, 1L);
+    List<CommentResponseDto> forest = commentService.getComments(BoardType.NOTICE, 1L);
 
     // then
     ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();

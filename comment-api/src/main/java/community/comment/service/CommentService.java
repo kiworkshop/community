@@ -5,15 +5,16 @@ import community.comment.api.dto.CommentResponseDto;
 import community.comment.domain.Comment;
 import community.comment.domain.CommentRepository;
 import community.comment.exception.CommentNotFoundException;
+import community.common.model.BoardType;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import javax.annotation.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,8 +22,8 @@ import org.springframework.stereotype.Service;
 public class CommentService {
   private final CommentRepository commentRepository;
 
-  public List<CommentResponseDto> getComments(Long boardId, Long postId) {
-    List<CommentResponseDto> comments = commentRepository.findByBoardIdAndPostId(boardId, postId).stream()
+  public List<CommentResponseDto> getComments(BoardType boardType, Long postId) {
+    List<CommentResponseDto> comments = commentRepository.findByBoardTypeAndPostId(boardType, postId).stream()
         .map(CommentResponseDto::of)
         .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt))
         .collect(Collectors.toList());
@@ -69,10 +70,14 @@ public class CommentService {
     if (request.getParentId() == null) {
       return;
     }
-    Comment parentComment = findCommentById(request.getParentId());
-    if (!parentComment.isActive()) {
+    Comment parentComment = findParentCommentById(request.getParentId());
+    if (Objects.nonNull(parentComment) && !parentComment.isActive()) {
       throw new IllegalArgumentException("삭제된 댓글에 대댓글을 달 수 없습니다.");
     }
+  }
+
+  private Comment findParentCommentById(Long id) {
+    return commentRepository.findById(id).orElse(null);
   }
 
   public void deleteComment(Long id) {

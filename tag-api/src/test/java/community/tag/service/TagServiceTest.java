@@ -13,8 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +38,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class TagServiceTest {
     private TagService tagService;
+
     private @Mock TagRepository tagRepository;
     private @Mock TagContentRepository tagContentRepository;
 
@@ -44,16 +50,24 @@ public class TagServiceTest {
     @Test
     void readAllTags_ValidInput_ValidOutput() {
         // given
-        List<Tag> tags = getTagsFixture();
-        given(tagRepository.findAll()).willReturn(tags);
+        final Long numTags = 10L;
+        String tagName = "tag";
+        List<Tag> tags = new ArrayList<>();
+
+        for (long i = 0; i < numTags; i++) {
+            tags.add(getTagFixture(tagName.concat(Long.toString(i))));
+        }
+
+        PageImpl<Tag> tagPage = new PageImpl<>(tags);
+        given(tagRepository.findAll(any(Pageable.class))).willReturn(tagPage);
 
         // when
-        List<TagResponseDto> tagResponseDtos = tagService.readAllTags();
+        Page<TagResponseDto> tagResponseDtoPage = tagService.readTagPage(
+                PageRequest.of(0, numTags.intValue())
+        );
 
         // then
-        then(tagResponseDtos.size()).isEqualTo(tags.size());
-        then(tagResponseDtos.get(0).getName()).isEqualTo(tags.get(0).getName());
-        then(tagResponseDtos.get(1).getName()).isEqualTo(tags.get(1).getName());
+        then(tagResponseDtoPage.getTotalElements()).isEqualTo(numTags);
     }
 
     @Test

@@ -9,6 +9,8 @@ import community.tag.api.dto.TagResponseDto;
 import community.tag.domain.Tag;
 import community.tag.domain.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,8 @@ public class TagService {
     private final TagRepository tagRepository;
     private final TagContentRepository tagContentRepository;
 
-    public List<TagResponseDto> readAllTags() {
-        return tagRepository.findAll().stream()
-                        .map(TagResponseDto::from)
-                        .collect(Collectors.toList());
+    public Page<TagResponseDto> readTagPage(Pageable pageable) {
+        return tagRepository.findAll(pageable).map(TagResponseDto::from);
     }
 
     public Long createTagIfAbsent(TagRequestDto tagRequestDto) {

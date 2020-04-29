@@ -5,8 +5,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class CommentResponseDto {
   private Long id;
   private String username;

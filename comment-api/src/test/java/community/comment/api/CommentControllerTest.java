@@ -1,19 +1,34 @@
 package community.comment.api;
 
 import static community.comment.api.dto.CommentRequestDtoTest.getCommentRequestDtoFixture;
+import static community.comment.api.dto.CommentResponseDtoTest.getCommentResponseDtoFixture;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import community.comment.api.dto.CommentRequestDto;
+import community.comment.api.dto.CommentResponseDto;
 import community.comment.service.CommentService;
+import community.common.model.BoardType;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,18 +63,41 @@ public class CommentControllerTest {
 
   private FieldDescriptor[] responseFieldDescriptors = new FieldDescriptor[]{
       fieldWithPath("id").description("Id of a comment"),
-      fieldWithPath("content").description("Content of a comment")
+      fieldWithPath("content").description("Content of a comment"),
+      fieldWithPath("parentId").description("Parent Id of a comment"),
+      fieldWithPath("order").description("order of a comment"),
+      fieldWithPath("active").description("whether the comment is active")
   };
 
   @Test
-  void createComment_ValidInput_ValidOutput() throws Exception {
+  void get_ValidInput_ValidOutput() throws Exception {
     // given
-    CommentRequestDto noticeRequestDto = getCommentRequestDtoFixture();
+    List<CommentResponseDto> commentResponseDtos = new ArrayList<>();
+    long numOfComments = 10L;
+    for (long i = 0; i < numOfComments; i++) {
+      commentResponseDtos.add(getCommentResponseDtoFixture(i + 1));
+    }
+    given(commentService.getComments(eq(BoardType.NOTICE), any(Long.class))).willReturn(commentResponseDtos);
+
+    // expect
+    this.mvc.perform(get("/comments/NOTICE/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].id").value(1))
+        .andExpect(jsonPath("$[9].id").value(10))
+        .andDo(document("comments/read-comments",
+            preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+            responseFields(responseFieldDescriptors)));
+  }
+
+  @Test
+  void post_ValidInput_ValidOutput() throws Exception {
+    // given
+    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
 
     // expect
     this.mvc.perform(post("/comments")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(noticeRequestDto)))
+        .content(objectMapper.writeValueAsString(commentRequestDto)))
         .andExpect(status().isOk())
         .andDo(document("comments/create-a-comment",
             preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -67,7 +105,7 @@ public class CommentControllerTest {
   }
 
   @Test
-  void createComment_NullFields_StatusBadRequest() throws Exception {
+  void post_NullFields_StatusBadRequest() throws Exception {
     // given
     CommentRequestDto commentRequestDto = new CommentRequestDto();
 
@@ -78,6 +116,31 @@ public class CommentControllerTest {
         .andExpect(status().isBadRequest());
   }
 
+  @Test
+  void put_ValidInput_ValidOutput() throws Exception {
+    // given
+    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
 
+    // expect
+    this.mvc.perform(put("/comments/{id}", 1)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(commentRequestDto)))
+        .andDo(document("comments/update-a-comment",
+            preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+            pathParameters(parameterWithName("id")
+                .description("An id of a comment to update.")
+                .attributes(key("constraints").value("Not Null"))),
+            requestFields(requestFieldDescriptors)));
+  }
 
+  @Test
+  void delete_ValidInput_ValidOutput() throws Exception {
+    this.mvc.perform(delete("/comments/{id}", 1L))
+        .andExpect(status().isOk())
+        .andDo(document("comments/delete-a-comment",
+            preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+            pathParameters(parameterWithName("id")
+                .description("An id of a comment to delete.")
+                .attributes(key("constraints").value("Not Null")))));
+  }
 }

@@ -6,6 +6,10 @@ import community.tag.api.dto.TagRequestDto;
 import community.tag.api.dto.TagResponseDto;
 import community.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,8 +23,10 @@ public class TagController {
     private final TagService tagService;
 
     @GetMapping
-    public List<TagResponseDto> readAll() {
-        return tagService.readAllTags();
+    public Page<TagResponseDto> readTagPage(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return tagService.readTagPage(pageable);
     }
 
     @PostMapping

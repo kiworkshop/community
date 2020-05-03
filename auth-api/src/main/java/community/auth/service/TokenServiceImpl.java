@@ -39,4 +39,15 @@ public class TokenServiceImpl implements TokenService {
         .retrieve()
         .bodyToMono(AuthenticationDto.class);
   }
+
+  @Override
+  public Mono<AuthenticationDto> refresh(String refreshToken) {
+    return webClient.post()
+        .uri("/oauth/token")
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .body(BodyInserters.fromFormData("grant_type", "refresh_token")
+            .with("refresh_token", refreshToken))
+        .retrieve()
+        .bodyToMono(AuthenticationDto.class);
+  }
 }

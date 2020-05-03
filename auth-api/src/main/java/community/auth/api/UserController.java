@@ -1,7 +1,9 @@
 package community.auth.api;
 
 import community.auth.api.dto.AuthenticationDto;
+import community.auth.api.dto.SignInDto;
 import community.auth.api.dto.SignUpDto;
+import community.auth.api.dto.TokenRefreshDto;
 import community.auth.service.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +22,20 @@ public class UserController {
   @PostMapping("/sign-up")
   public Mono<AuthenticationDto> signUp(@RequestBody @Valid SignUpDto signUpDto) {
     return userService.signUp(signUpDto);
+  }
+
+  @PostMapping("/sign-in")
+  public Mono<AuthenticationDto> signIn(@RequestBody @Valid SignInDto signInDto) {
+    return userService.signIn(signInDto);
+  }
+
+  @PostMapping("/sign-out")
+  public Mono<Void> signOut(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
+    return userService.signOut(tokenRefreshDto);
+  }
+
+  @PostMapping("/token-refresh")
+  public Mono<AuthenticationDto> tokenRefresh(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
+    return userService.tokenRefresh(tokenRefreshDto);
   }
 }

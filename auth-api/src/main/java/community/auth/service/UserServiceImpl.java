@@ -1,8 +1,10 @@
 package community.auth.service;
 
 import community.auth.api.dto.AuthenticationDto;
-import community.auth.api.dto.SignUpDto;
+import community.auth.api.dto.SocialResourceRequestDto;
+import community.auth.api.dto.TokenRefreshDto;
 import community.auth.api.dto.UserDto;
+import community.auth.exception.UserNotFoundException;
 import community.auth.model.UserRepository;
 import community.auth.service.socialresource.SocialResourceFetcher;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +33,28 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public Mono<AuthenticationDto> signUp(SignUpDto signUpDto) {
-    return socialResourceFetcher.fetch(signUpDto)
-        .map(response -> userRepository.save(response.createUser(signUpDto.getProvider())))
+  public Mono<AuthenticationDto> signUp(SocialResourceRequestDto socialResourceRequestDto) {
+    return socialResourceFetcher.fetch(socialResourceRequestDto)
+        .map(response -> userRepository.save(response.createUser(socialResourceRequestDto.getProvider())))
         .flatMap(tokenService::getTokenOf);
+  }
+
+  @Override
+  public Mono<AuthenticationDto> signIn(SocialResourceRequestDto socialResourceRequestDto) {
+    return socialResourceFetcher.fetch(socialResourceRequestDto)
+        .map(response -> userRepository
+            .findBySocialSocialId(response.getSocialId())
+            .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
+        .flatMap(tokenService::getTokenOf);
+  }
+
+  @Override
+  public Mono<Void> signOut(TokenRefreshDto tokenRefreshDto) {
+    return tokenService.refresh(tokenRefreshDto.getRefreshToken()).then();
+  }
+
+  @Override
+  public Mono<AuthenticationDto> tokenRefresh(TokenRefreshDto tokenRefreshDto) {
+    return tokenService.refresh(tokenRefreshDto.getRefreshToken());
   }
 }

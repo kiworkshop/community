@@ -2,7 +2,7 @@ package community.auth.api.dto;
 
 import community.auth.model.Social;
 
-public interface SocialResourceReqeustDto {
+public interface SocialResourceRequestDto {
   Social.Provider getProvider();
 
   String getProviderAccessToken();

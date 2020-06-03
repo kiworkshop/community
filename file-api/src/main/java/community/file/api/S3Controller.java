@@ -1,7 +1,7 @@
-package community.file.controller;
+package community.file.api;
 
+import community.file.api.dto.FileUrlResponses;
 import community.file.uploader.S3Uploader;
-import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,8 @@ public class S3Controller {
   private final S3Uploader s3Uploader;
 
   @PostMapping("/uploads")
-  public List<String> upload(@RequestParam("data") List<MultipartFile> multipartFiles) {
+  public FileUrlResponses upload(@RequestParam("data") List<MultipartFile> multipartFiles) {
+
     return s3Uploader.upload(multipartFiles, PICTURE_DIRECTORY_NAME);
   }
 }

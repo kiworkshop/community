@@ -3,11 +3,11 @@ package community.file.uploader;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import community.file.api.dto.FileUrlResponses;
 import community.file.exception.FileNotConvertedException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,11 +30,12 @@ public class S3Uploader {
   @Value("#{systemProperties['java.io.tmpdir']}")
   private String tmpDir;
 
-  public List<String> upload(List<MultipartFile> multipartFiles, String dirName) {
-    return multipartFiles.stream()
+  public FileUrlResponses upload(List<MultipartFile> multipartFiles, String dirName) {
+    List<String> urls = multipartFiles.stream()
         .map(this::convert)
         .map(file -> upload(file, dirName))
         .collect(Collectors.toList());
+    return new FileUrlResponses(urls);
   }
 
   private String upload(File uploadFile, String dirName) {

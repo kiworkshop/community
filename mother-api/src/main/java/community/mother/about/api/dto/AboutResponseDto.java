@@ -1,9 +1,11 @@
 package community.mother.about.api.dto;
 
 import community.mother.about.domain.About;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@Getter
 public class AboutResponseDto {
 
     private String title;

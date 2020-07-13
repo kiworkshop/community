@@ -1,7 +1,9 @@
 package community.mother.support.api.dto;
 
 import community.mother.support.domain.Support;
+import lombok.Getter;
 
+@Getter
 public class SupportResponseDto {
     private String title;
     private String content;

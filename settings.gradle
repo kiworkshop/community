@@ -4,7 +4,6 @@ pluginManagement {
 	}
 }
 rootProject.name = 'org.kiworkshop.community'
-include 'mother-api'
 include 'common'
 include 'content-api'
 include 'auth-api'
@@ -13,4 +12,5 @@ include 'file-api'
 
 include 'core:core-mother'
 include 'domain:domain-mother'
+include 'apps:apps-monolith'
 

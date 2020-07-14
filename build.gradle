@@ -66,10 +66,11 @@ subprojects {
 def apiProjects = [
 		project(':common'),
 		project(':content-api'),
-		project(':mother-api'),
 		project(':auth-api'),
 		project(':comment-api'),
 		project(':file-api'),
+
+		project(':apps:apps-monolith'),
 ]
 
 configure(apiProjects) {

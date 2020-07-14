@@ -32,7 +32,7 @@ public class AboutTest {
   @ParameterizedTest
   @CsvSource(value = {"title,1", "content,2"})
   void build_EmptyArgument_ThrowException(String emptyField, Long num) {
-    thenThrownBy(()-> About.builder()
+    thenThrownBy(() -> About.builder()
         .title(emptyField.equals("title") ? "" : "title")
         .content(emptyField.equals("content") ? "" : "content").build()
     ).isInstanceOf(IllegalArgumentException.class);

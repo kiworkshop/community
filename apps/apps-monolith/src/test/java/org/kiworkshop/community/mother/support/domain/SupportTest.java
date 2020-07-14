@@ -25,7 +25,7 @@ public class SupportTest {
   @ParameterizedTest
   @CsvSource(value = {"title,1", "content,2"})
   void build_EmptyArgument_ThrowException(String emptyField, Long num) {
-    thenThrownBy(()-> Support.builder()
+    thenThrownBy(() -> Support.builder()
         .title(emptyField.equals("title") ? "" : "title")
         .content(emptyField.equals("content") ? "" : "content").build()
     ).isInstanceOf(IllegalArgumentException.class);

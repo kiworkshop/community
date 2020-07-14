@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(SupportController.class)
 public class SupportControllerTest {
   private @Autowired MockMvc mvc;
-  private @MockBean
-  SupportService supportService;
+  private @MockBean SupportService supportService;
 
   @Test
   void get_ValidInput_SupportResponse() throws Exception {

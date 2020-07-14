@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AboutResponseDto {
-    private String title;
-    private String content;
+  private String title;
+  private String content;
 }

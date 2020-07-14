@@ -10,7 +10,7 @@ public class AboutServiceTest {
   private AboutService aboutService;
 
   @BeforeEach
-  void setup(){
+  void setup() {
     aboutService = new AboutService();
   }
 

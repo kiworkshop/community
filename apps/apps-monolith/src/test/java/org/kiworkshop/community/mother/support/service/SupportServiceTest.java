@@ -15,7 +15,7 @@ public class SupportServiceTest {
   }
 
   @Test
-  void ValidInput_ValidOutput() {
+  void validInput_ValidOutput() {
     SupportResponseDto supportResponseDto = supportService.readSupport();
     then(supportResponseDto)
         .hasFieldOrPropertyWithValue("title", supportResponseDto.getTitle())

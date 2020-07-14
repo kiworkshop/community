@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SupportResponseDto {
-    private String title;
-    private String content;
+  private String title;
+  private String content;
 }

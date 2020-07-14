@@ -15,6 +15,7 @@ public class CommentTest {
 
     return comment;
   }
+
   public static Comment getDeactivatedParentCommentFixture() {
     Comment comment = new Comment();
 

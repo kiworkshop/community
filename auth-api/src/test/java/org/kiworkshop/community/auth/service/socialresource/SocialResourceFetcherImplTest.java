@@ -20,8 +20,7 @@ public class SocialResourceFetcherImplTest {
 
   private SocialResourceFetcherImpl fetcher;
   private @Mock SocialResourceFetcher googleResourceFetcher;
-  private @Mock
-  SocialResourceRequestDto requestDto;
+  private @Mock SocialResourceRequestDto requestDto;
 
   @BeforeEach
   void setUp() {
@@ -33,7 +32,8 @@ public class SocialResourceFetcherImplTest {
     // given
     given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);
 
-    Mono<SocialResourceResponseDto> expected = Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());
+    Mono<SocialResourceResponseDto> expected =
+        Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());
     given(googleResourceFetcher.fetch(eq(requestDto))).willReturn(expected);
 
     // when

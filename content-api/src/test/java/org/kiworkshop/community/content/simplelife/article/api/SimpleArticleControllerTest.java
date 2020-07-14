@@ -33,8 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(SimpleArticleController.class)
 class SimpleArticleControllerTest {
   private @Autowired MockMvc mvc;
-  private @MockBean
-  SimpleArticleService simpleArticleService;
+  private @MockBean SimpleArticleService simpleArticleService;
   private @Autowired ObjectMapper objectMapper;
 
   @Test

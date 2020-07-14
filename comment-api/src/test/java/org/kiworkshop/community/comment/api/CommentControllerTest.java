@@ -93,7 +93,8 @@ public class CommentControllerTest {
         .andDo(document("comments/read-comments",
             preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
             pathParameters(
-                parameterWithName("boardType").description("(enum) board type: NOTICE, JGRAPHY, MJARTICLE, MYANGLOG, SIMPLELIFE"),
+                parameterWithName("boardType")
+                    .description("(enum) board type: NOTICE, JGRAPHY, MJARTICLE, MYANGLOG, SIMPLELIFE"),
                 parameterWithName("postId").description("id of a post that comment is added")
             ),
             responseFields(responseFieldDescriptors)));

@@ -95,7 +95,8 @@ class JgrpahyPostControllerIntTest {
   @Test
   void updateNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    JgraphyPostRequestDto jgraphyPostRequestDto = JgraphyPostRequestDtoTest.getJgraphyPostRequestDtoFixture("updated title", "updated content");
+    JgraphyPostRequestDto jgraphyPostRequestDto = JgraphyPostRequestDtoTest
+        .getJgraphyPostRequestDtoFixture("updated title", "updated content");
 
     // expect
     this.mvc.perform(put("/jgraphy/posts/1")

@@ -31,18 +31,16 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureRestDocs
 class S3ControllerTest {
 
-  private @Autowired
-  MockMvc mvc;
-
-  private @MockBean
-  S3Uploader s3Uploader;
+  private @Autowired MockMvc mvc;
+  private @MockBean S3Uploader s3Uploader;
 
   @Test
   void upload_ValidInput_ValidOutput() throws Exception {
     List<String> fileNames = Arrays.asList("bob.jpeg", "bob.jpeg", "bob.jpeg");
     FileUrlResponses fileUrlResponses = new FileUrlResponses(fileNames);
     when(s3Uploader.upload(anyList(), anyString())).thenReturn(fileUrlResponses);
-    MockMultipartFile file = new MockMultipartFile("data", "/resources/upload/bob.jpeg", "multipart/form-data", "bob.jpeg".getBytes());
+    MockMultipartFile file = new MockMultipartFile(
+        "data", "/resources/upload/bob.jpeg", "multipart/form-data", "bob.jpeg".getBytes());
 
     this.mvc.perform(fileUpload("/uploads")
         .file(file)

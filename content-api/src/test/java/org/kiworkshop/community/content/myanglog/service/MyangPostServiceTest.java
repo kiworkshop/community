@@ -26,8 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class MyangPostServiceTest {
   private MyangPostService myangPostService;
 
-  private @Mock
-  MyangPostRepository myangPostRepository;
+  private @Mock MyangPostRepository myangPostRepository;
   private @Mock MyangTagRepository myangTagRepository;
 
   @BeforeEach

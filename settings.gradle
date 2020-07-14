@@ -3,7 +3,7 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'community'
+rootProject.name = 'org.kiworkshop.community'
 include 'mother-api'
 include 'common'
 include 'content-api'
@@ -11,6 +11,6 @@ include 'auth-api'
 include 'comment-api'
 include 'file-api'
 
-include 'core:mother'
-include 'domain:mother'
+include 'core:core-mother'
+include 'domain:domain-mother'
 

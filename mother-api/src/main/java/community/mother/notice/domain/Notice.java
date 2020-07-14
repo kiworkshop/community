@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.Assert;
 
 @Getter
 @Entity
@@ -34,7 +35,10 @@ public class Notice {
   private String content;
 
   @Builder
-  private Notice(String content, String title) {
+  private Notice(String title, String content) {
+    Assert.hasLength(title, "title must have length.");
+    Assert.notNull(content, "content must not be null");
+
     this.title = title;
     this.content = content;
   }

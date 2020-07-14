@@ -1,5 +1,11 @@
 package community.mother.support.api;
 
+import static community.mother.support.api.dto.SupportResponseDtoTest.getSupportResponseDtoFixture;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import community.mother.support.api.dto.SupportResponseDto;
 import community.mother.support.service.SupportService;
 import org.junit.jupiter.api.Test;
@@ -8,14 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static community.mother.support.api.dto.SupportResponseDtoTest.getSupportResponseDtoFixture;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@WebMvcTest
+@WebMvcTest(SupportController.class)
 public class SupportControllerTest {
     private @Autowired MockMvc mvc;
     private @MockBean SupportService supportService;

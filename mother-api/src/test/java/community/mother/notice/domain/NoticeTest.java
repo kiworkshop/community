@@ -29,7 +29,7 @@ public class NoticeTest {
 
     // then
     then(notice)
-        .hasNoNullFieldsOrPropertiesExcept("id")
+          .hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
         .hasFieldOrPropertyWithValue("title", "title")
         .hasFieldOrPropertyWithValue("content", "content");
   }

@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common')
+    implementation project(':core:core-web')
     implementation project(':core:core-mother')
     implementation project(':domain:domain-mother')
 
@@ -21,6 +21,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtime 'mysql:mysql-connector-java'
 
+    testImplementation(testFixtures(project(":core:core-web")))
     testImplementation(testFixtures(project(":core:core-mother")))
     integrationTestImplementation(testFixtures(project(":core:core-mother")))
 }

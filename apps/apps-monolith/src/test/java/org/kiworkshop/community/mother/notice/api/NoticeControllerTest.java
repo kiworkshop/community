@@ -1,5 +1,6 @@
 package org.kiworkshop.community.mother.notice.api;
 
+import static org.kiworkshop.community.common.PageDescriptor.pageResponseFieldDescriptors;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -27,7 +28,6 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.common.constants.Constants;
 import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
 import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
 import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
@@ -130,7 +130,7 @@ class NoticeControllerTest {
                 parameterWithName("sort")
                     .description("Sorting option. format -> '{columnName},(asc|desc)'").optional()
                     .attributes(key("constraints").value("Nullable, Default: id,desc"))),
-            PayloadDocumentation.responseFields(Constants.pageResponseFieldDescriptors)
+            PayloadDocumentation.responseFields(pageResponseFieldDescriptors)
                 .andWithPrefix("content[].", responseFieldDescriptors)));
   }
 

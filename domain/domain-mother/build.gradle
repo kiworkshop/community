@@ -17,7 +17,5 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 
     testImplementation(testFixtures(project(":core:core-mother")))
-//    integrationTestImplementation(testFixtures(project(":core:core-mother")))
-
     testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
 }

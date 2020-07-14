@@ -9,4 +9,5 @@ include 'common'
 include 'content-api'
 include 'auth-api'
 include 'core:mother'
-
+include 'comment-api'
+include 'file-api'

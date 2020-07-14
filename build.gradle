@@ -29,6 +29,7 @@ plugins {
 
 subprojects {
 	apply plugin: 'io.freefair.lombok'
+	apply plugin: 'java-test-fixtures'
 }
 
 def apiProjects = [
@@ -102,6 +103,7 @@ configure(apiProjects) {
 
 	test {
 		useJUnitPlatform()
+		classpath = sourceSets.main.output.classesDirs + classpath - files(jar.archiveFile)
 	}
 
 	jacocoTestReport {

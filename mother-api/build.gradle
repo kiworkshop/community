@@ -21,6 +21,8 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'com.h2database:h2'
     runtime 'mysql:mysql-connector-java'
+
+    testImplementation(testFixtures(project(":core:mother")))
 }
 
 asciidoctor {

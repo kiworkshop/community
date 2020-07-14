@@ -12,3 +12,4 @@ repositories {
 dependencies {
     implementation "javax.validation:validation-api:${javaxValidationApiVersion}"
 }
+

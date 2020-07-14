@@ -1,0 +1,31 @@
+= Kiworkshop community File-API Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+[cols="20%,80%"]
+|===
+| Verb | Usage
+
+| `POST`
+| Used to uploads files to get
+|===
+
+[[resources-files]]
+== File API
+
+[[resource-upload-files]]
+
+=== Upload files
+A `POST` request to upload files.
+
+operation::/files/upload-files[snippets='http-request,http-response']
+

@@ -10,8 +10,11 @@ buildscript {
         okHttpVersion = '4.4.0'
 		jsr305Version = "3.0.2"
 		javaxValidationApiVersion = "2.0.1.Final"
-		lombokVersion = "1.18.6"
         commonsLangVersion = "3.10"
+		h2DatabaseVersion = "1.4.199"
+		springTestVersion = "5.2.7.RELEASE"
+		hibernateValidatorVersion = "6.1.5.Final"
+        javaxElVersion = "3.0.0"
 
 		set('springCloudVersion', "Greenwich.SR1")
 	}
@@ -24,14 +27,65 @@ buildscript {
 
 plugins {
 	id 'org.flywaydb.flyway' version '6.0.1'
+	id "io.freefair.lombok" version "5.1.0"
 }
 
+// 모든 프로젝트 공통. 주로 lombok 의존성과 test환경 구성 담당
 subprojects {
+	apply plugin: 'java-library'
 	apply plugin: 'org.springframework.boot'
-	apply plugin: 'java'
 	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'jacoco'
+	apply plugin: 'io.freefair.lombok'
+	apply plugin: 'java-test-fixtures'
 	apply plugin: 'checkstyle'
+	apply plugin: 'jacoco'
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+		testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+			exclude module: 'junit'
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		testImplementation('org.junit.jupiter:junit-jupiter-api')
+		testImplementation('org.mockito:mockito-junit-jupiter')
+		testImplementation('org.junit.jupiter:junit-jupiter-params')
+		testRuntime('org.junit.jupiter:junit-jupiter-engine')
+
+		testImplementation("org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}")
+		testImplementation "org.glassfish:javax.el:${javaxElVersion}"
+		testImplementation "javax.el:javax.el-api:${javaxElVersion}"
+	}
+
+	jar {
+		enabled = true
+	}
+
+	task checkstyleAll(type: Test) {
+		group = 'verification'
+	}
+
+	checkstyleAll.dependsOn clean, checkstyleMain, checkstyleTest, checkstyleTestFixtures
+
+	checkstyleMain.mustRunAfter(clean)
+	checkstyleTest.mustRunAfter(clean)
+	checkstyleTestFixtures.mustRunAfter(clean)
+}
+
+def apiProjects = [
+		project(':common'),
+		project(':content-api'),
+		project(':auth-api'),
+		project(':comment-api'),
+		project(':file-api'),
+
+		project(':apps:apps-monolith'),
+]
+
+configure(apiProjects) {
 	apply plugin: 'org.asciidoctor.convert'
 	apply plugin: 'org.flywaydb.flyway'
 
@@ -55,27 +109,17 @@ subprojects {
 	}
 
 	dependencies {
-		compileOnly "org.projectlombok:lombok:${lombokVersion}"
-		testImplementation "org.projectlombok:lombok:${lombokVersion}"
-
-		annotationProcessor 'org.projectlombok:lombok'
 		implementation 'org.modelmapper:modelmapper:2.3.5'
 		implementation('org.springframework.boot:spring-boot-starter-webflux')
 		implementation('org.springframework.boot:spring-boot-starter-validation')
 		implementation("org.apache.commons:commons-lang3:${commonsLangVersion}")
 		implementation("com.google.code.findbugs:jsr305:${jsr305Version}")
 
+		runtimeOnly("com.h2database:h2:${h2DatabaseVersion}")
+
 		asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:${springRestDocsVersion}")
 		developmentOnly 'org.springframework.boot:spring-boot-devtools'
 		testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
-		testImplementation ('org.springframework.boot:spring-boot-starter-test') {
-			exclude module: 'junit'
-		}
-		testImplementation('org.junit.jupiter:junit-jupiter-api')
-		testImplementation('org.mockito:mockito-junit-jupiter')
-		testImplementation('org.junit.jupiter:junit-jupiter-params')
-		testRuntime('org.junit.jupiter:junit-jupiter-engine')
 
 		testImplementation("com.squareup.okhttp3:okhttp:${okHttpVersion}")
 		testImplementation("com.squareup.okhttp3:mockwebserver:${okHttpVersion}")
@@ -90,6 +134,7 @@ subprojects {
 
 	test {
 		useJUnitPlatform()
+		classpath = sourceSets.main.output.classesDirs + classpath - files(jar.archiveFile)
 	}
 
 	jacocoTestReport {
@@ -124,12 +169,7 @@ subprojects {
 	}
 	check.dependsOn integrationTest
 
-	task checkstyleAll(type: Test) {
-		group = 'verification'
-	}
-
-	checkstyleAll.dependsOn checkstyleMain
-	checkstyleAll.dependsOn checkstyleTest
 	checkstyleAll.dependsOn checkstyleIntegrationTest
+	checkstyleIntegrationTest.mustRunAfter(clean)
 }
 

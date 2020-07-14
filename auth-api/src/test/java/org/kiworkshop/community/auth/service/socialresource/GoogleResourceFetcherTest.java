@@ -28,8 +28,7 @@ public class GoogleResourceFetcherTest {
   private GoogleResourceFetcher fetcher;
 
   private static MockWebServer server;
-  private @Mock
-  SocialResourceRequestDto requestDto;
+  private @Mock SocialResourceRequestDto requestDto;
 
   @BeforeAll
   static void init() throws IOException {
@@ -55,10 +54,10 @@ public class GoogleResourceFetcherTest {
   @Test
   void fetch_ValidInput_ValidOutput() {
     server.enqueue(new MockResponse()
-        .setBody("{\n" +
-            "  \"sub\": \"socialId\",\n" +
-            "  \"email\": \"foo@bar.com\"\n" +
-            "}")
+        .setBody("{\n"
+            + "  \"sub\": \"socialId\",\n"
+            + "  \"email\": \"foo@bar.com\"\n"
+            + "}")
         .addHeader("Content-Type", APPLICATION_JSON.toString()));
 
     given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);

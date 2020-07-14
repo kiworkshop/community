@@ -34,8 +34,7 @@ class UserServiceImplTest {
 
   private @Mock UserRepository userRepository;
   private @Mock PasswordEncoder passwordEncoder;
-  private @Mock
-  SocialResourceFetcher socialResourceFetcher;
+  private @Mock SocialResourceFetcher socialResourceFetcher;
   private @Mock TokenService tokenService;
 
   @BeforeEach
@@ -77,7 +76,8 @@ class UserServiceImplTest {
   void signUp_ValidInput_ValidOutput() {
     // given
     SignUpDto signUpDto = SignUpDtoTest.getSignUpDtoFixture();
-    Mono<SocialResourceResponseDto> socialResourceResponseDtoMono = Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());
+    Mono<SocialResourceResponseDto> socialResourceResponseDtoMono =
+        Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());
     User user = getUserFixture();
     Mono<AuthenticationDto> expected = Mono.just(AuthenticationDtoTest.getAuthenticationDtoFixture());
 

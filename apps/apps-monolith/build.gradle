@@ -5,14 +5,12 @@ plugins {
 group 'org.kiworkshop'
 version '0.0.1-SNAPSHOT'
 
-sourceCompatibility = "11"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-	implementation project(':common')
+    implementation project(':common')
     implementation project(':core:core-mother')
     implementation project(':domain:domain-mother')
 
@@ -28,10 +26,10 @@ dependencies {
 }
 
 asciidoctor {
-	inputs.dir snippetsDir
-	sourceDir 'docs'
-	outputDir = file('build/docs')
-	dependsOn test
+    inputs.dir snippetsDir
+    sourceDir 'docs'
+    outputDir = file('build/docs')
+    dependsOn test
 }
 
 bootRun {

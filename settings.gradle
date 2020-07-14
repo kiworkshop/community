@@ -8,5 +8,5 @@ include 'mother-api'
 include 'common'
 include 'content-api'
 include 'auth-api'
+include 'comment-api'
 include 'file-api'
-

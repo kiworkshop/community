@@ -9,10 +9,6 @@ repositories {
     mavenCentral()
 }
 
-jar {
-    enabled = true
-}
-
 dependencies {
     implementation "javax.validation:validation-api:${javaxValidationApiVersion}"
 

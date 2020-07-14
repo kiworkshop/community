@@ -57,6 +57,10 @@ subprojects {
 		testImplementation "org.glassfish:javax.el:${javaxElVersion}"
 		testImplementation "javax.el:javax.el-api:${javaxElVersion}"
 	}
+
+	jar {
+		enabled = true
+	}
 }
 
 def apiProjects = [

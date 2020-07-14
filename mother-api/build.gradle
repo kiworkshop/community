@@ -23,6 +23,7 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
 
     testImplementation(testFixtures(project(":core:mother")))
+    integrationTestImplementation(testFixtures(project(":core:mother")))
 }
 
 asciidoctor {
@@ -35,3 +36,4 @@ asciidoctor {
 bootRun {
     bootRun.systemProperty 'spring.profiles.active', 'local'
 }
+

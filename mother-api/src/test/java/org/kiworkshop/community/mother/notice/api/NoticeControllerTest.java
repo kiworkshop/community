@@ -1,6 +1,5 @@
 package org.kiworkshop.community.mother.notice.api;
 
-import static org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -29,9 +28,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kiworkshop.community.common.constants.Constants;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeResponseDto;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeResponseDtoTest;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
+import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
+import org.kiworkshop.community.mother.dtos.NoticeResponseDtoFixture;
 import org.kiworkshop.community.mother.notice.exception.NoticeNotFoundException;
 import org.kiworkshop.community.mother.notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +72,7 @@ class NoticeControllerTest {
   @Test
   void createNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get();
     given(noticeService.createNotice(any(NoticeRequestDto.class))).willReturn(1L);
 
     // expect
@@ -104,7 +104,7 @@ class NoticeControllerTest {
     List<NoticeResponseDto> noticeResponseDtos = new ArrayList<>();
     final var numNotices = 10L;
     for (long i = 0; i < numNotices; i++) {
-      noticeResponseDtos.add(NoticeResponseDtoTest.getNoticeResponseDtoFixture(i + 1));
+      noticeResponseDtos.add(NoticeResponseDtoFixture.get(i + 1));
     }
     Collections.reverse(noticeResponseDtos);
     PageImpl<NoticeResponseDto> noticeResponseDtoPage = new PageImpl<>(
@@ -136,7 +136,7 @@ class NoticeControllerTest {
 
   @Test
   void get_ValidInput_NoticeResponse() throws Exception {
-    NoticeResponseDto noticeResponseDto = NoticeResponseDtoTest.getNoticeResponseFixture();
+    NoticeResponseDto noticeResponseDto = NoticeResponseDtoFixture.get();
     given(noticeService.readNotice(anyLong())).willReturn(noticeResponseDto);
 
     this.mvc.perform(get("/notices/{id}", 1))
@@ -166,7 +166,7 @@ class NoticeControllerTest {
   @Test
   void updateNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get();
 
     // expect
     this.mvc.perform(put("/notices/{id}", 1)

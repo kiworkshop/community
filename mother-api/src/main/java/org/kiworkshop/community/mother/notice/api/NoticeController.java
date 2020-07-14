@@ -2,8 +2,8 @@ package org.kiworkshop.community.mother.notice.api;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeResponseDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
 import org.kiworkshop.community.mother.notice.service.NoticeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

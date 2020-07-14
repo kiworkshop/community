@@ -1,6 +1,5 @@
 package org.kiworkshop.community.mother.notice.api;
 
-import static org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -12,7 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.kiworkshop.community.mother.MotherApiApplication;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +32,7 @@ class NoticeControllerIntTest {
   @Test
   void postNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get();
 
     // expect
     this.mvc.perform(post("/notices")
@@ -87,7 +87,7 @@ class NoticeControllerIntTest {
   @Test
   void updateNotice_ValidInput_ValidOutput() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture("updated title", "updated content");
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get("updated title", "updated content");
 
     // expect
     this.mvc.perform(put("/notices/1")

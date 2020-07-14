@@ -12,9 +12,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDtoTest;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeResponseDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
+import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
 import org.kiworkshop.community.mother.notice.domain.Notice;
 import org.kiworkshop.community.mother.notice.domain.NoticeRepository;
 import org.kiworkshop.community.mother.notice.domain.NoticeTest;
@@ -42,7 +42,7 @@ class NoticeServiceTest {
   @Test
   void createNotice_ValidInput_CreatedNotice() throws Exception {
     // given
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get();
 
     Notice noticeToSave = NoticeTest.getNoticeFixture();
     given(noticeRepository.save(any(Notice.class))).willReturn(noticeToSave);
@@ -54,9 +54,9 @@ class NoticeServiceTest {
   }
 
   @Test
-  void readNoticePage_ValidInput_ValidOutput() throws Exception {
+  void readNoticePage_ValidInput_ValidOutput() {
     // given
-    final Long numNotices = 10L;
+    final long numNotices = 10L;
     List<Notice> notices = new ArrayList<>();
 
     for (long i = 0; i < numNotices; i++) {
@@ -68,14 +68,14 @@ class NoticeServiceTest {
 
     // when
     Page<NoticeResponseDto> noticeResponseDtoPage = noticeService.readNoticePage(
-        PageRequest.of(0, numNotices.intValue()));
+        PageRequest.of(0, (int) numNotices));
 
     // expect
     then(noticeResponseDtoPage.getTotalElements()).isEqualTo(numNotices);
   }
 
   @Test
-  void readNotice_ValidInput_FoundNotice() throws Exception {
+  void readNotice_ValidInput_FoundNotice() {
     Notice notice = NoticeTest.getNoticeFixture();
     given(noticeRepository.findById(anyLong())).willReturn(Optional.of(notice));
 
@@ -94,8 +94,8 @@ class NoticeServiceTest {
   }
 
   @Test
-  void updateNotice_validInput_validOutput() throws Exception {
-    NoticeRequestDto noticeRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+  void updateNotice_validInput_validOutput() {
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get();
     Notice notice = NoticeTest.getNoticeFixture();
     given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(notice));
     given(noticeRepository.save(any(Notice.class))).willReturn(notice);
@@ -104,8 +104,8 @@ class NoticeServiceTest {
   }
 
   @Test
-  void updateNotice_nonExistNotice_throwException() throws Exception {
-    NoticeRequestDto noticeUpdatingRequestDto = NoticeRequestDtoTest.getNoticeRequestDtoFixture();
+  void updateNotice_nonExistNotice_throwException() {
+    NoticeRequestDto noticeUpdatingRequestDto = NoticeRequestDtoFixture.get();
     given(noticeRepository.findById(anyLong())).willReturn(Optional.empty());
 
     thenThrownBy(() -> noticeService.updateNotice(1L, noticeUpdatingRequestDto))
@@ -113,7 +113,7 @@ class NoticeServiceTest {
   }
 
   @Test
-  void deleteNotice_ValidInput_DeleteNotice() throws Exception {
+  void deleteNotice_ValidInput_DeleteNotice() {
     // given
     Notice noticeToDelete = NoticeTest.getNoticeFixture();
     given(noticeRepository.findById(any(Long.class))).willReturn(Optional.of(noticeToDelete));

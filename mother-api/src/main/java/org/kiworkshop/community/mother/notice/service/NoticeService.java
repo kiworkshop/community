@@ -1,8 +1,9 @@
 package org.kiworkshop.community.mother.notice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeResponseDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
+import org.kiworkshop.community.mother.notice.converter.NoticeConverter;
 import org.kiworkshop.community.mother.notice.domain.Notice;
 import org.kiworkshop.community.mother.notice.domain.NoticeRepository;
 import org.kiworkshop.community.mother.notice.exception.NoticeNotFoundException;
@@ -16,18 +17,15 @@ public class NoticeService {
   private final NoticeRepository noticeRepository;
 
   public Long createNotice(NoticeRequestDto noticeRequestDto) {
-    return noticeRepository.save(Notice.builder()
-        .title(noticeRequestDto.getTitle())
-        .content(noticeRequestDto.getContent()).build())
-        .getId();
+    return noticeRepository.save(NoticeConverter.toEntity(noticeRequestDto)).getId();
   }
 
   public Page<NoticeResponseDto> readNoticePage(Pageable pageable) {
-    return noticeRepository.findAll(pageable).map(NoticeResponseDto::of);
+    return noticeRepository.findAll(pageable).map(NoticeConverter::toResponseDto);
   }
 
   public NoticeResponseDto readNotice(Long id) {
-    return NoticeResponseDto.of(findNoticeById(id));
+    return NoticeConverter.toResponseDto(findNoticeById(id));
   }
 
   public void updateNotice(Long id, NoticeRequestDto noticeRequestDto) {

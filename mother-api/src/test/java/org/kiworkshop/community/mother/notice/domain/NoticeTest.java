@@ -2,18 +2,18 @@ package org.kiworkshop.community.mother.notice.domain;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDtoTest.getNoticeRequestDtoFixture;
 
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.notice.api.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
+import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class NoticeTest {
-  public static Notice getNoticeFixture() throws Exception {
+  public static Notice getNoticeFixture() {
     return getNoticeFixture(1L);
   }
 
-  public static Notice getNoticeFixture(Long id) throws Exception {
+  public static Notice getNoticeFixture(Long id) {
     Notice notice = Notice.builder().title("title").content("content").build();
     ReflectionTestUtils.setField(notice, "id", id);
 
@@ -48,7 +48,7 @@ public class NoticeTest {
   void update_ValidInput_ValidOutput() throws Exception {
     //given
     Notice notice = getNoticeFixture();
-    NoticeRequestDto noticeRequestDto = getNoticeRequestDtoFixture("updated title", "updated content");
+    NoticeRequestDto noticeRequestDto = NoticeRequestDtoFixture.get("updated title", "updated content");
 
     // when
     notice.updateNotice(noticeRequestDto.getTitle(), noticeRequestDto.getContent());

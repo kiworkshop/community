@@ -37,6 +37,8 @@ subprojects {
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'io.freefair.lombok'
 	apply plugin: 'java-test-fixtures'
+	apply plugin: 'checkstyle'
+	apply plugin: 'jacoco'
 
 	repositories {
 		mavenCentral()
@@ -61,6 +63,16 @@ subprojects {
 	jar {
 		enabled = true
 	}
+
+	task checkstyleAll(type: Test) {
+		group = 'verification'
+	}
+
+	checkstyleAll.dependsOn clean, checkstyleMain, checkstyleTest, checkstyleTestFixtures
+
+	checkstyleMain.mustRunAfter(clean)
+	checkstyleTest.mustRunAfter(clean)
+	checkstyleTestFixtures.mustRunAfter(clean)
 }
 
 def apiProjects = [
@@ -74,8 +86,6 @@ def apiProjects = [
 ]
 
 configure(apiProjects) {
-	apply plugin: 'jacoco'
-	apply plugin: 'checkstyle'
 	apply plugin: 'org.asciidoctor.convert'
 	apply plugin: 'org.flywaydb.flyway'
 
@@ -159,12 +169,7 @@ configure(apiProjects) {
 	}
 	check.dependsOn integrationTest
 
-	task checkstyleAll(type: Test) {
-		group = 'verification'
-	}
-
-	checkstyleAll.dependsOn checkstyleMain
-	checkstyleAll.dependsOn checkstyleTest
 	checkstyleAll.dependsOn checkstyleIntegrationTest
+	checkstyleIntegrationTest.mustRunAfter(clean)
 }
 

@@ -15,7 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.kiworkshop.community.common.model.BaseEntity;
-import org.kiworkshop.community.common.utils.UUID;
+import org.kiworkshop.community.common.utils.Uuid;
 
 @Getter
 @Entity
@@ -23,7 +23,7 @@ import org.kiworkshop.community.common.utils.UUID;
 public class User extends BaseEntity implements Serializable {
 
   @Column(nullable = false, unique = true, length = 36)
-  private @UUID
+  private @Uuid
   String username;
   private @Embedded Social social;
 

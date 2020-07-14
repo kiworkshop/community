@@ -16,17 +16,17 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(AboutController.class)
 public class AboutControllerTest {
-    private @Autowired MockMvc mvc;
-    private @MockBean AboutService aboutService;
+  private @Autowired MockMvc mvc;
+  private @MockBean AboutService aboutService;
 
-    @Test
-    void get_ValidInput_AboutResponse() throws Exception{
-        AboutResponseDto aboutResponseDto = AboutResponseDtoFixture.get();
-        given(aboutService.readAbout()).willReturn(aboutResponseDto);
+  @Test
+  void get_ValidInput_AboutResponse() throws Exception {
+    AboutResponseDto aboutResponseDto = AboutResponseDtoFixture.get();
+    given(aboutService.readAbout()).willReturn(aboutResponseDto);
 
-        this.mvc.perform(get("/about"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("title").value("title"))
-                .andExpect(jsonPath("content").value("content"));
-    }
+    this.mvc.perform(get("/about"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("title").value("title"))
+        .andExpect(jsonPath("content").value("content"));
+  }
 }

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/about")
 public class AboutController {
-    private final AboutService aboutService;
+  private final AboutService aboutService;
 
-    @GetMapping
-    public AboutResponseDto readAbout(){
-        return  aboutService.readAbout();
-    }
+  @GetMapping
+  public AboutResponseDto readAbout() {
+    return  aboutService.readAbout();
+  }
 }

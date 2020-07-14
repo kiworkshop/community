@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Getter
 public class AboutService {
 
-    private final String title = "광일공방 소개페이지";
-    private final String content = "광일공방 소개내용";
+  private final String title = "광일공방 소개페이지";
+  private final String content = "광일공방 소개내용";
 
-    public AboutResponseDto readAbout() {
-        return AboutConverter.from(About.builder().title(title).content(content).build());
-    }
+  public AboutResponseDto readAbout() {
+    return AboutConverter.from(About.builder().title(title).content(content).build());
+  }
 }

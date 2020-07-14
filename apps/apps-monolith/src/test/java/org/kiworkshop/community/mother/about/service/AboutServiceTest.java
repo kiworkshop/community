@@ -7,22 +7,22 @@ import org.junit.jupiter.api.Test;
 import org.kiworkshop.community.mother.dtos.AboutResponseDto;
 
 public class AboutServiceTest {
-    private AboutService aboutService;
+  private AboutService aboutService;
 
-    @BeforeEach
-    void setup(){
-        aboutService = new AboutService();
-    }
+  @BeforeEach
+  void setup(){
+    aboutService = new AboutService();
+  }
 
-    @Test
-    void read_ValidInput_ValidOutput(){
-        //given
-        AboutResponseDto aboutResponseDto = aboutService.readAbout();
+  @Test
+  void read_ValidInput_ValidOutput() {
+    //given
+    AboutResponseDto aboutResponseDto = aboutService.readAbout();
 
-        //then
-        then(aboutResponseDto)
-                .hasFieldOrPropertyWithValue("title", aboutService.getTitle())
-                .hasFieldOrPropertyWithValue("content", aboutService.getContent());
-    }
+    //then
+    then(aboutResponseDto)
+        .hasFieldOrPropertyWithValue("title", aboutService.getTitle())
+        .hasFieldOrPropertyWithValue("content", aboutService.getContent());
+  }
 
 }

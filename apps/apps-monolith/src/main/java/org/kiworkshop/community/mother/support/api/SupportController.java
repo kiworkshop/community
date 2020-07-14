@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/support")
 public class SupportController {
-    private final SupportService supportService;
+  private final SupportService supportService;
 
-    @GetMapping
-    public SupportResponseDto readSupport(){
-        return supportService.readSupport();
-    }
+  @GetMapping
+  public SupportResponseDto readSupport() {
+    return supportService.readSupport();
+  }
 }

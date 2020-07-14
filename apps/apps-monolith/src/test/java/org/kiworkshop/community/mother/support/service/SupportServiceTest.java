@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.kiworkshop.community.mother.dtos.SupportResponseDto;
 
 public class SupportServiceTest {
-    private SupportService supportService;
+  private SupportService supportService;
 
-    @BeforeEach
-    void setup(){
-        supportService = new SupportService();
-    }
+  @BeforeEach
+  void setup() {
+    supportService = new SupportService();
+  }
 
-    @Test
-    void ValidInput_ValidOutput(){
-        SupportResponseDto supportResponseDto = supportService.readSupport();
-        then(supportResponseDto)
-                .hasFieldOrPropertyWithValue("title", supportResponseDto.getTitle())
-                .hasFieldOrPropertyWithValue("content",supportResponseDto.getContent());
-    }
+  @Test
+  void ValidInput_ValidOutput() {
+    SupportResponseDto supportResponseDto = supportService.readSupport();
+    then(supportResponseDto)
+        .hasFieldOrPropertyWithValue("title", supportResponseDto.getTitle())
+        .hasFieldOrPropertyWithValue("content",supportResponseDto.getContent());
+  }
 }

@@ -12,6 +12,9 @@ buildscript {
 		javaxValidationApiVersion = "2.0.1.Final"
         commonsLangVersion = "3.10"
 		h2DatabaseVersion = "1.4.199"
+		springTestVersion = "5.2.7.RELEASE"
+		hibernateValidatorVersion = "6.1.5.Final"
+        javaxElVersion = "3.0.0"
 
 		set('springCloudVersion', "Greenwich.SR1")
 	}
@@ -27,9 +30,33 @@ plugins {
 	id "io.freefair.lombok" version "5.1.0"
 }
 
+// 모든 프로젝트 공통. 주로 lombok 의존성과 test환경 구성 담당
 subprojects {
+	apply plugin: 'java-library'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'io.freefair.lombok'
 	apply plugin: 'java-test-fixtures'
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencies {
+		testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+			exclude module: 'junit'
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		testImplementation('org.junit.jupiter:junit-jupiter-api')
+		testImplementation('org.mockito:mockito-junit-jupiter')
+		testImplementation('org.junit.jupiter:junit-jupiter-params')
+		testRuntime('org.junit.jupiter:junit-jupiter-engine')
+
+		testImplementation("org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}")
+		testImplementation "org.glassfish:javax.el:${javaxElVersion}"
+		testImplementation "javax.el:javax.el-api:${javaxElVersion}"
+	}
 }
 
 def apiProjects = [
@@ -42,9 +69,6 @@ def apiProjects = [
 ]
 
 configure(apiProjects) {
-	apply plugin: 'org.springframework.boot'
-	apply plugin: 'java-library'
-	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'jacoco'
 	apply plugin: 'checkstyle'
 	apply plugin: 'org.asciidoctor.convert'
@@ -81,14 +105,6 @@ configure(apiProjects) {
 		asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:${springRestDocsVersion}")
 		developmentOnly 'org.springframework.boot:spring-boot-devtools'
 		testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-
-		testImplementation ('org.springframework.boot:spring-boot-starter-test') {
-			exclude module: 'junit'
-		}
-		testImplementation('org.junit.jupiter:junit-jupiter-api')
-		testImplementation('org.mockito:mockito-junit-jupiter')
-		testImplementation('org.junit.jupiter:junit-jupiter-params')
-		testRuntime('org.junit.jupiter:junit-jupiter-engine')
 
 		testImplementation("com.squareup.okhttp3:okhttp:${okHttpVersion}")
 		testImplementation("com.squareup.okhttp3:mockwebserver:${okHttpVersion}")

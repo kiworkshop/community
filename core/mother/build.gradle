@@ -9,7 +9,13 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    enabled = true
+}
+
 dependencies {
     implementation "javax.validation:validation-api:${javaxValidationApiVersion}"
+
+    testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
 }
 

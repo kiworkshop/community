@@ -2,7 +2,7 @@ package org.kiworkshop.community.mother.exception;
 
 import org.kiworkshop.community.common.dto.ApiError;
 import org.kiworkshop.community.common.exception.CommonExceptionController;
-import org.kiworkshop.community.mother.notice.exception.NoticeNotFoundException;
+import org.kiworkshop.community.mother.notice.domain.exception.NoticeNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -18,7 +18,7 @@ public class SupportServiceTest {
     void ValidInput_ValidOutput(){
         SupportResponseDto supportResponseDto = supportService.readSupport();
         then(supportResponseDto)
-                .hasFieldOrPropertyWithValue("title",supportService.getTitle())
-                .hasFieldOrPropertyWithValue("content",supportService.getContent());
+                .hasFieldOrPropertyWithValue("title", supportResponseDto.getTitle())
+                .hasFieldOrPropertyWithValue("content",supportResponseDto.getContent());
     }
 }

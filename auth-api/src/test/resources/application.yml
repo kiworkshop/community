@@ -1,0 +1,27 @@
+spring:
+  main:
+    banner-mode: 'off'
+  output:
+    ansi:
+      enabled: ALWAYS
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  jackson:
+    mapper:
+      DEFAULT_VIEW_INCLUSION: true
+
+security:
+  oauth2:
+    client:
+      client-id: first-client
+      client-secret: noonewilleverguess
+service:
+  auth-api: http://localhost:8082
+

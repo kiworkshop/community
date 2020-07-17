@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0Ae4lvC3UyMqaDvXFBJdlBE0JVO9t246L2nUfEdTFaicC-lERH22h2JSxaU2Mmip8N8VWis7fZmfHIQshmj-E8a1CqvkqxItzz2CdXmripeu4RKqHweyzvu1-lbTkfYeBoNDFZ1HRQcieA0jXDgETiW4c1euh9ti2XEpJwg"
+  "providerAccessToken": "ya29.a0AfH6SMCD3NpxbZd4eP8ay-RL0IzlBXAd1Un2kshcOn6UWcW70j-qBTnOoiF7GRNv0k-0a77iZL_iHZpqki0g_rcePbqyhQbjCCYKz-kFion5yXCZIdXa50JXayemiFRJyrizioAdWL4D6ywCFMZHrbs2v3pTXREmevMh1A"
 }
 
 ###
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0Ae4lvC3UyMqaDvXFBJdlBE0JVO9t246L2nUfEdTFaicC-lERH22h2JSxaU2Mmip8N8VWis7fZmfHIQshmj-E8a1CqvkqxItzz2CdXmripeu4RKqHweyzvu1-lbTkfYeBoNDFZ1HRQcieA0jXDgETiW4c1euh9ti2XEpJwg"
+  "providerAccessToken": "ya29.a0AfH6SMCD3NpxbZd4eP8ay-RL0IzlBXAd1Un2kshcOn6UWcW70j-qBTnOoiF7GRNv0k-0a77iZL_iHZpqki0g_rcePbqyhQbjCCYKz-kFion5yXCZIdXa50JXayemiFRJyrizioAdWL4D6ywCFMZHrbs2v3pTXREmevMh1A"
 }
 
 ###
@@ -28,8 +28,16 @@ POST {{user-api}}/users/token-refresh
 Content-Type: application/json
 
 {
-  "refresh_token": "3865871b-6f49-4cbd-8520-0c3e4eff283b"
+  "refresh_token": "3f103e78-ddda-4d75-9040-3e0ae6aa440c"
 }
 
 ###
+POST {{user-api}}/oauth/check_token
+Authorization: Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw== # first-client:noonewilleverguess
+Content-Type: application/x-www-form-urlencoded
+
+token=26d56be6-bbeb-4cdc-9d36-0f116c2b6956
+
+###
+
 

@@ -1,6 +1,5 @@
 package org.kiworkshop.community.comment.domain;
 
-import community.common.model.BoardType;
 import java.time.ZonedDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,10 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
-import org.kiworkshop.community.comment.api.dto.CommentRequestDto;
+import org.kiworkshop.community.comment.dtos.BoardType;
 
 @Entity
 @Getter
@@ -41,24 +42,28 @@ public class Comment {
   @CreationTimestamp
   private ZonedDateTime createdAt;
 
-  private Comment(CommentRequestDto requestDto) {
-    this.boardType = requestDto.getBoardType();
-    this.postId = requestDto.getPostId();
-    this.parentId = requestDto.getParentId();
-    this.username = requestDto.getUsername();
-    this.content = requestDto.getContent();
-    this.order = requestDto.getOrder();
+  @Builder
+  private Comment(
+      @NonNull BoardType boardType,
+      @NonNull Long postId,
+      @NonNull Long parentId,
+      int order,
+      @NonNull String username,
+      @NonNull String content
+  ) {
+    this.boardType = boardType;
+    this.postId = postId;
+    this.parentId = parentId;
+    this.order = order;
+    this.username = username;
+    this.content = content;
   }
 
-  public static Comment from(CommentRequestDto requestDto) {
-    return new Comment(requestDto);
-  }
-
-  public void update(CommentRequestDto requestDto) {
-    this.boardType = requestDto.getBoardType();
-    this.postId = requestDto.getPostId();
-    this.parentId = requestDto.getParentId();
-    this.content = requestDto.getContent();
+  public void update(Comment dto) {
+    this.boardType = dto.getBoardType();
+    this.postId = dto.getPostId();
+    this.parentId = dto.getParentId();
+    this.content = dto.getContent();
   }
 
   public void deactivate() {

@@ -2,7 +2,6 @@ package org.kiworkshop.community.comment.dtos;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-import dtos.CommentRequestDtoFixture;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;

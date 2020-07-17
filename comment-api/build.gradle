@@ -18,6 +18,8 @@ repositories {
 
 dependencies {
     implementation project(':common')
+    implementation project(':core:core-comment')
+    testImplementation(testFixtures(project(":core:core-comment")))
 
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation 'org.springframework.boot:spring-boot-starter-web'

@@ -1,10 +1,9 @@
-package org.kiworkshop.community.comment.api.dto;
+package org.kiworkshop.community.comment.dtos;
 
-import community.common.model.BoardType;
 import org.springframework.test.util.ReflectionTestUtils;
 
-public class CommentRequestDtoTest {
-  public static CommentRequestDto getCommentRequestDtoFixture() {
+public class CommentRequestDtoFixture {
+  public static CommentRequestDto get() {
     CommentRequestDto commentRequestDto = new CommentRequestDto();
 
     ReflectionTestUtils.setField(commentRequestDto, "boardType", BoardType.NOTICE);

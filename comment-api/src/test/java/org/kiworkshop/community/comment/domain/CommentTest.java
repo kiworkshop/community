@@ -1,6 +1,6 @@
 package org.kiworkshop.community.comment.domain;
 
-import community.common.model.BoardType;
+import org.kiworkshop.community.comment.dtos.BoardType;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class CommentTest {

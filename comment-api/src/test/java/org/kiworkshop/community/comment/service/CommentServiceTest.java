@@ -1,7 +1,6 @@
 package org.kiworkshop.community.comment.service;
 
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.kiworkshop.community.comment.api.dto.CommentRequestDtoTest.getCommentRequestDtoFixture;
 import static org.kiworkshop.community.comment.domain.CommentTest.getCommentFixture;
 import static org.kiworkshop.community.comment.domain.CommentTest.getDeactivatedParentCommentFixture;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,7 +10,6 @@ import static org.mockito.BDDMockito.given;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import community.common.model.BoardType;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +18,12 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.comment.api.dto.CommentRequestDto;
-import org.kiworkshop.community.comment.api.dto.CommentResponseDto;
 import org.kiworkshop.community.comment.domain.Comment;
 import org.kiworkshop.community.comment.domain.CommentRepository;
+import org.kiworkshop.community.comment.dtos.BoardType;
+import org.kiworkshop.community.comment.dtos.CommentRequestDto;
+import org.kiworkshop.community.comment.dtos.CommentRequestDtoFixture;
+import org.kiworkshop.community.comment.dtos.CommentResponseDto;
 import org.kiworkshop.community.comment.exception.CommentNotFoundException;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -84,7 +84,7 @@ public class CommentServiceTest {
 
   @Test
   void createComment_ValidInput_ValidOutput() {
-    CommentRequestDto request = getCommentRequestDtoFixture();
+    CommentRequestDto request = CommentRequestDtoFixture.get();
     Comment commentToSave = getCommentFixture();
     given(commentRepository.save(any(Comment.class))).willReturn(commentToSave);
 
@@ -93,7 +93,7 @@ public class CommentServiceTest {
 
   @Test
   void createComment_CommentToDeletedParentComment_throwsException() {
-    CommentRequestDto request = getCommentRequestDtoFixture();
+    CommentRequestDto request = CommentRequestDtoFixture.get();
     Comment parentComment = getDeactivatedParentCommentFixture();
     given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(parentComment));
 
@@ -103,7 +103,7 @@ public class CommentServiceTest {
 
   @Test
   void updateComment_ValidInput_ValidOutput() {
-    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
+    CommentRequestDto commentRequestDto = CommentRequestDtoFixture.get();
     Comment comment = getCommentFixture();
     given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(comment));
     given(commentRepository.save(any(Comment.class))).willReturn(comment);

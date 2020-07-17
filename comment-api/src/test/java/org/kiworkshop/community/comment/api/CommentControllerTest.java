@@ -1,7 +1,5 @@
 package org.kiworkshop.community.comment.api;
 
-import static org.kiworkshop.community.comment.api.dto.CommentRequestDtoTest.getCommentRequestDtoFixture;
-import static org.kiworkshop.community.comment.api.dto.CommentResponseDtoTest.getCommentResponseDtoFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -23,13 +21,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import community.common.model.BoardType;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.comment.api.dto.CommentRequestDto;
-import org.kiworkshop.community.comment.api.dto.CommentResponseDto;
+import org.kiworkshop.community.comment.dtos.BoardType;
+import org.kiworkshop.community.comment.dtos.CommentRequestDto;
+import org.kiworkshop.community.comment.dtos.CommentRequestDtoFixture;
+import org.kiworkshop.community.comment.dtos.CommentResponseDto;
+import org.kiworkshop.community.comment.dtos.CommentResponseDtoFixture;
 import org.kiworkshop.community.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -78,7 +78,7 @@ public class CommentControllerTest {
     List<CommentResponseDto> commentResponseDtos = new ArrayList<>();
     long numOfComments = 2L;
     for (long i = 0; i < numOfComments; i++) {
-      commentResponseDtos.add(getCommentResponseDtoFixture(i + 1));
+      commentResponseDtos.add(CommentResponseDtoFixture.get(i + 1));
     }
     given(commentService.getComments(eq(BoardType.NOTICE), any(Long.class))).willReturn(commentResponseDtos);
 
@@ -88,7 +88,7 @@ public class CommentControllerTest {
         .andExpect(jsonPath("$[0].id").value(1))
         .andExpect(jsonPath("$[1].id").value(2))
         .andExpect(jsonPath("$[0].active").value(true))
-        .andExpect(jsonPath("$[0].username").value("user1"))
+        .andExpect(jsonPath("$[0].username").value("username"))
         .andExpect(jsonPath("$[0].content").value("content"))
         .andDo(document("comments/read-comments",
             preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
@@ -103,7 +103,7 @@ public class CommentControllerTest {
   @Test
   void post_ValidInput_ValidOutput() throws Exception {
     // given
-    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
+    CommentRequestDto commentRequestDto = CommentRequestDtoFixture.get();
 
     // expect
     this.mvc.perform(post("/comments")
@@ -130,7 +130,7 @@ public class CommentControllerTest {
   @Test
   void put_ValidInput_ValidOutput() throws Exception {
     // given
-    CommentRequestDto commentRequestDto = getCommentRequestDtoFixture();
+    CommentRequestDto commentRequestDto = CommentRequestDtoFixture.get();
 
     // expect
     this.mvc.perform(put("/comments/{id}", 1)

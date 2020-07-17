@@ -1,6 +1,5 @@
 package org.kiworkshop.community.comment.service;
 
-import community.common.model.BoardType;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +9,12 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.comment.api.dto.CommentRequestDto;
-import org.kiworkshop.community.comment.api.dto.CommentResponseDto;
 import org.kiworkshop.community.comment.domain.Comment;
 import org.kiworkshop.community.comment.domain.CommentRepository;
+import org.kiworkshop.community.comment.domain.service.CommentConverter;
+import org.kiworkshop.community.comment.dtos.BoardType;
+import org.kiworkshop.community.comment.dtos.CommentRequestDto;
+import org.kiworkshop.community.comment.dtos.CommentResponseDto;
 import org.kiworkshop.community.comment.exception.CommentNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class CommentService {
 
   public List<CommentResponseDto> getComments(BoardType boardType, Long postId) {
     List<CommentResponseDto> comments = commentRepository.findByBoardTypeAndPostId(boardType, postId).stream()
-        .map(CommentResponseDto::of)
+        .map(CommentConverter::toResponseDto)
         .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt))
         .collect(Collectors.toList());
     return toCommentsForest(comments);
@@ -50,14 +51,14 @@ public class CommentService {
 
   public void createComment(CommentRequestDto request) {
     assertThatParentDoesNotExistOrParentIsActive(request);
-    commentRepository.save(Comment.from(request));
+    commentRepository.save(CommentConverter.toEntity(request));
   }
 
   @Transactional
   public void updateComment(Long id, CommentRequestDto request) {
     Comment commentToUpdate = findCommentById(id);
     assertThatParentDoesNotExistOrParentIsActive(request);
-    commentToUpdate.update(request);
+    commentToUpdate.update(CommentConverter.toEntity(request));
     commentRepository.save(commentToUpdate);
   }
 

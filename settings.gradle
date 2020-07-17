@@ -15,4 +15,5 @@ include 'core:core-mother'
 include 'domain:domain-mother'
 include 'app:app-monolith'
 include 'core:core-file'
+include 'domain:domain-file'
 

@@ -11,11 +11,15 @@ repositories {
 
 dependencies {
     implementation project(':core:core-web')
+
     implementation project(':core:core-mother')
     implementation project(':domain:domain-mother')
 
     implementation project(':core:core-file')
     implementation project(':domain:domain-file')
+
+    implementation project(':core:core-comment')
+    implementation project(':domain:domain-comment')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -26,6 +30,7 @@ dependencies {
 
     testImplementation(testFixtures(project(":core:core-web")))
     testImplementation(testFixtures(project(":core:core-mother")))
+    testImplementation(testFixtures(project(":core:core-comment")))
     integrationTestImplementation(testFixtures(project(":core:core-mother")))
 }
 

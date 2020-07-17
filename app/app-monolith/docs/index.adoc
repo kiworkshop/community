@@ -71,3 +71,30 @@ operation::/notices/delete-a-notice[snippets='http-request,path-parameters,http-
 A `POST` request to upload files.
 
 operation::/files/upload-files[snippets='http-request,http-response']
+
+= Comment
+
+[[resources-comment]]
+== Comment API
+
+[[resource-myangPost-comment]]
+
+=== Read comments
+A GET request to read comments.
+
+operation::/comments/read-comments[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Create a comment
+A POST request to create a comment.
+
+operation::/comments/create-a-comment[snippets='http-request,request-fields,http-response']
+
+=== Update a comment
+A PUT request to update a comment.
+
+operation::/comments/update-a-comment[snippets='http-request,path-parameters,request-fields,http-response']
+
+=== Delete a comment
+A DELETE request to delete a comment.
+
+operation::/comments/delete-a-comment[snippets='http-request,path-parameters,http-response']

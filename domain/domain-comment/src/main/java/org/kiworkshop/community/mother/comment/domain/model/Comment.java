@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.domain;
+package org.kiworkshop.community.mother.comment.domain.model;
 
 import java.time.ZonedDateTime;
 import javax.persistence.Entity;

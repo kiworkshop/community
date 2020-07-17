@@ -1,10 +1,10 @@
-package org.kiworkshop.community.comment.domain.service;
+package org.kiworkshop.community.mother.comment.domain.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.comment.domain.Comment;
 import org.kiworkshop.community.comment.dtos.CommentRequestDto;
 import org.kiworkshop.community.comment.dtos.CommentResponseDto;
+import org.kiworkshop.community.mother.comment.domain.model.Comment;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommentConverter {

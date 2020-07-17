@@ -1,15 +1,11 @@
-package org.kiworkshop.community.comment.service;
+package org.kiworkshop.community.mother.comment.domain.service;
 
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
-import static org.kiworkshop.community.comment.domain.CommentTest.getCommentFixture;
-import static org.kiworkshop.community.comment.domain.CommentTest.getDeactivatedParentCommentFixture;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,16 +14,16 @@ import java.util.stream.LongStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.comment.domain.Comment;
-import org.kiworkshop.community.comment.domain.CommentRepository;
 import org.kiworkshop.community.comment.dtos.BoardType;
 import org.kiworkshop.community.comment.dtos.CommentRequestDto;
 import org.kiworkshop.community.comment.dtos.CommentRequestDtoFixture;
 import org.kiworkshop.community.comment.dtos.CommentResponseDto;
-import org.kiworkshop.community.comment.exception.CommentNotFoundException;
+import org.kiworkshop.community.mother.comment.domain.exception.CommentNotFoundException;
+import org.kiworkshop.community.mother.comment.domain.model.Comment;
+import org.kiworkshop.community.mother.comment.domain.model.CommentFixture;
+import org.kiworkshop.community.mother.comment.domain.model.CommentRepository;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +37,7 @@ public class CommentServiceTest {
   }
 
   @Test
-  void getComments_ValidInput_ValidForest() throws JsonProcessingException {
+  void getComments_ValidInput_ValidForest() {
     List<Comment> comments =  LongStream.rangeClosed(1, 10).mapToObj(i -> {
       Comment comment = new Comment();
       ReflectionTestUtils.setField(comment, "id", i);
@@ -77,15 +73,14 @@ public class CommentServiceTest {
     // when
     List<CommentResponseDto> forest = commentService.getComments(BoardType.NOTICE, 1L);
 
-    // then
-    ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
-    System.out.println(mapper.writeValueAsString(forest));
+    // then stop and verify manually... how can i automatically verify this?
+    return;
   }
 
   @Test
   void createComment_ValidInput_ValidOutput() {
     CommentRequestDto request = CommentRequestDtoFixture.get();
-    Comment commentToSave = getCommentFixture();
+    Comment commentToSave = CommentFixture.get();
     given(commentRepository.save(any(Comment.class))).willReturn(commentToSave);
 
     commentService.createComment(request);
@@ -94,7 +89,7 @@ public class CommentServiceTest {
   @Test
   void createComment_CommentToDeletedParentComment_throwsException() {
     CommentRequestDto request = CommentRequestDtoFixture.get();
-    Comment parentComment = getDeactivatedParentCommentFixture();
+    Comment parentComment = CommentFixture.getDeactivated();
     given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(parentComment));
 
     thenThrownBy(() -> commentService.createComment(request))
@@ -104,7 +99,7 @@ public class CommentServiceTest {
   @Test
   void updateComment_ValidInput_ValidOutput() {
     CommentRequestDto commentRequestDto = CommentRequestDtoFixture.get();
-    Comment comment = getCommentFixture();
+    Comment comment = CommentFixture.getDeactivated();
     given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(comment));
     given(commentRepository.save(any(Comment.class))).willReturn(comment);
 
@@ -113,7 +108,7 @@ public class CommentServiceTest {
 
   @Test
   void deleteComment_ValidInput_ValidOutput() {
-    Comment commentToDelete = getCommentFixture();
+    Comment commentToDelete = CommentFixture.getDeactivated();
     given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(commentToDelete));
 
     commentService.deleteComment(commentToDelete.getId());

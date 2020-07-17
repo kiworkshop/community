@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.domain;
+package org.kiworkshop.community.mother.comment.domain.model;
 
 import java.util.List;
 import org.kiworkshop.community.comment.dtos.BoardType;

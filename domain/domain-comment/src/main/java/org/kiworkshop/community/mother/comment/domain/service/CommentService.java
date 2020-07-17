@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.service;
+package org.kiworkshop.community.mother.comment.domain.service;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,13 +9,12 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.comment.domain.Comment;
-import org.kiworkshop.community.comment.domain.CommentRepository;
-import org.kiworkshop.community.comment.domain.service.CommentConverter;
 import org.kiworkshop.community.comment.dtos.BoardType;
 import org.kiworkshop.community.comment.dtos.CommentRequestDto;
 import org.kiworkshop.community.comment.dtos.CommentResponseDto;
-import org.kiworkshop.community.comment.exception.CommentNotFoundException;
+import org.kiworkshop.community.mother.comment.domain.exception.CommentNotFoundException;
+import org.kiworkshop.community.mother.comment.domain.model.Comment;
+import org.kiworkshop.community.mother.comment.domain.model.CommentRepository;
 import org.springframework.stereotype.Service;
 
 @Service

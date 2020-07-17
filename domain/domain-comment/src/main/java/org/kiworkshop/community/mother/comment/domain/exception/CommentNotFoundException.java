@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.exception;
+package org.kiworkshop.community.mother.comment.domain.exception;
 
 import javax.persistence.EntityNotFoundException;
 

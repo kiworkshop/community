@@ -47,6 +47,8 @@ subprojects {
 	}
 
 	dependencies {
+		implementation("com.google.code.findbugs:jsr305:${jsr305Version}")
+
 		testImplementation ('org.springframework.boot:spring-boot-starter-test') {
 			exclude module: 'junit'
 			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -113,7 +115,6 @@ configure(apiProjects) {
 		implementation('org.springframework.boot:spring-boot-starter-webflux')
 		implementation('org.springframework.boot:spring-boot-starter-validation')
 		implementation("org.apache.commons:commons-lang3:${commonsLangVersion}")
-		implementation("com.google.code.findbugs:jsr305:${jsr305Version}")
 
 		runtimeOnly("com.h2database:h2:${h2DatabaseVersion}")
 

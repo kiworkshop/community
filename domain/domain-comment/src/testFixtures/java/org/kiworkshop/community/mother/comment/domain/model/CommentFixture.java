@@ -1,10 +1,13 @@
-package org.kiworkshop.community.comment.domain;
+package org.kiworkshop.community.mother.comment.domain.model;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.kiworkshop.community.comment.dtos.BoardType;
 import org.springframework.test.util.ReflectionTestUtils;
 
-public class CommentTest {
-  public static Comment getCommentFixture() {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CommentFixture {
+  public static Comment get() {
     Comment comment = new Comment();
 
     ReflectionTestUtils.setField(comment, "id", 1L);
@@ -16,7 +19,7 @@ public class CommentTest {
     return comment;
   }
 
-  public static Comment getDeactivatedParentCommentFixture() {
+  public static Comment getDeactivated() {
     Comment comment = new Comment();
 
     ReflectionTestUtils.setField(comment, "boardType", BoardType.NOTICE);

@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment;
+package org.kiworkshop.community;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

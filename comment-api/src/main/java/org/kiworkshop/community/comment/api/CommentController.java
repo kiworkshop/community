@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.kiworkshop.community.comment.dtos.BoardType;
 import org.kiworkshop.community.comment.dtos.CommentRequestDto;
 import org.kiworkshop.community.comment.dtos.CommentResponseDto;
-import org.kiworkshop.community.comment.service.CommentService;
+import org.kiworkshop.community.mother.comment.domain.service.CommentService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

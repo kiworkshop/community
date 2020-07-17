@@ -30,7 +30,7 @@ import org.kiworkshop.community.comment.dtos.CommentRequestDto;
 import org.kiworkshop.community.comment.dtos.CommentRequestDtoFixture;
 import org.kiworkshop.community.comment.dtos.CommentResponseDto;
 import org.kiworkshop.community.comment.dtos.CommentResponseDtoFixture;
-import org.kiworkshop.community.comment.service.CommentService;
+import org.kiworkshop.community.mother.comment.domain.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

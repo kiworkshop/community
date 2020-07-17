@@ -16,6 +16,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'com.h2database:h2'
 
-    testImplementation(testFixtures(project(":core:core-comment")))
+    testImplementation testFixtures(project(":core:core-comment"))
+    testFixturesImplementation project(":core:core-comment")
     testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
 }

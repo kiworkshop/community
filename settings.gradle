@@ -7,7 +7,6 @@ rootProject.name = 'org.kiworkshop.community'
 include 'common'
 include 'content-api'
 include 'auth-api'
-include 'comment-api'
 
 include 'core:core-web'
 include 'core:core-mother'

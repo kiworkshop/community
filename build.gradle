@@ -82,7 +82,6 @@ def apiProjects = [
 		project(':common'),
 		project(':content-api'),
 		project(':auth-api'),
-		project(':comment-api'),
 
 		project(':app:app-monolith'),
 ]

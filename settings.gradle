@@ -16,4 +16,5 @@ include 'app:app-monolith'
 include 'core:core-file'
 include 'domain:domain-file'
 include 'core:core-comment'
+include 'domain:domain-comment'
 

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.file.dtos.FileUrlResponses;
+import org.kiworkshop.community.file.dtos.FileUrlResponseDto;
 import org.kiworkshop.community.file.uploader.S3Uploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -37,8 +37,8 @@ class S3ControllerTest {
   @Test
   void upload_ValidInput_ValidOutput() throws Exception {
     List<String> fileNames = Arrays.asList("bob.jpeg", "bob.jpeg", "bob.jpeg");
-    FileUrlResponses fileUrlResponses = new FileUrlResponses(fileNames);
-    when(s3Uploader.upload(anyList(), anyString())).thenReturn(fileUrlResponses);
+    FileUrlResponseDto fileUrlResponseDto = new FileUrlResponseDto(fileNames);
+    when(s3Uploader.upload(anyList(), anyString())).thenReturn(fileUrlResponseDto);
     MockMultipartFile file = new MockMultipartFile(
         "data", "/resources/upload/bob.jpeg", "multipart/form-data", "bob.jpeg".getBytes());
 

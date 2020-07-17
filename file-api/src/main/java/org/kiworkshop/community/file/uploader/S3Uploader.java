@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.kiworkshop.community.file.dtos.FileUrlResponses;
+import org.kiworkshop.community.file.dtos.FileUrlResponseDto;
 import org.kiworkshop.community.file.exception.FileNotConvertedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,12 +30,12 @@ public class S3Uploader {
   @Value("#{systemProperties['java.io.tmpdir']}")
   private String tmpDir;
 
-  public FileUrlResponses upload(List<MultipartFile> multipartFiles, String dirName) {
+  public FileUrlResponseDto upload(List<MultipartFile> multipartFiles, String dirName) {
     List<String> urls = multipartFiles.stream()
         .map(this::convert)
         .map(file -> upload(file, dirName))
         .collect(Collectors.toList());
-    return new FileUrlResponses(urls);
+    return new FileUrlResponseDto(urls);
   }
 
   private String upload(File uploadFile, String dirName) {

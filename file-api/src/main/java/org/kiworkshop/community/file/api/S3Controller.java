@@ -2,7 +2,7 @@ package org.kiworkshop.community.file.api;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.file.dtos.FileUrlResponses;
+import org.kiworkshop.community.file.dtos.FileUrlResponseDto;
 import org.kiworkshop.community.file.uploader.S3Uploader;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +18,7 @@ public class S3Controller {
   private final S3Uploader s3Uploader;
 
   @PostMapping("/uploads")
-  public FileUrlResponses upload(@RequestParam("data") List<MultipartFile> multipartFiles) {
+  public FileUrlResponseDto upload(@RequestParam("data") List<MultipartFile> multipartFiles) {
 
     return s3Uploader.upload(multipartFiles, PICTURE_DIRECTORY_NAME);
   }

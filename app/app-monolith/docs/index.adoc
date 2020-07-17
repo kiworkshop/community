@@ -1,0 +1,73 @@
+= Kiworkshop community Mother-API Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+[cols="20%,80%"]
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to update an existing resource, full updates only
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+= Mother API
+
+[[resources-notice]]
+== Notice
+
+[[resource-myangPost-notice]]
+
+=== Read a notice
+A `GET` request to read a notice.
+
+operation::/notices/read-a-notice[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Read notices
+A `GET` request to read notices.
+
+operation::/notices/read-notices[snippets='http-request,request-parameters,http-response,response-fields']
+
+=== Create a notice
+A `POST` request to create a notice.
+
+operation::/notices/create-a-notice[snippets='http-request,request-fields,http-response']
+
+=== Update a notice
+A `PUT` request to update a notice.
+
+operation::/notices/update-a-notice[snippets='http-request,path-parameters,request-fields,http-response']
+
+=== Delete a notice
+A `DELETE` request to delete a notice.
+
+operation::/notices/delete-a-notice[snippets='http-request,path-parameters,http-response']
+
+= File API
+
+[[resources-files]]
+== File
+
+[[resource-upload-files]]
+
+=== Upload files
+A `POST` request to upload files.
+
+operation::/files/upload-files[snippets='http-request,http-response']

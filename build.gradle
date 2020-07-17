@@ -16,7 +16,8 @@ buildscript {
 		hibernateValidatorVersion = "6.1.5.Final"
         javaxElVersion = "3.0.0"
 
-		set('springCloudVersion', "Greenwich.SR1")
+        // springCloudVersion = "Greenwich.RELEASE" // TODO: replace
+		springCloudVersion = "Greenwich.SR1"
 	}
 
 	dependencies {
@@ -80,9 +81,8 @@ def apiProjects = [
 		project(':content-api'),
 		project(':auth-api'),
 		project(':comment-api'),
-		project(':file-api'),
 
-		project(':apps:apps-monolith'),
+		project(':app:app-monolith'),
 ]
 
 configure(apiProjects) {

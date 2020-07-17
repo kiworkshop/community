@@ -8,10 +8,11 @@ include 'common'
 include 'content-api'
 include 'auth-api'
 include 'comment-api'
-include 'file-api'
 
 include 'core:core-web'
 include 'core:core-mother'
 include 'domain:domain-mother'
-include 'apps:apps-monolith'
+include 'app:app-monolith'
+include 'core:core-file'
+include 'domain:domain-file'
 

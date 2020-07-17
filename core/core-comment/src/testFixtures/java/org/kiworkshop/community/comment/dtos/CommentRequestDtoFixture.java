@@ -1,7 +1,10 @@
 package org.kiworkshop.community.comment.dtos;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.test.util.ReflectionTestUtils;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommentRequestDtoFixture {
   public static CommentRequestDto get() {
     CommentRequestDto commentRequestDto = new CommentRequestDto();

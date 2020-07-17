@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.file.api.dto.FileUrlResponses;
+import org.kiworkshop.community.file.dtos.FileUrlResponses;
 import org.kiworkshop.community.file.uploader.S3Uploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;

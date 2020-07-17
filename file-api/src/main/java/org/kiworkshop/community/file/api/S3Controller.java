@@ -2,7 +2,7 @@ package org.kiworkshop.community.file.api;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.file.api.dto.FileUrlResponses;
+import org.kiworkshop.community.file.dtos.FileUrlResponses;
 import org.kiworkshop.community.file.uploader.S3Uploader;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

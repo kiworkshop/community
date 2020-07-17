@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.MotherApiApplication;
+import org.kiworkshop.community.CommunityApplication;
 import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
 import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = MotherApiApplication.class, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = CommunityApplication.class, webEnvironment = RANDOM_PORT)
 @Transactional
 @Sql("/data/notices.sql")
 class NoticeControllerIntTest {

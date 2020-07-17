@@ -1,4 +1,4 @@
-package org.kiworkshop.community.file.exception;
+package org.kiworkshop.community.file.domain.exception;
 
 public class FileNotConvertedException extends IllegalArgumentException {
 

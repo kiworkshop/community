@@ -28,10 +28,10 @@
 | Used to delete an existing resource
 |===
 
-= Resources
+= Mother API
 
 [[resources-notice]]
-== Notice API
+== Notice
 
 [[resource-myangPost-notice]]
 
@@ -59,3 +59,15 @@ operation::/notices/update-a-notice[snippets='http-request,path-parameters,reque
 A `DELETE` request to delete a notice.
 
 operation::/notices/delete-a-notice[snippets='http-request,path-parameters,http-response']
+
+= File API
+
+[[resources-files]]
+== File
+
+[[resource-upload-files]]
+
+=== Upload files
+A `POST` request to upload files.
+
+operation::/files/upload-files[snippets='http-request,http-response']

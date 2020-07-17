@@ -13,5 +13,5 @@ include 'file-api'
 include 'core:core-web'
 include 'core:core-mother'
 include 'domain:domain-mother'
-include 'apps:apps-monolith'
+include 'app:app-monolith'
 

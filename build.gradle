@@ -82,7 +82,7 @@ def apiProjects = [
 		project(':comment-api'),
 		project(':file-api'),
 
-		project(':apps:apps-monolith'),
+		project(':app:app-monolith'),
 ]
 
 configure(apiProjects) {

@@ -9,6 +9,7 @@ rootProject.name = 'org.kiworkshop.community'
 include 'app:app-auth'
 include 'app:app-monolith'
 include 'app:app-content'
+include 'app:app-user-resource'
 
 include 'domain:domain-mother'
 include 'domain:domain-file'

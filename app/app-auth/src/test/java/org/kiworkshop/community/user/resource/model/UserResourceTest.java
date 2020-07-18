@@ -1,4 +1,4 @@
-package org.kiworkshop.community.res.model;
+package org.kiworkshop.community.user.resource.model;
 
 import static java.time.ZonedDateTime.now;
 import static org.assertj.core.api.BDDAssertions.then;

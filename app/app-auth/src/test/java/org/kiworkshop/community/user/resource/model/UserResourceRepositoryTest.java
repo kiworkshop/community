@@ -1,4 +1,4 @@
-package org.kiworkshop.community.res.model;
+package org.kiworkshop.community.user.resource.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

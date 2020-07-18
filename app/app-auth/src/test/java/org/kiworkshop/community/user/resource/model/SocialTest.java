@@ -1,4 +1,4 @@
-package org.kiworkshop.community.res.model;
+package org.kiworkshop.community.user.resource.model;
 
 import static org.assertj.core.api.BDDAssertions.then;
 

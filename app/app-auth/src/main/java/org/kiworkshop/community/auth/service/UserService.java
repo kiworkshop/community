@@ -1,8 +1,8 @@
 package org.kiworkshop.community.auth.service;
 
-import org.kiworkshop.community.auth.api.dto.AuthenticationDto;
-import org.kiworkshop.community.auth.api.dto.SocialResourceRequestDto;
-import org.kiworkshop.community.auth.api.dto.TokenRefreshDto;
+import org.kiworkshop.community.auth.dto.AuthenticationDto;
+import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
+import org.kiworkshop.community.auth.dto.TokenRefreshDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import reactor.core.publisher.Mono;
 

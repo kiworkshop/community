@@ -1,8 +1,8 @@
 package org.kiworkshop.community.auth.service.socialresource;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.kiworkshop.community.auth.api.dto.SocialResourceRequestDto;
-import org.kiworkshop.community.auth.api.dto.SocialResourceResponseDto;
+import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
+import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
 import org.kiworkshop.community.auth.model.Social;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

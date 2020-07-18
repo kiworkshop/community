@@ -3,8 +3,8 @@ package org.kiworkshop.community.auth.service.socialresource;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
-import org.kiworkshop.community.auth.api.dto.SocialResourceRequestDto;
-import org.kiworkshop.community.auth.api.dto.SocialResourceResponseDto;
+import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
+import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
 import reactor.core.publisher.Mono;
 
 public interface SocialResourceFetcher {

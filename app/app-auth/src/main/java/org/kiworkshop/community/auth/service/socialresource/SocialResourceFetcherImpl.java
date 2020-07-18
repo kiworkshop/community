@@ -1,8 +1,8 @@
 package org.kiworkshop.community.auth.service.socialresource;
 
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.auth.api.dto.SocialResourceRequestDto;
-import org.kiworkshop.community.auth.api.dto.SocialResourceResponseDto;
+import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
+import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
 import org.kiworkshop.community.auth.model.Social;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

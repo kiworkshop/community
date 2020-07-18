@@ -1,4 +1,4 @@
-package org.kiworkshop.community.auth.api.dto;
+package org.kiworkshop.community.auth.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

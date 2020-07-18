@@ -2,10 +2,10 @@ package org.kiworkshop.community.auth.api;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.auth.api.dto.AuthenticationDto;
-import org.kiworkshop.community.auth.api.dto.SignInDto;
-import org.kiworkshop.community.auth.api.dto.SignUpDto;
-import org.kiworkshop.community.auth.api.dto.TokenRefreshDto;
+import org.kiworkshop.community.auth.dto.AuthenticationDto;
+import org.kiworkshop.community.auth.dto.SignInDto;
+import org.kiworkshop.community.auth.dto.SignUpDto;
+import org.kiworkshop.community.auth.dto.TokenRefreshDto;
 import org.kiworkshop.community.auth.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

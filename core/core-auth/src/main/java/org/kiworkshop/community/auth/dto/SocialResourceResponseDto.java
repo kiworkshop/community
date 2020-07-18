@@ -1,4 +1,4 @@
-package org.kiworkshop.community.auth.api.dto;
+package org.kiworkshop.community.auth.dto;
 
 import lombok.Builder;
 import lombok.Getter;

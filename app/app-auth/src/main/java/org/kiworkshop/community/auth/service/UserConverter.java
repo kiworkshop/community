@@ -2,8 +2,8 @@ package org.kiworkshop.community.auth.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.auth.api.dto.SocialResourceResponseDto;
-import org.kiworkshop.community.auth.api.dto.UserDto;
+import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
+import org.kiworkshop.community.auth.dto.UserDto;
 import org.kiworkshop.community.auth.model.Social;
 import org.kiworkshop.community.auth.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;

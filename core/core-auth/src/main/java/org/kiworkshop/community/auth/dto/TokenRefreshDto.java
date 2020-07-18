@@ -1,4 +1,4 @@
-package org.kiworkshop.community.auth.api.dto;
+package org.kiworkshop.community.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;

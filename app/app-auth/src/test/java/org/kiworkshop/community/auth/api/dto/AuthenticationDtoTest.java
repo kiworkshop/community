@@ -1,5 +1,6 @@
 package org.kiworkshop.community.auth.api.dto;
 
+import org.kiworkshop.community.auth.dto.AuthenticationDto;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class AuthenticationDtoTest {

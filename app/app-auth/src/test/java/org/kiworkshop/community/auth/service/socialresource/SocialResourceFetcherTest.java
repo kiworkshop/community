@@ -6,7 +6,7 @@ import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.auth.api.dto.SocialResourceResponseDto;
+import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
 
 class SocialResourceFetcherTest {
 

@@ -1,5 +1,6 @@
 package org.kiworkshop.community.auth.api.dto;
 
+import org.kiworkshop.community.auth.dto.SignInDto;
 import org.kiworkshop.community.auth.model.Social;
 import org.springframework.test.util.ReflectionTestUtils;
 

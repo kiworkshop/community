@@ -1,6 +1,6 @@
 package org.kiworkshop.community.auth.service;
 
-import org.kiworkshop.community.auth.api.dto.AuthenticationDto;
+import org.kiworkshop.community.auth.dto.AuthenticationDto;
 import org.kiworkshop.community.auth.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;

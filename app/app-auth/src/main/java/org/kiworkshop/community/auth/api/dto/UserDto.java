@@ -1,26 +1,15 @@
 package org.kiworkshop.community.auth.api.dto;
 
 import java.util.Collection;
+import lombok.Builder;
 import lombok.Getter;
-import org.kiworkshop.community.auth.model.User;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@NoArgsConstructor
 public class UserDto implements UserDetails {
-  public static UserDto from(User user, PasswordEncoder passwordEncoder) {
-    UserDto userDto = new UserDto();
-    userDto.authorities = user.getAuthorities();
-    userDto.username = user.getUsername();
-    userDto.password = passwordEncoder.encode(user.getSocialId());
-    userDto.accountNonExpired = user.isAccountNonExpired();
-    userDto.accountNonLocked = user.isAccountNonLocked();
-    userDto.credentialsNonExpired = user.isCredentialsNonExpired();
-    userDto.enabled = user.isEnabled();
-
-    return userDto;
-  }
-
   private @Getter Collection<? extends GrantedAuthority> authorities;
 
   private @Getter String username;
@@ -30,4 +19,24 @@ public class UserDto implements UserDetails {
   private @Getter boolean accountNonLocked;
   private @Getter boolean credentialsNonExpired;
   private @Getter boolean enabled;
+
+  @Builder
+  private UserDto(
+      PasswordEncoder passwordEncoder,
+      Collection<? extends GrantedAuthority> authorities,
+      String username,
+      String socialId,
+      boolean accountNonExpired,
+      boolean accountNonLocked,
+      boolean credentialsNonExpired,
+      boolean enabled
+  ) {
+    this.authorities = authorities;
+    this.username = username;
+    this.password = passwordEncoder.encode(socialId);
+    this.accountNonExpired = accountNonExpired;
+    this.accountNonLocked = accountNonLocked;
+    this.credentialsNonExpired = credentialsNonExpired;
+    this.enabled = enabled;
+  }
 }

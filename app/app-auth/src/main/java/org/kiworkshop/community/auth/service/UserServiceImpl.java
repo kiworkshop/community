@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.kiworkshop.community.auth.api.dto.AuthenticationDto;
 import org.kiworkshop.community.auth.api.dto.SocialResourceRequestDto;
 import org.kiworkshop.community.auth.api.dto.TokenRefreshDto;
-import org.kiworkshop.community.auth.api.dto.UserDto;
 import org.kiworkshop.community.auth.exception.UserNotFoundException;
 import org.kiworkshop.community.auth.model.UserRepository;
 import org.kiworkshop.community.auth.service.socialresource.SocialResourceFetcher;
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDetails loadUserByUsername(String username) {
-    return UserDto.from(
+    return UserConverter.toDto(
         userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username)),
         passwordEncoder
     );
@@ -35,7 +34,8 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public Mono<AuthenticationDto> signUp(SocialResourceRequestDto socialResourceRequestDto) {
     return socialResourceFetcher.fetch(socialResourceRequestDto)
-        .map(response -> userRepository.save(response.createUser(socialResourceRequestDto.getProvider())))
+        .map(response -> userRepository.save(
+            UserConverter.toEntity(response, socialResourceRequestDto.getProvider())))
         .flatMap(tokenService::getTokenOf);
   }
 

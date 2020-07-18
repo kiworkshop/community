@@ -10,7 +10,7 @@ import javax.validation.ValidatorFactory;
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.res.model.SocialTest;
+import org.kiworkshop.community.user.resource.domain.model.SocialTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class UserTest {

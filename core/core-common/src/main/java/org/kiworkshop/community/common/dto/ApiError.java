@@ -3,20 +3,21 @@ package org.kiworkshop.community.common.dto;
 import static java.time.ZonedDateTime.now;
 
 import java.time.ZonedDateTime;
+import lombok.Builder;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 public class ApiError {
   private ZonedDateTime timestamp;
-  private Integer status;
+  private int status;
   private String error;
   private String message;
 
-  public ApiError(HttpStatus httpStatus, String message) {
+  @Builder
+  private ApiError(int status, String error, String message) {
     this.timestamp = now();
-    this.status = httpStatus.value();
-    this.error = httpStatus.getReasonPhrase();
+    this.status = status;
+    this.error = error;
     this.message = message;
   }
 }

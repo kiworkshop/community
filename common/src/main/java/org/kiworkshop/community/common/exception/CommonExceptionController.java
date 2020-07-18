@@ -10,7 +10,11 @@ public class CommonExceptionController {
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
   protected ApiError handleNotFound(RuntimeException e) {
-    return new ApiError(HttpStatus.NOT_FOUND, e.getMessage());
+    return ApiError.builder()
+        .status(HttpStatus.NOT_FOUND.value())
+        .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+        .message(e.getMessage())
+        .build();
   }
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -19,6 +23,11 @@ public class CommonExceptionController {
         .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage() + ".")
         .collect(Collectors.joining("\n"));
 
-    return new ApiError(HttpStatus.BAD_REQUEST, message);
+
+    return ApiError.builder()
+        .status(HttpStatus.BAD_REQUEST.value())
+        .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+        .message(message)
+        .build();
   }
 }

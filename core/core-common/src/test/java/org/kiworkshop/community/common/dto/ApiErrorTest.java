@@ -8,7 +8,12 @@ import org.springframework.http.HttpStatus;
 class ApiErrorTest {
   @Test
   void constructApiError_ValidInput_ConstructedApiError() {
-    ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, "message");
+    ApiError apiError = ApiError.builder()
+        .status(HttpStatus.NOT_FOUND.value())
+        .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+        .message("message")
+        .build();
+
 
     then(apiError).hasNoNullFieldsOrProperties();
     then(apiError.getTimestamp()).isNotNull();

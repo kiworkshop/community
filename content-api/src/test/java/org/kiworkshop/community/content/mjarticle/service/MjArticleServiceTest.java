@@ -13,7 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.common.config.CommonBeanCreators;
+import org.kiworkshop.community.content.config.Beans;
 import org.kiworkshop.community.content.mjarticle.api.dto.MjArticleRequestDto;
 import org.kiworkshop.community.content.mjarticle.api.dto.MjArticleRequestDtoTest;
 import org.kiworkshop.community.content.mjarticle.api.dto.MjArticleResponseDto;
@@ -36,7 +36,7 @@ class MjArticleServiceTest {
 
   @BeforeEach
   void setup() {
-    mjArticleService = new MjArticleService(mjArticleRepository, CommonBeanCreators.modelMapper());
+    mjArticleService = new MjArticleService(mjArticleRepository, new Beans().modelMapper());
   }
 
   @Test

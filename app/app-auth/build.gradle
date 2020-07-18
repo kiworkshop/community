@@ -10,9 +10,9 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common')
     implementation project(':domain:domain-common')
     implementation project(':core:core-auth')
+    implementation project(':core:core-web')
     implementation project(':module:module-validation')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -80,7 +80,6 @@ subprojects {
 }
 
 def apiProjects = [
-		project(':common'),
 		project(':content-api'),
 		project(':app:app-auth'),
 

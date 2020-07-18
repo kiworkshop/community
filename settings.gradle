@@ -16,4 +16,5 @@ include 'core:core-file'
 include 'domain:domain-file'
 include 'core:core-comment'
 include 'domain:domain-comment'
+include 'core:core-auth'
 

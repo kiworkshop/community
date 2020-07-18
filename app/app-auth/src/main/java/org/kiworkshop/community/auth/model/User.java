@@ -14,8 +14,8 @@ import javax.persistence.ManyToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.common.model.BaseEntity;
-import org.kiworkshop.community.common.utils.Uuid;
+import org.kiworkshop.community.common.domain.BaseEntity;
+import org.kiworkshop.community.validation.Uuid;
 
 @Getter
 @Entity

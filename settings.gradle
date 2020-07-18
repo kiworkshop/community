@@ -19,4 +19,5 @@ include 'domain:domain-comment'
 include 'core:core-auth'
 include 'domain:domain-auth'
 include 'domain:domain-common'
+include 'module:module-validation'
 

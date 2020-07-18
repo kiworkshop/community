@@ -1,4 +1,4 @@
-package org.kiworkshop.community.common.utils;
+package org.kiworkshop.community.validation;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

@@ -1,4 +1,4 @@
-package org.kiworkshop.community.common.model;
+package org.kiworkshop.community.common.domain;
 
 import java.time.ZonedDateTime;
 import javax.persistence.Column;

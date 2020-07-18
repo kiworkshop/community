@@ -23,10 +23,10 @@ public class UserConverter {
         .build();
   }
 
-  public static User toEntity(SocialResourceResponseDto dto, Social.Provider provider) {
+  public static User toEntity(SocialResourceResponseDto dto, String provider) {
     return User.builder()
         .social(Social.builder()
-            .provider(provider)
+            .provider(Social.Provider.valueOf(provider))
             .socialId(dto.getSocialId())
             .build())
         .build();

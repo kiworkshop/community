@@ -21,8 +21,8 @@ class GoogleResourceFetcher implements SocialResourceFetcher {
   @Override
   public Mono<SocialResourceResponseDto> fetch(SocialResourceRequestDto socialResourceRequestDto) {
     Assert.isTrue(
-        socialResourceRequestDto.getProvider() == Social.Provider.GOOGLE,
-        "Provider must be GOOGLE. Current: " + socialResourceRequestDto.getProvider().name()
+        Social.Provider.valueOf(socialResourceRequestDto.getProvider()) == Social.Provider.GOOGLE,
+        "Provider must be GOOGLE. Current: " + socialResourceRequestDto.getProvider()
     );
 
     return webClient.get()

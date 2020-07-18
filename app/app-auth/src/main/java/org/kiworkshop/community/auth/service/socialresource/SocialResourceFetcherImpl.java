@@ -17,9 +17,9 @@ public class SocialResourceFetcherImpl implements SocialResourceFetcher {
   @Override
   public Mono<SocialResourceResponseDto> fetch(SocialResourceRequestDto socialResourceRequestDto) {
     // TODO: implement social resource fetcher of twitter, facebook, github.
-    if (socialResourceRequestDto.getProvider() != Social.Provider.GOOGLE) {
+    if (Social.Provider.valueOf(socialResourceRequestDto.getProvider()) != Social.Provider.GOOGLE) {
       throw new IllegalStateException(
-          "Only GOOGLE is supported. Input: " + socialResourceRequestDto.getProvider().toString());
+          "Only GOOGLE is supported. Input: " + socialResourceRequestDto.getProvider());
     }
 
     return googleResourceFetcher.fetch(socialResourceRequestDto);

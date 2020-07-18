@@ -30,7 +30,7 @@ public class SocialResourceFetcherImplTest {
   @Test
   void fetch_google_ValidOutput() {
     // given
-    given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);
+    given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE.name());
 
     Mono<SocialResourceResponseDto> expected =
         Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());

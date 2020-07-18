@@ -60,7 +60,7 @@ public class GoogleResourceFetcherTest {
             + "}")
         .addHeader("Content-Type", APPLICATION_JSON.toString()));
 
-    given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE);
+    given(requestDto.getProvider()).willReturn(Social.Provider.GOOGLE.name());
     given(requestDto.getProviderAccessToken()).willReturn("providerAccessToken");
 
     SocialResourceResponseDto response = fetcher.fetch(requestDto).block();
@@ -74,7 +74,7 @@ public class GoogleResourceFetcherTest {
   void fetch_ProviderIsNotGoogle_ThrowException() {
     // given
     SocialResourceRequestDto socialResourceRequestDto = SignUpDtoTest.getSignUpDtoFixture();
-    ReflectionTestUtils.setField(socialResourceRequestDto, "provider", Social.Provider.FACEBOOK);
+    ReflectionTestUtils.setField(socialResourceRequestDto, "provider", Social.Provider.FACEBOOK.name());
 
     // expect
     thenThrownBy(() -> fetcher.fetch(socialResourceRequestDto))

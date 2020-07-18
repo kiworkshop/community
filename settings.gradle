@@ -4,11 +4,9 @@ pluginManagement {
 	}
 }
 rootProject.name = 'org.kiworkshop.community'
-include 'common'
 include 'content-api'
-include 'auth-api'
+include 'app:app-auth'
 
-include 'core:core-web'
 include 'core:core-mother'
 include 'domain:domain-mother'
 include 'app:app-monolith'
@@ -16,4 +14,9 @@ include 'core:core-file'
 include 'domain:domain-file'
 include 'core:core-comment'
 include 'domain:domain-comment'
+include 'core:core-auth'
+include 'domain:domain-auth'
+include 'domain:domain-common'
+include 'module:module-validation'
+include 'in-system-available:common-web'
 

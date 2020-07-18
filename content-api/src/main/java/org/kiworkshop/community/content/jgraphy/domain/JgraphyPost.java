@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.common.model.BaseEntity;
+import org.kiworkshop.community.common.domain.BaseEntity;
 import org.springframework.util.Assert;
 
 @Getter

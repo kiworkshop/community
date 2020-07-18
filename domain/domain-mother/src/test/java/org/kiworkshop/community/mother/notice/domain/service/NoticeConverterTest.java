@@ -3,9 +3,9 @@ package org.kiworkshop.community.mother.notice.domain.service;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
-import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
+import org.kiworkshop.community.mother.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dto.NoticeRequestDtoFixture;
+import org.kiworkshop.community.mother.dto.NoticeResponseDto;
 import org.kiworkshop.community.mother.notice.domain.model.Notice;
 import org.kiworkshop.community.mother.notice.domain.model.NoticeFixture;
 

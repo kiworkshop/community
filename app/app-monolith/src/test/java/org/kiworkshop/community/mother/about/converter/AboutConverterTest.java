@@ -5,7 +5,7 @@ import static org.kiworkshop.community.mother.about.domain.AboutTest.getAboutFix
 
 import org.junit.jupiter.api.Test;
 import org.kiworkshop.community.mother.about.domain.About;
-import org.kiworkshop.community.mother.dtos.AboutResponseDto;
+import org.kiworkshop.community.mother.dto.AboutResponseDto;
 
 class AboutConverterTest {
 

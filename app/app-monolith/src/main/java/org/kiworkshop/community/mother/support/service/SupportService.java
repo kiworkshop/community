@@ -1,7 +1,7 @@
 package org.kiworkshop.community.mother.support.service;
 
 import lombok.Getter;
-import org.kiworkshop.community.mother.dtos.SupportResponseDto;
+import org.kiworkshop.community.mother.dto.SupportResponseDto;
 import org.kiworkshop.community.mother.support.domain.Support;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package org.kiworkshop.community.mother.notice.domain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
-import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
+import org.kiworkshop.community.mother.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dto.NoticeResponseDto;
 import org.kiworkshop.community.mother.notice.domain.exception.NoticeNotFoundException;
 import org.kiworkshop.community.mother.notice.domain.model.Notice;
 import org.kiworkshop.community.mother.notice.domain.model.NoticeRepository;

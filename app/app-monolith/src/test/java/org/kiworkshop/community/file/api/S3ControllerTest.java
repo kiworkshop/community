@@ -17,7 +17,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kiworkshop.community.file.domain.service.S3Uploader;
-import org.kiworkshop.community.file.dtos.FileUrlResponseDto;
+import org.kiworkshop.community.file.dto.FileUrlResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

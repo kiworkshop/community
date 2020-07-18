@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kiworkshop.community.common.config.CommonBeanCreators;
+import org.kiworkshop.community.content.config.Beans;
 import org.kiworkshop.community.content.myanglog.api.dto.MyangPostRequestDto;
 import org.kiworkshop.community.content.myanglog.api.dto.MyangPostRequestDtoTest;
 import org.kiworkshop.community.content.myanglog.api.dto.MyangPostResponseDto;
@@ -31,7 +31,7 @@ class MyangPostServiceTest {
 
   @BeforeEach
   void setUp() {
-    myangPostService = new MyangPostService(myangPostRepository, myangTagRepository, CommonBeanCreators.modelMapper());
+    myangPostService = new MyangPostService(myangPostRepository, myangTagRepository, new Beans().modelMapper());
   }
 
   @Test

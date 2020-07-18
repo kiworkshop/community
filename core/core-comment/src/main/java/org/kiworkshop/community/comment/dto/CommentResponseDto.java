@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.dtos;
+package org.kiworkshop.community.comment.dto;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

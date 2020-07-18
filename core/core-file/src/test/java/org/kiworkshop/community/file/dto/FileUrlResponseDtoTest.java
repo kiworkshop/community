@@ -1,4 +1,4 @@
-package org.kiworkshop.community.file.dtos;
+package org.kiworkshop.community.file.dto;
 
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 

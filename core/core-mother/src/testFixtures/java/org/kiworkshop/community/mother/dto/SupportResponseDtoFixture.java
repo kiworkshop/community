@@ -1,4 +1,4 @@
-package org.kiworkshop.community.mother.dtos;
+package org.kiworkshop.community.mother.dto;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

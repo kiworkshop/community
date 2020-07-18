@@ -2,8 +2,8 @@ package org.kiworkshop.community.mother.comment.domain.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.comment.dtos.CommentRequestDto;
-import org.kiworkshop.community.comment.dtos.CommentResponseDto;
+import org.kiworkshop.community.comment.dto.CommentRequestDto;
+import org.kiworkshop.community.comment.dto.CommentResponseDto;
 import org.kiworkshop.community.mother.comment.domain.model.Comment;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

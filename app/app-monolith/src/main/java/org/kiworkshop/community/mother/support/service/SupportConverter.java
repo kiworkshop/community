@@ -2,7 +2,7 @@ package org.kiworkshop.community.mother.support.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.mother.dtos.SupportResponseDto;
+import org.kiworkshop.community.mother.dto.SupportResponseDto;
 import org.kiworkshop.community.mother.support.domain.Support;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

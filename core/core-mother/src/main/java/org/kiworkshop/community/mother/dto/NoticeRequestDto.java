@@ -1,4 +1,4 @@
-package org.kiworkshop.community.mother.dtos;
+package org.kiworkshop.community.mother.dto;
 
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;

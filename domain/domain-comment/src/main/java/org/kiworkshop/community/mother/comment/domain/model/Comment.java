@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
-import org.kiworkshop.community.comment.dtos.BoardType;
+import org.kiworkshop.community.comment.dto.BoardType;
 
 @Entity
 @Getter

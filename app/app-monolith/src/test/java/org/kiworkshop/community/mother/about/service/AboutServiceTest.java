@@ -4,7 +4,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.dtos.AboutResponseDto;
+import org.kiworkshop.community.mother.dto.AboutResponseDto;
 
 public class AboutServiceTest {
   private AboutService aboutService;

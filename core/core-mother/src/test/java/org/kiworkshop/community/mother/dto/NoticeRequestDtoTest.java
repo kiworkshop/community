@@ -1,4 +1,4 @@
-package org.kiworkshop.community.mother.dtos;
+package org.kiworkshop.community.mother.dto;
 
 import static org.assertj.core.api.BDDAssertions.then;
 

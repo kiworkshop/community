@@ -3,7 +3,7 @@ package org.kiworkshop.community.mother.about.service;
 import lombok.Getter;
 import org.kiworkshop.community.mother.about.converter.AboutConverter;
 import org.kiworkshop.community.mother.about.domain.About;
-import org.kiworkshop.community.mother.dtos.AboutResponseDto;
+import org.kiworkshop.community.mother.dto.AboutResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service

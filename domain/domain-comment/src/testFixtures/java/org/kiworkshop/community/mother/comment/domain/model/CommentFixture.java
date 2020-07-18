@@ -2,7 +2,7 @@ package org.kiworkshop.community.mother.comment.domain.model;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.comment.dtos.BoardType;
+import org.kiworkshop.community.comment.dto.BoardType;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

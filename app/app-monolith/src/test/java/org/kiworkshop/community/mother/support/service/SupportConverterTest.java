@@ -4,7 +4,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.kiworkshop.community.mother.support.domain.SupportTest.getSupportFixture;
 
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.dtos.SupportResponseDto;
+import org.kiworkshop.community.mother.dto.SupportResponseDto;
 import org.kiworkshop.community.mother.support.domain.Support;
 
 class SupportConverterTest {

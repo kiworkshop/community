@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.dtos;
+package org.kiworkshop.community.comment.dto;
 
 import static org.assertj.core.api.BDDAssertions.then;
 

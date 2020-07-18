@@ -4,8 +4,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
 import org.junit.jupiter.api.Test;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDtoFixture;
+import org.kiworkshop.community.mother.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dto.NoticeRequestDtoFixture;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class NoticeTest {

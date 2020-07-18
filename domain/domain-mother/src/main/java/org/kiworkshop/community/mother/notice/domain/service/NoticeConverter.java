@@ -2,8 +2,8 @@ package org.kiworkshop.community.mother.notice.domain.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.kiworkshop.community.mother.dtos.NoticeRequestDto;
-import org.kiworkshop.community.mother.dtos.NoticeResponseDto;
+import org.kiworkshop.community.mother.dto.NoticeRequestDto;
+import org.kiworkshop.community.mother.dto.NoticeResponseDto;
 import org.kiworkshop.community.mother.notice.domain.model.Notice;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

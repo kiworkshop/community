@@ -1,4 +1,4 @@
-package org.kiworkshop.community.comment.dtos;
+package org.kiworkshop.community.comment.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -19,4 +19,5 @@ include 'domain:domain-auth'
 include 'domain:domain-common'
 include 'module:module-validation'
 include 'in-system-available:common-web'
+include 'app:app-content'
 

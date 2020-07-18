@@ -80,10 +80,9 @@ subprojects {
 }
 
 def apiProjects = [
-		project(':content-api'),
-		project(':app:app-auth'),
-
 		project(':app:app-monolith'),
+		project(':app:app-auth'),
+		project(':app:app-content'),
 ]
 
 configure(apiProjects) {

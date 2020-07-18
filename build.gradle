@@ -18,6 +18,7 @@ buildscript {
 
         // springCloudVersion = "Greenwich.RELEASE" // TODO: replace
 		springCloudVersion = "Greenwich.SR1"
+		springSecurityOAuth2AutoConfigureVersion = "2.1.9.RELEASE"
 	}
 
 	dependencies {

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @NoArgsConstructor
 public class UserDto implements UserDetails {
@@ -22,10 +21,9 @@ public class UserDto implements UserDetails {
 
   @Builder
   private UserDto(
-      PasswordEncoder passwordEncoder,
       Collection<? extends GrantedAuthority> authorities,
       String username,
-      String socialId,
+      String password, // encoded
       boolean accountNonExpired,
       boolean accountNonLocked,
       boolean credentialsNonExpired,
@@ -33,7 +31,7 @@ public class UserDto implements UserDetails {
   ) {
     this.authorities = authorities;
     this.username = username;
-    this.password = passwordEncoder.encode(socialId);
+    this.password = password;
     this.accountNonExpired = accountNonExpired;
     this.accountNonLocked = accountNonLocked;
     this.credentialsNonExpired = credentialsNonExpired;

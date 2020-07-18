@@ -12,10 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserConverter {
   public static UserDto toDto(User user, PasswordEncoder passwordEncoder) {
     return UserDto.builder()
-        .passwordEncoder(passwordEncoder)
         .authorities(user.getAuthorities())
         .username(user.getUsername())
-        .socialId(user.getSocialId())
+        .password(passwordEncoder.encode(user.getSocialId()))
         .accountNonExpired(user.isAccountNonExpired())
         .accountNonLocked(user.isAccountNonLocked())
         .credentialsNonExpired(user.isCredentialsNonExpired())

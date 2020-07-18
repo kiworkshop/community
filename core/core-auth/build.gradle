@@ -12,5 +12,7 @@ repositories {
 dependencies {
     implementation "javax.validation:validation-api:${javaxValidationApiVersion}"
 
+    compileOnly "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
+
     testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
 }

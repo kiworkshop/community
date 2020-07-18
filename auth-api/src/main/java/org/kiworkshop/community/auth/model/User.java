@@ -23,8 +23,7 @@ import org.kiworkshop.community.common.utils.Uuid;
 public class User extends BaseEntity implements Serializable {
 
   @Column(nullable = false, unique = true, length = 36)
-  private @Uuid
-  String username;
+  private @Uuid String username;
   private @Embedded Social social;
 
   @ManyToMany(fetch = FetchType.EAGER)

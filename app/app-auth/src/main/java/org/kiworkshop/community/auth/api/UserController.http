@@ -1,4 +1,4 @@
-POST {{user-api}}/users/sign-up
+POST {{auth-api}}/users/sign-up
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{user-api}}/users/sign-in
+POST {{auth-api}}/users/sign-in
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{user-api}}/users/sign-out
+POST {{auth-api}}/users/sign-out
 Content-Type: application/json
 
 {
@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{user-api}}/users/token-refresh
+POST {{auth-api}}/users/token-refresh
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{user-api}}/oauth/check_token
+POST {{auth-api}}/oauth/check_token
 Authorization: Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw== # first-client:noonewilleverguess
 Content-Type: application/x-www-form-urlencoded
 

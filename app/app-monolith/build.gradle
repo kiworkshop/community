@@ -21,16 +21,23 @@ dependencies {
     implementation project(':core:core-comment')
     implementation project(':domain:domain-comment')
 
+    implementation project(':core:core-user-resource')
+    implementation project(':domain:domain-user-resource')
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.flywaydb:flyway-core'
+    implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
+
     runtimeOnly 'com.h2database:h2'
     runtime 'mysql:mysql-connector-java'
 
     testImplementation(testFixtures(project(":in-system-available:common-web")))
     testImplementation(testFixtures(project(":core:core-mother")))
     testImplementation(testFixtures(project(":core:core-comment")))
+    testImplementation(testFixtures(project(":core:core-user-resource")))
+
     integrationTestImplementation(testFixtures(project(":core:core-mother")))
 }
 

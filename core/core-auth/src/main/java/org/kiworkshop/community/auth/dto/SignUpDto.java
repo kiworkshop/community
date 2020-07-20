@@ -8,4 +8,5 @@ import lombok.Getter;
 public class SignUpDto implements SocialResourceRequestDto {
   private @NotNull String provider;
   private @NotEmpty String providerAccessToken;
+  private @NotEmpty String nickname;
 }

@@ -21,6 +21,7 @@ import org.kiworkshop.community.auth.dto.SocialResourceResponseDto;
 import org.kiworkshop.community.auth.model.User;
 import org.kiworkshop.community.auth.model.UserRepository;
 import org.kiworkshop.community.auth.service.socialresource.SocialResourceFetcher;
+import org.kiworkshop.community.user.resource.domain.model.UserResourceRepository;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,13 +34,15 @@ class UserServiceImplTest {
   private UserServiceImpl userServiceImpl;
 
   private @Mock UserRepository userRepository;
+  private @Mock UserResourceRepository userResourceRepository;
   private @Mock PasswordEncoder passwordEncoder;
   private @Mock SocialResourceFetcher socialResourceFetcher;
   private @Mock TokenService tokenService;
 
   @BeforeEach
   void setUp() {
-    userServiceImpl = new UserServiceImpl(userRepository, passwordEncoder, socialResourceFetcher, tokenService);
+    userServiceImpl = new UserServiceImpl(
+        userRepository, userResourceRepository, passwordEncoder, socialResourceFetcher, tokenService);
   }
 
   @Test

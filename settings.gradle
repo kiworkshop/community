@@ -13,7 +13,6 @@ include 'app:app-content'
 include 'domain:domain-mother'
 include 'domain:domain-file'
 include 'domain:domain-comment'
-include 'domain:domain-auth'
 include 'domain:domain-common'
 include 'domain:domain-user-resource'
 
@@ -21,6 +20,7 @@ include 'core:core-mother'
 include 'core:core-file'
 include 'core:core-comment'
 include 'core:core-auth'
+include 'core:core-user-resource'
 
 include 'in-system-available:common-web'
 

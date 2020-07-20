@@ -23,3 +23,26 @@
 ```
 
 공통 모듈에서 담당하는 것: Dto 및 Dto의 Validation 로직 검증.
+
+## Applications
+
+하나의 도커 이미지에서 4개의 애플리케이션이 실행된다.
+
+1. Nginx (Port: 80)
+2. Community Server (Port: 8080)
+3. Auth Server (Port: 8081)
+4. Frontend (Port: 3000)
+
+### [Nginx routing](https://gist.github.com/soheilhy/8b94347ff8336d971ad0) 규칙 
+
+1. Api Gateway
+2. `/api/**` ->  Community의 `/**`
+3. `/api/users/**` Auth의 `/users`
+4. `/api/oauth/**` Auth의 `/oauth`
+5. `/**` Frontend
+
+모든 request는 Nginx를 통해 전달한다. Nginx는 path에 따라 request를 Community, Auth, Frontend에 나눠준다.
+
+Heatlh check는 Community에서 나머지 애플리케이션의 health를 체크해서 response. 애플리케이션 하나라도 상태가 이상하면 비정상 응답을 내보낸다.
+
+* `me` 요청은 `/api/user-resource/me`로. Auth가 아니라 Community에서 담당한다. 인증에 필요한 정보는 User에, 나머지 사용자 정보는 UserResource에 담는다. Auth에서는 User만 관리함. UserResource는 Community에서.

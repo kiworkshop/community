@@ -1,0 +1,6 @@
+GET https://{{monolith}}/user-resources/me
+Authorization: Bearer
+
+###
+
+

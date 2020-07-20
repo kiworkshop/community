@@ -98,3 +98,15 @@ operation::/comments/update-a-comment[snippets='http-request,path-parameters,req
 A DELETE request to delete a comment.
 
 operation::/comments/delete-a-comment[snippets='http-request,path-parameters,http-response']
+
+= User Resource
+
+[[resources-user-resource]]
+== User Resource API
+
+[[resource-user-resource]]
+
+=== Me
+A GET request to get user resource.
+
+operation::/user-resources/me[snippets='http-request,http-response,response-fields']

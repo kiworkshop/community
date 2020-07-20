@@ -5,26 +5,31 @@ import javax.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.kiworkshop.community.common.domain.BaseEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor
-class UserResource extends BaseEntity {
+public class UserResource extends BaseEntity {
 
-  @Column(unique = true)
-  private Long userId;
-  @Column(unique = true)
+  @Column(nullable = false, unique = true)
+  private Long userId; // same value with User#id
+  @Column(nullable = false, unique = true)
+  private String username; // same value with User#username
+  @Column(nullable = false, unique = true)
   private String nickname;
   private String contactEmail;
 
   @Builder
   private UserResource(
-      Long userId,
-      String nickname,
-      String contactEmail
+      @NonNull Long userId,
+      @NonNull String username,
+      @NonNull String nickname,
+      @NonNull String contactEmail
   ) {
     this.userId = userId;
+    this.username = username;
     this.nickname = nickname;
     this.contactEmail = contactEmail;
   }

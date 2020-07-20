@@ -21,6 +21,9 @@ dependencies {
     implementation project(':core:core-comment')
     implementation project(':domain:domain-comment')
 
+    implementation project(':core:core-user-resource')
+    implementation project(':domain:domain-user-resource')
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -31,6 +34,8 @@ dependencies {
     testImplementation(testFixtures(project(":in-system-available:common-web")))
     testImplementation(testFixtures(project(":core:core-mother")))
     testImplementation(testFixtures(project(":core:core-comment")))
+    testImplementation(testFixtures(project(":core:core-user-resource")))
+
     integrationTestImplementation(testFixtures(project(":core:core-mother")))
 }
 

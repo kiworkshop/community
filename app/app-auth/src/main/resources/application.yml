@@ -1,6 +1,8 @@
 server:
   port: 8081
 spring:
+  profiles:
+    active: "local"
   main:
     banner-mode: 'off'
   output:
@@ -19,6 +21,8 @@ spring:
   jackson:
     mapper:
       DEFAULT_VIEW_INCLUSION: true
+  flyway:
+    enabled: false
 
 security:
   oauth2:
@@ -28,3 +32,22 @@ security:
 service:
   auth-api: http://localhost:8082
 
+---
+
+spring:
+  profiles: local-db
+  datasource:
+    schema: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 3000
+    platform: mysql
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true

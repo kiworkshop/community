@@ -13,7 +13,6 @@ include 'app:app-content'
 include 'domain:domain-mother'
 include 'domain:domain-file'
 include 'domain:domain-comment'
-include 'domain:domain-auth'
 include 'domain:domain-common'
 include 'domain:domain-user-resource'
 

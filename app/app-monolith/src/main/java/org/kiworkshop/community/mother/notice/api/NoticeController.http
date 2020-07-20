@@ -1,4 +1,4 @@
-POST https://{{host}}/notices
+POST http://{{monolith}}/notices
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ###
-GET https://{{host}}/notices/1
+GET http://{{monolith}}/notices/1
 
 ###
 

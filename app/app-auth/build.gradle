@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation project(':domain:domain-common')
+    implementation project(':domain:domain-user-resource')
     implementation project(':core:core-auth')
     implementation project(':in-system-available:common-web')
     implementation project(':module:module-validation')

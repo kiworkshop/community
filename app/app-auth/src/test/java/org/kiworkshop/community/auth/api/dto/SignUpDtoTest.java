@@ -9,6 +9,7 @@ public class SignUpDtoTest {
     SignUpDto signUpDto = new SignUpDto();
     ReflectionTestUtils.setField(signUpDto, "provider", Social.Provider.GOOGLE.name());
     ReflectionTestUtils.setField(signUpDto, "providerAccessToken", "providerAccessToken");
+    ReflectionTestUtils.setField(signUpDto, "nickname", "nickname");
 
     return signUpDto;
   }

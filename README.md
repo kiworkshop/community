@@ -23,3 +23,16 @@
 ```
 
 공통 모듈에서 담당하는 것: Dto 및 Dto의 Validation 로직 검증.
+
+## Applications
+
+하나의 도커 이미지에서 4개의 애플리케이션이 실행된다.
+
+1. Api Gateway
+2. `/api` Community
+3. `/api/auth` Auth
+4. `/**` Frontend
+
+모든 request는 Api Gateway를 통해 전달한다. Api Gateway에서는 path에 따라 request를 Community, Auth, Frontend에 나눠준다.
+
+Heatlh check는 api gateway에서 나머지 애플리케이션의 health를 체크해서 response. 애플리케이션 하나라도 상태가 이상하면 비정상 응답을 내보낸다.

@@ -37,4 +37,10 @@ cloud:
     stack:
       auto: false
 
-
+security:
+  oauth2:
+    client:
+      client-id: ${OAUTH_CLIENT_ID}
+      client-secret: ${OAUTH_CLIENT_SECRET}
+    resource:
+      token-info-uri: http://localhost:8081/oauth/check_token

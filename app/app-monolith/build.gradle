@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.flywaydb:flyway-core'
+    implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
+
     runtimeOnly 'com.h2database:h2'
     runtime 'mysql:mysql-connector-java'
 

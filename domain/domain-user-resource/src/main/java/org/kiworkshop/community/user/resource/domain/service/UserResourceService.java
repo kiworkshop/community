@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserResourceService {
   private final UserResourceRepository userResourceRepository;
 
-  public UserResourceResponseDto me(String username) {
+  public UserResourceResponseDto getUserResource(String username) {
     UserResource userResource = userResourceRepository
         .findByUsername(username)
         .orElseThrow(() -> new UserResourceNotFoundException(username));

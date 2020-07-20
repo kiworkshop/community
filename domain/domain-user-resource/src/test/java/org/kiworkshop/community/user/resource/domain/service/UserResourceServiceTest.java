@@ -27,13 +27,13 @@ class UserResourceServiceTest {
   }
 
   @Test
-  void me_ValidInput_ValidOutput() {
+  void getUserResource_ValidInput_ValidOutput() {
     // given
     UserResource userResource = UserResourceFixture.get();
     given(userResourceRepository.findByUsername(any())).willReturn(Optional.of(UserResourceFixture.get()));
 
     // when
-    UserResourceResponseDto userResourceResponseDto = userResourceService.me("username");
+    UserResourceResponseDto userResourceResponseDto = userResourceService.getUserResource("username");
 
     // then
     then(userResourceResponseDto.getNickname()).isEqualTo(userResource.getNickname());

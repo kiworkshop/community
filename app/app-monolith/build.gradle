@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.flywaydb:flyway-core'
     implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
+    implementation 'org.flywaydb:flyway-core'
 
     runtimeOnly 'com.h2database:h2'
     runtime 'mysql:mysql-connector-java'
@@ -46,9 +47,5 @@ asciidoctor {
     sourceDir 'docs'
     outputDir = file('build/docs')
     dependsOn test
-}
-
-bootRun {
-    bootRun.systemProperty 'spring.profiles.active', 'local'
 }
 

@@ -170,5 +170,18 @@ configure(apiProjects) {
 
 	checkstyleAll.dependsOn checkstyleIntegrationTest
 	checkstyleIntegrationTest.mustRunAfter(clean)
+
+	// https://stackoverflow.com/a/48994608
+	task bootRunLocalDb {
+		group = 'application'
+		dependsOn bootRun
+		gradle.taskGraph.whenReady { graph ->
+			if (graph.hasTask(bootRunLocalDb)) {
+				bootRun {
+					args = ["--spring.profiles.active=local-db"]
+				}
+			}
+		}
+	}
 }
 

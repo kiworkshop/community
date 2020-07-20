@@ -12,7 +12,7 @@ public class CommentResponseDto {
   private String username;
   private String content;
   private Long parentId;
-  private int order;
+  private int ordinal;
   private boolean active;
   private List<CommentResponseDto> children;
   private ZonedDateTime createdAt;
@@ -23,7 +23,7 @@ public class CommentResponseDto {
       String username,
       String content,
       Long parentId,
-      int order,
+      int ordinal,
       boolean active,
       ZonedDateTime createdAt
   ) {
@@ -31,7 +31,7 @@ public class CommentResponseDto {
     this.username = username;
     this.content = content;
     this.parentId = parentId;
-    this.order = order;
+    this.ordinal = ordinal;
     this.active = active;
     this.children = new ArrayList<>();
     this.createdAt = createdAt;

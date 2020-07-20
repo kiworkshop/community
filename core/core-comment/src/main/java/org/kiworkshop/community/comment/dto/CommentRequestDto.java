@@ -12,7 +12,7 @@ public class CommentRequestDto {
   @NotNull
   private Long postId;
   private Long parentId;
-  private int order;
+  private int ordinal;
 
   @NotEmpty
   private String username;

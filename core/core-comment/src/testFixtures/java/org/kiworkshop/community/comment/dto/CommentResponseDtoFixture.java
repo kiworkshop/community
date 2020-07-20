@@ -11,7 +11,7 @@ public class CommentResponseDtoFixture {
         .id(id)
         .username("username")
         .content("content")
-        .order(0)
+        .ordinal(0)
         .active(true)
         .createdAt(ZonedDateTime.now())
         .build();

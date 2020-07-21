@@ -88,3 +88,9 @@ mysql community -umariadb -psecret -h0.0.0.0 -P3307
 
 auth 앱 bootRun 후
 http://local.kiworkshop.org:8081/gglogin.html
+
+### Docker build
+`docker build -f community.Dockerfile -t kiworkshop/community:latest .`
+
+### Docker run
+`docker run -p 127.0.0.1:8080:80/tcp -t kiworkshop/community:latest --env PROFILE=local`

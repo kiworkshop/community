@@ -34,6 +34,8 @@ dependencies {
     runtime 'org.mariadb.jdbc:mariadb-java-client'
     integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:2.4.0"
 
+    testImplementation 'org.springframework.security:spring-security-test'
+
     testImplementation(testFixtures(project(":in-system-available:common-web")))
     testImplementation(testFixtures(project(":core:core-mother")))
     testImplementation(testFixtures(project(":core:core-comment")))

@@ -183,5 +183,20 @@ configure(apiProjects) {
 			}
 		}
 	}
+
+	task DockerComposeUp(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose up -d"
+	}
+
+	task DockerComposeDown(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose down"
+	}
+
+	task DockerComposeStop(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose stop"
+	}
 }
 

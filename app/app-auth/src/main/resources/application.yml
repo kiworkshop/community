@@ -43,11 +43,9 @@ spring:
       max-lifetime: 60000
       connection-timeout: 3000
     platform: mysql
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
+    url: "jdbc:mysql://0.0.0.0:3307/community"
+    username: mariadb
+    password: secret
   jpa:
     hibernate:
       ddl-auto: none
-  flyway:
-    enabled: true

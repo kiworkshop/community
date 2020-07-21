@@ -53,3 +53,21 @@ Heatlh check는 Community에서 나머지 애플리케이션의 health를 체크
 
 app-monolith의 `resource/db/migration` 에 모든 SQL 쌓기. app-auth는 symlink로 app-monolith의 `resource/db/migration`을 바로보도록 한다. 
 
+#### local-db
+DockerComposeUp으로 mariadb를 띄운 뒤 community database를 생성하고 아래의 migrate 커맨드를 실행해야 함. Port는 3307로 정했습니다.
+
+```bash
+# db init
+mysql -uroot -psecret -h0.0.0.0 -P3307
+create database community;
+GRANT ALL PRIVILEGES ON community.* TO 'mariadb'@'%';
+```
+
+```bash
+# db access
+mysql community -umariadb -psecret -h0.0.0.0 -P3307
+```
+
+```bash
+./gradlew :app:app-monolith:flywayMigrate -Dflyway.url=jdbc:mysql://0.0.0.0:3307/community -Dflyway.user=mariadb -Dflyway.password=secret
+```

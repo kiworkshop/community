@@ -48,7 +48,3 @@ asciidoctor {
     dependsOn test
 }
 
-bootRun {
-    bootRun.systemProperty 'spring.profiles.active', 'local'
-}
-

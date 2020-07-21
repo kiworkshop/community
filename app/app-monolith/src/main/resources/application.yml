@@ -1,0 +1,81 @@
+spring:
+  profiles:
+    active: "local"
+  main:
+    banner-mode: 'off'
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  jackson:
+    mapper:
+      default-view-inclusion: true
+      accept-case-insensitive-enums: true
+  flyway:
+    enabled: false
+
+cloud:
+  aws:
+    s3:
+      bucket: kiworkshop
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+security:
+  oauth2:
+    client:
+      client-id: first-client
+      client-secret: noonewilleverguess
+    resource:
+      token-info-uri: http://localhost:8081/oauth/check_token
+
+---
+
+spring:
+  profiles: local-db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 3000
+    platform: mysql
+    url: 'jdbc:mysql://0.0.0.0:3307/community'
+    username: mariadb
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 3000
+    platform: mysql
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: false
+
+security:
+  oauth2:
+    client:
+      client-id: ${OAUTH_CLIENT_ID}
+      client-secret: ${OAUTH_CLIENT_SECRET}

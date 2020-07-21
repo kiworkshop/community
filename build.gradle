@@ -170,5 +170,33 @@ configure(apiProjects) {
 
 	checkstyleAll.dependsOn checkstyleIntegrationTest
 	checkstyleIntegrationTest.mustRunAfter(clean)
+
+	// https://stackoverflow.com/a/48994608
+	task bootRunLocalDb {
+		group = 'application'
+		dependsOn bootRun
+		gradle.taskGraph.whenReady { graph ->
+			if (graph.hasTask(bootRunLocalDb)) {
+				bootRun {
+					args = ["--spring.profiles.active=local-db"]
+				}
+			}
+		}
+	}
+
+	task DockerComposeUp(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose up -d"
+	}
+
+	task DockerComposeDown(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose down"
+	}
+
+	task DockerComposeStop(type: Exec) {
+		group = 'docker'
+		commandLine "bash", "-c", "docker-compose stop"
+	}
 }
 

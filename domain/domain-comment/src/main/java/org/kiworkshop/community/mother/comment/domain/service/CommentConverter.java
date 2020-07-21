@@ -14,7 +14,7 @@ public class CommentConverter {
         .content(dto.getContent())
         .parentId(dto.getParentId())
         .postId(dto.getPostId())
-        .order(dto.getOrder())
+        .ordinal(dto.getOrdinal())
         .username(dto.getUsername())
         .build();
   }
@@ -25,7 +25,7 @@ public class CommentConverter {
         .username(comment.getUsername())
         .content(comment.getContent())
         .createdAt(comment.getCreatedAt())
-        .order(comment.getOrder())
+        .ordinal(comment.getOrdinal())
         .parentId(comment.getParentId())
         .active(comment.isActive())
         .build();

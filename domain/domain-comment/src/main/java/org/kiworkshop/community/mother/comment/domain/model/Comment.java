@@ -14,7 +14,7 @@ import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.kiworkshop.community.comment.dto.BoardType;
 
-@Entity
+@Entity(name = "comments")
 @Getter
 @NoArgsConstructor
 public class Comment {
@@ -31,7 +31,7 @@ public class Comment {
 
   private Long parentId;
 
-  private int order;
+  private int ordinal;
 
   private String username;
 
@@ -47,14 +47,14 @@ public class Comment {
       @NonNull BoardType boardType,
       @NonNull Long postId,
       @NonNull Long parentId,
-      int order,
+      int ordinal,
       @NonNull String username,
       @NonNull String content
   ) {
     this.boardType = boardType;
     this.postId = postId;
     this.parentId = parentId;
-    this.order = order;
+    this.ordinal = ordinal;
     this.username = username;
     this.content = content;
   }

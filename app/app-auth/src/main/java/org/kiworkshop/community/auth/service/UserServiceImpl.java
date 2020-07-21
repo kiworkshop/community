@@ -1,12 +1,12 @@
 package org.kiworkshop.community.auth.service;
 
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.kiworkshop.community.auth.dto.AuthenticationDto;
 import org.kiworkshop.community.auth.dto.SignUpDto;
 import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
 import org.kiworkshop.community.auth.dto.TokenRefreshDto;
 import org.kiworkshop.community.auth.exception.UserNotFoundException;
-import org.kiworkshop.community.auth.model.User;
 import org.kiworkshop.community.auth.model.UserRepository;
 import org.kiworkshop.community.auth.service.socialresource.SocialResourceFetcher;
 import org.kiworkshop.community.user.resource.domain.model.UserResourceRepository;
@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -36,33 +35,33 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public Mono<AuthenticationDto> signUp(SignUpDto signUpDto) {
-    return socialResourceFetcher.fetch(signUpDto)
-        .map(response -> {
-          User user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
-          userResourceRepository.save(UserConverter.toUserResource(user, signUpDto, response));
+  public AuthenticationDto signUp(SignUpDto signUpDto) {
+    var response = Objects.requireNonNull(socialResourceFetcher.fetch(signUpDto).block());
 
-          return user;
-        })
-        .flatMap(tokenService::getTokenOf);
+    var user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
+    userResourceRepository.save(UserConverter.toUserResource(user, signUpDto, response));
+
+    return tokenService.getTokenOf(user).block();
   }
 
   @Override
-  public Mono<AuthenticationDto> signIn(SocialResourceRequestDto socialResourceRequestDto) {
-    return socialResourceFetcher.fetch(socialResourceRequestDto)
-        .map(response -> userRepository
-            .findBySocialSocialId(response.getSocialId())
-            .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
-        .flatMap(tokenService::getTokenOf);
+  public AuthenticationDto signIn(SocialResourceRequestDto socialResourceRequestDto) {
+    var response = Objects.requireNonNull(socialResourceFetcher.fetch(socialResourceRequestDto).block());
+
+    var user = userRepository
+        .findBySocialSocialId(response.getSocialId())
+        .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId()));
+
+    return tokenService.getTokenOf(user).block();
   }
 
   @Override
-  public Mono<Void> signOut(TokenRefreshDto tokenRefreshDto) {
-    return tokenService.refresh(tokenRefreshDto.getRefreshToken()).then();
+  public void signOut(TokenRefreshDto tokenRefreshDto) {
+    tokenService.refresh(tokenRefreshDto.getRefreshToken()).block();
   }
 
   @Override
-  public Mono<AuthenticationDto> tokenRefresh(TokenRefreshDto tokenRefreshDto) {
-    return tokenService.refresh(tokenRefreshDto.getRefreshToken());
+  public AuthenticationDto tokenRefresh(TokenRefreshDto tokenRefreshDto) {
+    return tokenService.refresh(tokenRefreshDto.getRefreshToken()).block();
   }
 }

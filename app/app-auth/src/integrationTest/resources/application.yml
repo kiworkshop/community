@@ -1,5 +1,3 @@
-server:
-  port: 8081
 spring:
   profiles:
     active: "local"
@@ -22,8 +20,16 @@ spring:
     mapper:
       DEFAULT_VIEW_INCLUSION: true
   flyway:
-    enabled: false
     locations: 'filesystem:../../db-migration'
+  datasource:
+    schema: ""
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:${mariaDB4j.port}/test
+    username: root
+    password:
+
+mariaDB4j:
+  port: 3400
 
 security:
   oauth2:
@@ -32,21 +38,3 @@ security:
       client-secret: noonewilleverguess
 service:
   auth-api: http://localhost:8081
-
----
-
-spring:
-  profiles: local-db
-  datasource:
-    schema: ""
-    driver-class-name: org.mariadb.jdbc.Driver
-    hikari:
-      max-lifetime: 60000
-      connection-timeout: 3000
-    platform: mysql
-    url: "jdbc:mysql://0.0.0.0:3307/community"
-    username: mariadb
-    password: secret
-  jpa:
-    hibernate:
-      ddl-auto: none

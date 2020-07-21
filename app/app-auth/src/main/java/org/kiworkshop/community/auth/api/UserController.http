@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ",
+  "providerAccessToken": "ya29.a0AfH6SMAjnDISmZ0H-_uMgIyJ47Jisv2SmbiNvR4bLBW9kzvd9RHLRtalNSGOHu35168kVyKJPAlj-3TyPdvJu3AYwTdOH79_-7OsVgiyPPnAUumGXZxeG6sJ2jQcit9WZj29ZnlWsWhwbLFnrn7JmR2IgPx41n6Ir-Ga",
   "nickname": "nickname"
 }
 
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ"
+  "providerAccessToken": "ya29.a0AfH6SMAjnDISmZ0H-_uMgIyJ47Jisv2SmbiNvR4bLBW9kzvd9RHLRtalNSGOHu35168kVyKJPAlj-3TyPdvJu3AYwTdOH79_-7OsVgiyPPnAUumGXZxeG6sJ2jQcit9WZj29ZnlWsWhwbLFnrn7JmR2IgPx41n6Ir-Ga"
 }
 
 ###

@@ -17,13 +17,14 @@ dependencies {
     implementation project(':module:module-validation')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.flywaydb:flyway-core'
     implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
 
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     runtimeOnly 'com.h2database:h2'
-    runtime 'mysql:mysql-connector-java'
+
+    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:${mariaDB4jVersion}"
+    runtime 'org.mariadb.jdbc:mariadb-java-client'
 }
 
 asciidoctor {

@@ -89,9 +89,9 @@ class UserServiceImplTest {
     given(tokenService.getTokenOf(eq(user))).willReturn(expected);
 
     // when
-    Mono<AuthenticationDto> actual = userServiceImpl.signUp(signUpDto);
+    AuthenticationDto actual = userServiceImpl.signUp(signUpDto);
 
     // then
-    then(actual.block()).isEqualTo(expected.block());
+    then(actual).isEqualTo(expected.block());
   }
 }

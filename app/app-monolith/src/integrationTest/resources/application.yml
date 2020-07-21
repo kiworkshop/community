@@ -3,6 +3,19 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
+  flyway:
+    locations: 'filesystem:../../db-migration'
+
+  datasource:
+    schema: ""
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:${mariaDB4j.port}/test
+    username: root
+    password:
+
+mariaDB4j:
+  port: 3400
+
 cloud:
   aws:
     s3:

@@ -14,6 +14,7 @@ public class MonolithResourceServerConfig extends ResourceServerConfigurerAdapte
   public void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/user-resources/me").authenticated();
+        .antMatchers(HttpMethod.GET, "/user-resources/me").authenticated()
+    ;
   }
 }

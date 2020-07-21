@@ -71,3 +71,20 @@ mysql community -umariadb -psecret -h0.0.0.0 -P3307
 ```bash
 ./gradlew :app:app-monolith:flywayMigrate -Dflyway.url=jdbc:mysql://0.0.0.0:3307/community -Dflyway.user=mariadb -Dflyway.password=secret
 ```
+
+### auth의 resources의 import.sql과 schema.sql
+
+로컬의 bootRun을 할 때만 사용한다. bootRunLocalDb나 integration test, 그리고 remote 환경에서는 flyway로 db-migrations의 스크립트를 사용. 
+
+### Database
+
+일반 test와 로컬 bootRun에는 h2를 사용한다.
+
+통합 테스트에서는 MariaDB4j를 사용하고 운영 환경에서는 MariaDB를 사용한다.
+
+이게 다 h2에서 `LONG VARBINARY`를 못 알아듣고 `LONGVARBINARY`만 알아듣기 때문이다.
+
+### 구글 access token 얻기
+
+auth 앱 bootRun 후
+http://local.kiworkshop.org:8081/gglogin.html

@@ -16,6 +16,7 @@ dependencies {
     implementation project(':in-system-available:common-web')
     implementation project(':module:module-validation')
 
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.flywaydb:flyway-core'
     implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"

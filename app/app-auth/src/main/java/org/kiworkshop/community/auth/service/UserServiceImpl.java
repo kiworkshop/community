@@ -1,12 +1,12 @@
 package org.kiworkshop.community.auth.service;
 
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.kiworkshop.community.auth.dto.AuthenticationDto;
 import org.kiworkshop.community.auth.dto.SignUpDto;
 import org.kiworkshop.community.auth.dto.SocialResourceRequestDto;
 import org.kiworkshop.community.auth.dto.TokenRefreshDto;
 import org.kiworkshop.community.auth.exception.UserNotFoundException;
-import org.kiworkshop.community.auth.model.User;
 import org.kiworkshop.community.auth.model.UserRepository;
 import org.kiworkshop.community.auth.service.socialresource.SocialResourceFetcher;
 import org.kiworkshop.community.user.resource.domain.model.UserResourceRepository;
@@ -36,25 +36,23 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public AuthenticationDto signUp(SignUpDto signUpDto) {
-    return socialResourceFetcher.fetch(signUpDto)
-        .map(response -> {
-          User user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
-          userResourceRepository.save(UserConverter.toUserResource(user, signUpDto, response));
+    var response = Objects.requireNonNull(socialResourceFetcher.fetch(signUpDto).block());
 
-          return user;
-        })
-        .flatMap(tokenService::getTokenOf)
-        .block();
+    var user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
+    userResourceRepository.save(UserConverter.toUserResource(user, signUpDto, response));
+
+    return tokenService.getTokenOf(user).block();
   }
 
   @Override
   public AuthenticationDto signIn(SocialResourceRequestDto socialResourceRequestDto) {
-    return socialResourceFetcher.fetch(socialResourceRequestDto)
-        .map(response -> userRepository
-            .findBySocialSocialId(response.getSocialId())
-            .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
-        .flatMap(tokenService::getTokenOf)
-        .block();
+    var response = Objects.requireNonNull(socialResourceFetcher.fetch(socialResourceRequestDto).block());
+
+    var user = userRepository
+        .findBySocialSocialId(response.getSocialId())
+        .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId()));
+
+    return tokenService.getTokenOf(user).block();
   }
 
   @Override

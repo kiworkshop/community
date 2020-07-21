@@ -58,7 +58,7 @@ public class CommentControllerTest {
       fieldWithPath("content").description("Content of a comment to create")
           .attributes(key("constraints").value("Not Empty, Markdown")),
       fieldWithPath("parentId").description("Parent Id of a comment to create"),
-      fieldWithPath("order").description("order of a comment to create")
+      fieldWithPath("ordinal").description("ordinal of a comment to create")
   };
 
   private FieldDescriptor[] responseFieldDescriptors = new FieldDescriptor[]{
@@ -66,7 +66,7 @@ public class CommentControllerTest {
       fieldWithPath("[].username").description("User name of a comment"),
       fieldWithPath("[].content").description("Content of a comment"),
       fieldWithPath("[].parentId").description("Parent Id of a comment"),
-      fieldWithPath("[].order").description("Order of a comment"),
+      fieldWithPath("[].ordinal").description("ordinal of a comment"),
       fieldWithPath("[].active").description("Whether a comment is active"),
       fieldWithPath("[].children").description("Nested comments of a comment"),
       fieldWithPath("[].createdAt").description("Created date time")

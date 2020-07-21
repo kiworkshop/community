@@ -31,7 +31,8 @@ dependencies {
     implementation "org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOAuth2AutoConfigureVersion}"
 
     runtimeOnly 'com.h2database:h2'
-    runtime 'mysql:mysql-connector-java'
+    runtime 'org.mariadb.jdbc:mariadb-java-client'
+    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:2.4.0"
 
     testImplementation(testFixtures(project(":in-system-available:common-web")))
     testImplementation(testFixtures(project(":core:core-mother")))

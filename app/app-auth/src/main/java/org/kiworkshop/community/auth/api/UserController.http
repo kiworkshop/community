@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMBsAjzFIu91SpYxzdgQiI2UaX6tHYpztJyrFXNC1Lu_clWCAXM3shkNjk8nDD-1nX-LrSBBd3l42Ae_wGB_J1m9sheMaI9cKlKRY1dxKQ2daT0Gr0kYE7oI2fEMqR-2d47OFQglkARCWXiHvyWMB2xWQo90KGH8GQ",
+  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ",
   "nickname": "nickname"
 }
 
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMBsAjzFIu91SpYxzdgQiI2UaX6tHYpztJyrFXNC1Lu_clWCAXM3shkNjk8nDD-1nX-LrSBBd3l42Ae_wGB_J1m9sheMaI9cKlKRY1dxKQ2daT0Gr0kYE7oI2fEMqR-2d47OFQglkARCWXiHvyWMB2xWQo90KGH8GQ"
+  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ"
 }
 
 ###
@@ -37,7 +37,7 @@ POST {{auth-api}}/oauth/check_token
 Authorization: Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw== # first-client:noonewilleverguess
 Content-Type: application/x-www-form-urlencoded
 
-token=26d56be6-bbeb-4cdc-9d36-0f116c2b6956
+token=59c0f35f-d29b-437a-9f4d-79fb526d779b
 
 ###
 

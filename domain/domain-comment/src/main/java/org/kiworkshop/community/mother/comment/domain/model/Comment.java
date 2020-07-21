@@ -14,7 +14,7 @@ import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.kiworkshop.community.comment.dto.BoardType;
 
-@Entity
+@Entity(name = "comments")
 @Getter
 @NoArgsConstructor
 public class Comment {

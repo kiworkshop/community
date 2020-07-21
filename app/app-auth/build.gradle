@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     runtimeOnly 'com.h2database:h2'
 
-    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:2.4.0"
+    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:${mariaDB4jVersion}"
     runtime 'org.mariadb.jdbc:mariadb-java-client'
 }
 

@@ -32,7 +32,7 @@ dependencies {
 
     runtimeOnly 'com.h2database:h2'
     runtime 'org.mariadb.jdbc:mariadb-java-client'
-    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:2.4.0"
+    integrationTestImplementation "ch.vorburger.mariaDB4j:mariaDB4j-springboot:${mariaDB4jVersion}"
 
     testImplementation 'org.springframework.security:spring-security-test'
 

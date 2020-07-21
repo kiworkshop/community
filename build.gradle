@@ -15,6 +15,7 @@ buildscript {
 		springTestVersion = "5.2.7.RELEASE"
 		hibernateValidatorVersion = "6.1.5.Final"
         javaxElVersion = "3.0.0"
+		mariaDB4jVersion = "2.4.0"
 
         // springCloudVersion = "Greenwich.RELEASE" // TODO: replace
 		springCloudVersion = "Greenwich.SR1"

@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public Mono<AuthenticationDto> signUp(SignUpDto signUpDto) {
+  public AuthenticationDto signUp(SignUpDto signUpDto) {
     return socialResourceFetcher.fetch(signUpDto)
         .map(response -> {
           User user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
@@ -44,25 +43,27 @@ public class UserServiceImpl implements UserService {
 
           return user;
         })
-        .flatMap(tokenService::getTokenOf);
+        .flatMap(tokenService::getTokenOf)
+        .block();
   }
 
   @Override
-  public Mono<AuthenticationDto> signIn(SocialResourceRequestDto socialResourceRequestDto) {
+  public AuthenticationDto signIn(SocialResourceRequestDto socialResourceRequestDto) {
     return socialResourceFetcher.fetch(socialResourceRequestDto)
         .map(response -> userRepository
             .findBySocialSocialId(response.getSocialId())
             .orElseThrow(() -> UserNotFoundException.fromSocialId(response.getSocialId())))
-        .flatMap(tokenService::getTokenOf);
+        .flatMap(tokenService::getTokenOf)
+        .block();
   }
 
   @Override
-  public Mono<Void> signOut(TokenRefreshDto tokenRefreshDto) {
-    return tokenService.refresh(tokenRefreshDto.getRefreshToken()).then();
+  public void signOut(TokenRefreshDto tokenRefreshDto) {
+    tokenService.refresh(tokenRefreshDto.getRefreshToken()).block();
   }
 
   @Override
-  public Mono<AuthenticationDto> tokenRefresh(TokenRefreshDto tokenRefreshDto) {
-    return tokenService.refresh(tokenRefreshDto.getRefreshToken());
+  public AuthenticationDto tokenRefresh(TokenRefreshDto tokenRefreshDto) {
+    return tokenService.refresh(tokenRefreshDto.getRefreshToken()).block();
   }
 }

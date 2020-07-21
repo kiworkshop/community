@@ -83,3 +83,8 @@ mysql community -umariadb -psecret -h0.0.0.0 -P3307
 통합 테스트에서는 MariaDB4j를 사용하고 운영 환경에서는 MariaDB를 사용한다.
 
 이게 다 h2에서 `LONG VARBINARY`를 못 알아듣고 `LONGVARBINARY`만 알아듣기 때문이다.
+
+### 구글 access token 얻기
+
+auth 앱 bootRun 후
+http://local.kiworkshop.org:8081/gglogin.html

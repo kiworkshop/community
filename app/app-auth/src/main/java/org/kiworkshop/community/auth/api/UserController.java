@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,22 +19,22 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping("/sign-up")
-  public Mono<AuthenticationDto> signUp(@RequestBody @Valid SignUpDto signUpDto) {
+  public AuthenticationDto signUp(@RequestBody @Valid SignUpDto signUpDto) {
     return userService.signUp(signUpDto);
   }
 
   @PostMapping("/sign-in")
-  public Mono<AuthenticationDto> signIn(@RequestBody @Valid SignInDto signInDto) {
+  public AuthenticationDto signIn(@RequestBody @Valid SignInDto signInDto) {
     return userService.signIn(signInDto);
   }
 
   @PostMapping("/sign-out")
-  public Mono<Void> signOut(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
-    return userService.signOut(tokenRefreshDto);
+  public void signOut(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
+    userService.signOut(tokenRefreshDto);
   }
 
   @PostMapping("/token-refresh")
-  public Mono<AuthenticationDto> tokenRefresh(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
+  public AuthenticationDto tokenRefresh(@RequestBody @Valid TokenRefreshDto tokenRefreshDto) {
     return userService.tokenRefresh(tokenRefreshDto);
   }
 }

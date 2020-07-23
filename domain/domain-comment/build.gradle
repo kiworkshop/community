@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'org.kiworkshop'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core:core-comment')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation testFixtures(project(":core:core-comment"))
+    testFixturesImplementation project(":core:core-comment")
+    testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
+}

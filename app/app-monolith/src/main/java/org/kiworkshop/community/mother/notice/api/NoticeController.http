@@ -1,0 +1,14 @@
+POST http://{{monolith}}/notices
+Content-Type: application/json
+
+{
+  "title": "title",
+  "content": "content"
+}
+
+###
+GET http://{{monolith}}/notices/1
+
+###
+
+

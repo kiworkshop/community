@@ -1,0 +1,44 @@
+POST {{auth-api}}/users/sign-up
+Content-Type: application/json
+
+{
+  "provider": "GOOGLE",
+  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ",
+  "nickname": "nickname"
+}
+
+###
+POST {{auth-api}}/users/sign-in
+Content-Type: application/json
+
+{
+  "provider": "GOOGLE",
+  "providerAccessToken": "ya29.a0AfH6SMBQNOVdQUrWPwbadnlGljiS9XZElxm9Yk0ekP3wGCyWCq5XCkkJbww8Ttgo3MUgAh-z9IBXePgFyjSdlnXtlXobGoewEdKg5Ex2Nogw_vgGr1QJ9dFlQnIwIm1I68DfDur4tEPU0FkaOJzUKWadZwD-8UktuD-lbQ"
+}
+
+###
+POST {{auth-api}}/users/sign-out
+Content-Type: application/json
+
+{
+  "refresh_token": "baedc3bd-6a6f-4a63-b0b8-b590260b4985"
+}
+
+###
+POST {{auth-api}}/users/token-refresh
+Content-Type: application/json
+
+{
+  "refresh_token": "3f103e78-ddda-4d75-9040-3e0ae6aa440c"
+}
+
+###
+POST {{auth-api}}/oauth/check_token
+Authorization: Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw== # first-client:noonewilleverguess
+Content-Type: application/x-www-form-urlencoded
+
+token=59c0f35f-d29b-437a-9f4d-79fb526d779b
+
+###
+
+

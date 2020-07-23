@@ -1,0 +1,112 @@
+= Kiworkshop community Mother-API Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+[cols="20%,80%"]
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to update an existing resource, full updates only
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+= Mother API
+
+[[resources-notice]]
+== Notice
+
+[[resource-myangPost-notice]]
+
+=== Read a notice
+A `GET` request to read a notice.
+
+operation::/notices/read-a-notice[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Read notices
+A `GET` request to read notices.
+
+operation::/notices/read-notices[snippets='http-request,request-parameters,http-response,response-fields']
+
+=== Create a notice
+A `POST` request to create a notice.
+
+operation::/notices/create-a-notice[snippets='http-request,request-fields,http-response']
+
+=== Update a notice
+A `PUT` request to update a notice.
+
+operation::/notices/update-a-notice[snippets='http-request,path-parameters,request-fields,http-response']
+
+=== Delete a notice
+A `DELETE` request to delete a notice.
+
+operation::/notices/delete-a-notice[snippets='http-request,path-parameters,http-response']
+
+= File API
+
+[[resources-files]]
+== File
+
+[[resource-upload-files]]
+
+=== Upload files
+A `POST` request to upload files.
+
+operation::/files/upload-files[snippets='http-request,http-response']
+
+= Comment
+
+[[resources-comment]]
+== Comment API
+
+[[resource-myangPost-comment]]
+
+=== Read comments
+A GET request to read comments.
+
+operation::/comments/read-comments[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Create a comment
+A POST request to create a comment.
+
+operation::/comments/create-a-comment[snippets='http-request,request-fields,http-response']
+
+=== Update a comment
+A PUT request to update a comment.
+
+operation::/comments/update-a-comment[snippets='http-request,path-parameters,request-fields,http-response']
+
+=== Delete a comment
+A DELETE request to delete a comment.
+
+operation::/comments/delete-a-comment[snippets='http-request,path-parameters,http-response']
+
+= User Resource
+
+[[resources-user-resource]]
+== User Resource API
+
+[[resource-user-resource]]
+
+=== Me
+A GET request to get user resource.
+
+operation::/user-resources/me[snippets='http-request,http-response,response-fields']

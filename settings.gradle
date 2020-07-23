@@ -3,10 +3,26 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'community'
-include 'mother-api'
-include 'common'
-include 'content-api'
-include 'auth-api'
-include 'tag-api'
+
+rootProject.name = 'org.kiworkshop.community'
+
+include 'app:app-auth'
+include 'app:app-monolith'
+include 'app:app-content'
+
+include 'domain:domain-mother'
+include 'domain:domain-file'
+include 'domain:domain-comment'
+include 'domain:domain-common'
+include 'domain:domain-user-resource'
+
+include 'core:core-mother'
+include 'core:core-file'
+include 'core:core-comment'
+include 'core:core-auth'
+include 'core:core-user-resource'
+
+include 'in-system-available:common-web'
+
+include 'module:module-validation'
 

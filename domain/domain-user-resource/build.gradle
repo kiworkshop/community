@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':domain:domain-common')
+    implementation project(':core:core-user-resource')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+
+    testImplementation testFixtures(project(":core:core-user-resource"))
+
+    testFixturesImplementation project(':domain:domain-common')
+    testFixturesImplementation "org.springframework:spring-test:${springTestVersion}"
+    testRuntime 'com.h2database:h2'
+}

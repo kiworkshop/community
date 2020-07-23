@@ -1,0 +1,42 @@
+= Kiworkshop community Mother-API Docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+[cols="20%,80%"]
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to update an existing resource, full updates only
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+= Resources
+
+[[resources-notice]]
+== Notice API
+
+[[resource-myangPost-notice]]
+
+=== Read a notice
+A `GET` request to read a notice.
+
+operation::/tags/create-a-tag[snippets='http-request,path-parameters,http-response,response-fields']
+

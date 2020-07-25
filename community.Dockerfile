@@ -2,7 +2,7 @@
 FROM adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine
 
 # nginx
-RUN apk update && apk add nginx && rm -rf /etc/nginx/conf.d/default.conf &&\
+RUN apk update && apk add nginx=1.16.1-r2 && rm -rf /etc/nginx/conf.d/default.conf &&\
     mkdir -p /kiworkshop/logs/nginx/ &&\
     mkdir -p /kiworkshop/service/static
 

@@ -94,3 +94,29 @@ http://local.kiworkshop.org:8081/gglogin.html
 
 ### Docker run
 `docker run --env PROFILE=local-docker -p 127.0.0.1:8080:80/tcp -t kiworkshop/community:latest`
+
+### Docker container의 쉘 접속
+`docker ps`로 CONTAINER ID 확인
+
+```sh
+# e.g. container id is 4d452f52ab78
+docker exec -it 4d452f52ab78 sh
+```
+
+### API path
+
+#### Local
+
+```
+monolith: localhost:8080
+auth: localhost:8081
+frontend: localhost:3000
+```
+
+#### Docker On Local
+
+```
+monolith: localhost:8080/api
+auth: localhost:8080/api
+frontend: localhost:8080
+```

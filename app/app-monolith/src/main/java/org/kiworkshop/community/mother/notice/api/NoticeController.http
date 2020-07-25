@@ -8,6 +8,7 @@ Authorization: Bearer {{access-token}}
 }
 
 ###
+
 GET http://{{monolith}}/notices/7
 
 ###

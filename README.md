@@ -93,4 +93,4 @@ http://local.kiworkshop.org:8081/gglogin.html
 `docker build -f community.Dockerfile -t kiworkshop/community:latest .`
 
 ### Docker run
-`docker run -p 127.0.0.1:8080:80/tcp -t kiworkshop/community:latest --env PROFILE=local`
+`docker run --env PROFILE=local-docker -p 127.0.0.1:8080:80/tcp -t kiworkshop/community:latest`

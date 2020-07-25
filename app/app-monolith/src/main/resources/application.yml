@@ -58,6 +58,23 @@ spring:
 ---
 
 spring:
+  profiles: local-docker
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 3000
+    platform: mysql
+    url: 'jdbc:mysql://host.docker.internal:3307/community'
+    username: mariadb
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+
+spring:
   profiles: dev
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver

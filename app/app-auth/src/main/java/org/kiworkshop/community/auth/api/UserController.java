@@ -20,7 +20,8 @@ public class UserController {
 
   @PostMapping("/sign-up")
   public AuthenticationDto signUp(@RequestBody @Valid SignUpDto signUpDto) {
-    return userService.signUp(signUpDto);
+    userService.signUp(signUpDto);
+    return userService.signIn(signUpDto);
   }
 
   @PostMapping("/sign-in")

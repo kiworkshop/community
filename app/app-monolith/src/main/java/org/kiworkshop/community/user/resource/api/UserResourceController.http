@@ -1,5 +1,5 @@
 GET https://{{monolith}}/user-resources/me
-Authorization: Bearer 59c0f35f-d29b-437a-9f4d-79fb526d779b
+Authorization: Bearer 265bef49-f5e9-4d9e-bf9b-edd384686cdc
 
 ###
 

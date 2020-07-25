@@ -7,7 +7,7 @@ import org.kiworkshop.community.auth.dto.TokenRefreshDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-  AuthenticationDto signUp(SignUpDto socialResourceRequestDto);
+  void signUp(SignUpDto socialResourceRequestDto);
 
   AuthenticationDto signIn(SocialResourceRequestDto socialResourceRequestDto);
 

@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://{{monolith}}/notices/1
+GET http://{{monolith}}/notices/3
 
 ###
 

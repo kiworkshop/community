@@ -82,16 +82,13 @@ class UserServiceImplTest {
     Mono<SocialResourceResponseDto> socialResourceResponseDtoMono =
         Mono.just(SocialResourceResponseDtoTest.getSocialResourceResponseDtoFixture());
     User user = getUserFixture();
-    Mono<AuthenticationDto> expected = Mono.just(AuthenticationDtoTest.getAuthenticationDtoFixture());
 
     given(socialResourceFetcher.fetch(eq(signUpDto))).willReturn(socialResourceResponseDtoMono);
     given(userRepository.save(any(User.class))).willReturn(user);
-    given(tokenService.getTokenOf(eq(user))).willReturn(expected);
 
     // when
-    AuthenticationDto actual = userServiceImpl.signUp(signUpDto);
+    userServiceImpl.signUp(signUpDto);
 
-    // then
-    then(actual).isEqualTo(expected.block());
+    // then no exception
   }
 }

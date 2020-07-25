@@ -1,5 +1,6 @@
 POST http://{{monolith}}/notices
 Content-Type: application/json
+Authorization: Bearer {{access-token}}
 
 {
   "title": "title",
@@ -7,8 +8,22 @@ Content-Type: application/json
 }
 
 ###
-GET http://{{monolith}}/notices/3
+GET http://{{monolith}}/notices/7
 
 ###
 
+PUT http://{{monolith}}/notices/7
+Content-Type: application/json
+Authorization: Bearer {{access-token}}
+
+{
+  "title": "new title",
+  "content": "new content"
+}
+
+###
+
+DELETE http://{{monolith}}/notices/7
+Content-Type: application/json
+Authorization: Bearer {{access-token}}
 

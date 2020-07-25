@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.NoArgsConstructor;
+import org.kiworkshop.community.common.domain.Role;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -15,10 +16,6 @@ import org.springframework.security.core.GrantedAuthority;
 public class Authority implements GrantedAuthority {
   public static final Authority USER = new Authority(1L, Role.ROLE_USER);
   public static final Authority ADMIN = new Authority(2L, Role.ROLE_ADMIN);
-
-  private enum Role {
-     ROLE_USER, ROLE_ADMIN
-  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

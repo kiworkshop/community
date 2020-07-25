@@ -1,5 +1,6 @@
 package org.kiworkshop.community.config;
 
+import org.kiworkshop.community.common.domain.Role;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,9 @@ public class MonolithResourceServerConfig extends ResourceServerConfigurerAdapte
     http
         .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/user-resources/me").authenticated()
+        .antMatchers(HttpMethod.GET, "/notices").permitAll()
+        .antMatchers(HttpMethod.GET, "/notices/{\\d}").permitAll()
+        .antMatchers("/**").hasAuthority(Role.ROLE_ADMIN.name())
     ;
   }
 }

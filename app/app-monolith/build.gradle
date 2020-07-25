@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation project(':in-system-available:common-web')
+    implementation project(':domain:domain-common')
 
     implementation project(':core:core-mother')
     implementation project(':domain:domain-mother')

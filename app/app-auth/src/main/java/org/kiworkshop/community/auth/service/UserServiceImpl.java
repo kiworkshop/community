@@ -35,13 +35,11 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public AuthenticationDto signUp(SignUpDto signUpDto) {
+  public void signUp(SignUpDto signUpDto) {
     var response = Objects.requireNonNull(socialResourceFetcher.fetch(signUpDto).block());
 
     var user = userRepository.save(UserConverter.toEntity(response, signUpDto.getProvider()));
     userResourceRepository.save(UserConverter.toUserResource(user, signUpDto, response));
-
-    return tokenService.getTokenOf(user).block();
   }
 
   @Override

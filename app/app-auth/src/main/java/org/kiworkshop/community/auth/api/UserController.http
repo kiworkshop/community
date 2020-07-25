@@ -1,23 +1,23 @@
-POST {{auth-api}}/users/sign-up
+POST {{auth}}/users/sign-up
 Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMAjnDISmZ0H-_uMgIyJ47Jisv2SmbiNvR4bLBW9kzvd9RHLRtalNSGOHu35168kVyKJPAlj-3TyPdvJu3AYwTdOH79_-7OsVgiyPPnAUumGXZxeG6sJ2jQcit9WZj29ZnlWsWhwbLFnrn7JmR2IgPx41n6Ir-Ga",
-  "nickname": "nickname"
+  "providerAccessToken": "ya29.a0AfH6SMBCb4gch-zYbu_zc8OON0PUGSXw0_Uw4P-tiZ5AgYg6uwLvDg44X7GaiIc65jlmgFuauY65_HW1j77phSDCECLaWwvWYV8kNKcVDNFSiNGvjQ_GR_nW_FvWc4pQM-JP_ruWB0QUQhSw1GlYzrUAMZUh-NlX8XE",
+  "nickname": "nickname2"
 }
 
 ###
-POST {{auth-api}}/users/sign-in
+POST {{auth}}/users/sign-in
 Content-Type: application/json
 
 {
   "provider": "GOOGLE",
-  "providerAccessToken": "ya29.a0AfH6SMAjnDISmZ0H-_uMgIyJ47Jisv2SmbiNvR4bLBW9kzvd9RHLRtalNSGOHu35168kVyKJPAlj-3TyPdvJu3AYwTdOH79_-7OsVgiyPPnAUumGXZxeG6sJ2jQcit9WZj29ZnlWsWhwbLFnrn7JmR2IgPx41n6Ir-Ga"
+  "providerAccessToken": "ya29.a0AfH6SMBSeqq1AdEDAi2yGgIO37wiP-s0dN2VMiZOSt5a5-9XMUDBjrXyA9ttORCnkUxbAHzEeMskFesR0XEoCO8ZDTxAN_KcuEVDEpGAGKyVj4YGsuX2rHay7ENYrxgbqH8G48QGrQCSfp_Bfr4CM6OQ9-vVKFWRtgR7"
 }
 
 ###
-POST {{auth-api}}/users/sign-out
+POST {{auth}}/users/sign-out
 Content-Type: application/json
 
 {
@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{auth-api}}/users/token-refresh
+POST {{auth}}/users/token-refresh
 Content-Type: application/json
 
 {
@@ -33,11 +33,11 @@ Content-Type: application/json
 }
 
 ###
-POST {{auth-api}}/oauth/check_token
+POST {{auth}}/oauth/check_token
 Authorization: Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw== # first-client:noonewilleverguess
 Content-Type: application/x-www-form-urlencoded
 
-token=59c0f35f-d29b-437a-9f4d-79fb526d779b
+token=5cd89de9-926d-4752-8559-bb23515c1bd7
 
 ###
 

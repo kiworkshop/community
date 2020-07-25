@@ -47,7 +47,6 @@ spring:
     hikari:
       max-lifetime: 60000
       connection-timeout: 3000
-    platform: mysql
     url: 'jdbc:mysql://0.0.0.0:3307/community'
     username: mariadb
     password: secret
@@ -64,7 +63,6 @@ spring:
     hikari:
       max-lifetime: 60000
       connection-timeout: 3000
-    platform: mysql
     url: 'jdbc:mysql://host.docker.internal:3307/community'
     username: mariadb
     password: secret
@@ -81,7 +79,6 @@ spring:
     hikari:
       max-lifetime: 60000
       connection-timeout: 3000
-    platform: mysql
     url: ${DATASOURCE_URL}
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}

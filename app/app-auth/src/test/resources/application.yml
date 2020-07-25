@@ -43,7 +43,6 @@ spring:
     hikari:
       max-lifetime: 60000
       connection-timeout: 3000
-    platform: mysql
     url: "jdbc:mysql://0.0.0.0:3307/community"
     username: mariadb
     password: secret

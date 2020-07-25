@@ -33,6 +33,7 @@ plugins {
 	id "io.freefair.lombok" version "5.1.0"
 }
 
+
 // 모든 프로젝트 공통. 주로 lombok 의존성과 test환경 구성 담당
 subprojects {
 	apply plugin: 'java-library'
@@ -185,19 +186,29 @@ configure(apiProjects) {
 		}
 	}
 
-	task DockerComposeUp(type: Exec) {
+	task dockerComposeUp(type: Exec) {
 		group = 'docker'
 		commandLine "bash", "-c", "docker-compose up -d"
 	}
 
-	task DockerComposeDown(type: Exec) {
+	task dockerComposeDown(type: Exec) {
 		group = 'docker'
 		commandLine "bash", "-c", "docker-compose down"
 	}
 
-	task DockerComposeStop(type: Exec) {
+	task dockerComposeStop(type: Exec) {
 		group = 'docker'
 		commandLine "bash", "-c", "docker-compose stop"
+	}
+
+	task dockerBuild(type: Exec) {
+		group = 'docker'
+		commandLine "sh", "-c", "docker build -f community.Dockerfile -t kiworkshop/community:latest ."
+	}
+
+	task dockerRun(type: Exec) {
+		group = 'docker'
+		commandLine "sh", "-c", "docker run --env PROFILE=local-docker -p 127.0.0.1:8080:80/tcp -t kiworkshop/community:latest"
 	}
 }
 

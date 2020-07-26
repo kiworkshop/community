@@ -50,7 +50,7 @@ task dockerComposeStop(type: Exec) {
 
 task dockerBuild(type: Exec) {
 	group = 'docker'
-	commandLine "sh", "-c", "docker build -f community.Dockerfile -t kiworkshop/community ."
+	commandLine "sh", "-c", "cd ../community-frontend && sh clean.sh && cd .. && docker build -f community.Dockerfile -t kiworkshop/community ."
 }
 
 task dockerRun(type: Exec) {

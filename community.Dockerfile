@@ -1,8 +1,8 @@
-# build
 FROM adoptopenjdk/openjdk11:jdk-11.0.8_10-alpine
 
 ENV ALPINE_MIRROR "http://dl-cdn.alpinelinux.org/alpine"
 
+# install npm, nginx and create directories to build.
 RUN echo "${ALPINE_MIRROR}/edge/main" >> /etc/apk/repositories &&\
     apk add --no-cache npm=12.18.3-r0 --repository="http://dl-cdn.alpinelinux.org/alpine/edge/community" &&\
     apk add nginx=1.18.0-r3 && rm -rf /etc/nginx/conf.d/default.conf &&\

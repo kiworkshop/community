@@ -1,3 +1,5 @@
 module.exports = {
-  exportTrailingSlash: true
+  basePath: "/admin",
+  exportTrailingSlash: true,
+  reactStrictMode: true,
 };

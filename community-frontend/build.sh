@@ -1,3 +1,3 @@
 #!/bin/sh
 
-npm run bootstrap && npm run build-for-deployment
+npm run nuke && npm run bootstrap && npm run build-for-deployment

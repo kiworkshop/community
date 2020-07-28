@@ -57,3 +57,5 @@ jspm_packages/
 
 # OS X temporary files
 .DS_Store
+
+out

@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "community-frontend",
   "private": true,
   "devDependencies": {
     "@types/node": "^14.0.26",
@@ -8,12 +8,14 @@
     "lerna": "^3.22.1",
     "typescript": "^3.9.7"
   },
-  "dependencies": {
-    "community-admin": "file:app/community-admin",
-    "community-frontend": "file:app/community-frontend"
-  },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "postbootstrap": "lerna run resolve-dependencies"
+    "bootstrap": "npm i && lerna bootstrap",
+    "build-for-deployment": "lerna run build-for-deployment",
+    "postbootstrap": "lerna run resolve-dependencies",
+    "nuke": "sh scripts/nuke.sh"
+  },
+  "dependencies": {
+    "@community/admin": "file:app/community-admin",
+    "@community/frontend": "file:app/community-frontend"
   }
 }

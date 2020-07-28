@@ -1,2 +1,2 @@
 #!/bin/sh
-npm i && rm -rf out && npm run build && npm run export
+rm -rf .next && npm run build && rm -rf node_modules && npm i --production

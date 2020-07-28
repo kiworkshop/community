@@ -1,5 +1,5 @@
 {
-  "name": "community-frontend",
+  "name": "@community/frontend",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -13,7 +13,6 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
     "build-for-deployment": "sh scripts/build-for-deployment.sh",
     "resolve-dependencies": "sh scripts/resolve-bins.sh"

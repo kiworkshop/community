@@ -1,26 +1,21 @@
 {
   "name": "community-frontend",
-  "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "clsx": "^1.1.1",
-    "next": "^9.4.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
-    "build-for-deployment": "sh scripts/build-for-deployment.sh"
-  },
   "devDependencies": {
-    "@types/node": "^14.0.26",
+    "@types/node": "^12.12.53",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "lerna": "^3.22.1",
     "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "bootstrap": "npm i && lerna bootstrap",
+    "build-for-deployment": "lerna run build-for-deployment",
+    "postbootstrap": "lerna run resolve-dependencies",
+    "nuke": "sh scripts/nuke.sh"
+  },
+  "dependencies": {
+    "@community/admin": "file:app/community-admin",
+    "@community/frontend": "file:app/community-frontend"
   }
 }

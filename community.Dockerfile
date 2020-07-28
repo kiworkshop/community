@@ -30,12 +30,15 @@ RUN ./gradlew :app:app-auth:bootJar &&\
     ./gradlew :app:app-monolith:bootJar &&\
     mv app/app-auth/build/libs/app-auth-0.0.1-SNAPSHOT.jar ../ &&\
     mv app/app-monolith/build/libs/app-monolith-0.0.1-SNAPSHOT.jar ../ &&\
-    cd frontend && npm run build-for-deployment && mv out ../.. &&\
-    cd ../.. && rm -rf resources/
+    cd frontend && sh build.sh && cd ../.. &&\
+    mv resources/frontend/app/community-admin/out admin &&\
+    mv resources/frontend/app/community-frontend frontend &&\
+    rm -rf resources/
 
 WORKDIR /usr/local/community
 
 ENTRYPOINT [ "sh", "-c", "nohup nginx -g 'daemon off;' &\
 export $(echo $application_env) > /dev/null &&\
 nohup java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$(echo $PROFILE) -jar app-auth-0.0.1-SNAPSHOT.jar &\
-nohup java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$(echo $PROFILE) -jar app-monolith-0.0.1-SNAPSHOT.jar" ]
+nohup java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$(echo $PROFILE) -jar app-monolith-0.0.1-SNAPSHOT.jar &\
+cd frontend && nohup npm run start" ]

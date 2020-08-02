@@ -39,6 +39,7 @@ WORKDIR /usr/local/community
 
 ENTRYPOINT [ "sh", "-c", "export $(echo $application_env) > /dev/null &&\
     nohup java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$(echo $PROFILE) -jar app-auth-0.0.1-SNAPSHOT.jar &\
+    export $(echo $application_env) > /dev/null &&\
     nohup java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$(echo $PROFILE) -jar app-monolith-0.0.1-SNAPSHOT.jar &\
     cd frontend && nohup npm run start &\
     nohup nginx -g 'daemon off;'" ]

@@ -73,7 +73,7 @@ spring:
 ---
 
 spring:
-  profiles: dev
+  profiles: prod
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     hikari:

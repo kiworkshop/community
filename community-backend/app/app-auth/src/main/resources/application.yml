@@ -70,7 +70,7 @@ spring:
 ---
 
 spring:
-  profiles: dev
+  profiles: prod
   datasource:
     schema: ""
     driver-class-name: org.mariadb.jdbc.Driver

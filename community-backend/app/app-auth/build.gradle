@@ -27,10 +27,6 @@ dependencies {
     runtime 'org.mariadb.jdbc:mariadb-java-client'
 }
 
-flyway {
-    locations = ['filesystem:./db-migration/*']
-}
-
 asciidoctor {
     inputs.dir snippetsDir
     sourceDir 'docs'

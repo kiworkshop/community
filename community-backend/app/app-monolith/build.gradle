@@ -45,10 +45,6 @@ dependencies {
     integrationTestImplementation(testFixtures(project(":core:core-mother")))
 }
 
-flyway {
-    locations = ['filesystem:./db-migration/*']
-}
-
 asciidoctor {
     inputs.dir snippetsDir
     sourceDir 'docs'

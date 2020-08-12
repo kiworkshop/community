@@ -59,7 +59,7 @@ DockerComposeUp으로 mariadb를 띄운 뒤 community database를 생성하고 �
 ```bash
 # db init
 mysql -uroot -psecret -h0.0.0.0 -P3307
-create database community;
+create database community character set utf8mb4 collate utf8mb4_general_ci;
 GRANT ALL PRIVILEGES ON community.* TO 'mariadb'@'%';
 ```
 
@@ -69,7 +69,7 @@ mysql community -umariadb -psecret -h0.0.0.0 -P3307
 ```
 
 ```bash
-./gradlew :app:app-monolith:flywayMigrate -Dflyway.url=jdbc:mysql://0.0.0.0:3307/community -Dflyway.user=mariadb -Dflyway.password=secret
+./gradlew :app:app-monolith:flywayMigrate -Dflyway.url=jdbc:mysql://0.0.0.0:3307/community -Dflyway.user=mariadb -Dflyway.password=secret -Dflyway.locations='filesystem:db-migration'
 ```
 
 ### auth의 resources의 import.sql과 schema.sql

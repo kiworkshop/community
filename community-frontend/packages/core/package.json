@@ -1,0 +1,17 @@
+{
+  "name": "@community/core",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "resolve-dependencies": "sh scripts/resolve-bins.sh",
+    "test": "jest",
+    "tsc": "eslint . --ext .ts,.tsx --fix --ignore-pattern '/dist/' && tsc",
+    "build": "npm run tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+  },
+  "author": "",
+  "license": "ISC"
+}

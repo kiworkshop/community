@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.packages",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist"
+  },
+  "exclude": [
+    "node_modules",
+    "tests",
+    "dist"
+  ]
+}

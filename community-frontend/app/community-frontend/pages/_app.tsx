@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { NextComponentType } from 'next';
 import theme from '../src/theme';
+import { Layout } from '../src/common/presentation/components';
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -27,7 +28,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = (props: 
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         This is admin.
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );

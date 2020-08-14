@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -32,19 +32,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   menuButton: {
     marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
   },
   drawer: {
     width: drawerWidth,
@@ -70,27 +59,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }),
     marginLeft: -drawerWidth,
   },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
+
+  list: {
+    width: drawerWidth,
   },
 }));
 
 const Layout: React.FC = (props) => {
   const classes = useStyles();
   const theme = useTheme();
+
   const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const handleDrawerOpen = () => { setOpen(true); };
+  const handleDrawerClose = () => { setOpen(false); };
 
   const { children } = props;
 
@@ -99,9 +80,7 @@ const Layout: React.FC = (props) => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
+        className={clsx(classes.appBar)}
       >
         <Toolbar>
           <IconButton
@@ -109,12 +88,12 @@ const Layout: React.FC = (props) => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton)}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            광일공방
           </Typography>
         </Toolbar>
       </AppBar>
@@ -152,11 +131,39 @@ const Layout: React.FC = (props) => {
         </List>
       </Drawer>
       <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
+        className={clsx(classes.content)}
       >
         <div className={classes.drawerHeader} />
+        <div>
+          <React.Fragment key="left">
+            <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
+              <div
+                className={clsx(classes.list)}
+                role="presentation"
+                onClick={handleDrawerClose}
+                onKeyDown={handleDrawerClose}
+              >
+                <List>
+                  {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem button key={text}>
+                      <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  ))}
+                </List>
+                <Divider />
+                <List>
+                  {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                      <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </Drawer>
+          </React.Fragment>
+        </div>
         {children}
       </main>
     </div>

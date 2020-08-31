@@ -9,6 +9,7 @@ import org.kiworkshop.community.article.entity.Article;
 @NoArgsConstructor
 public class ArticleRequestDto {
     private String title;
+    private String content;
 
     @Builder
     public ArticleRequestDto(String title, String content) {
@@ -16,12 +17,11 @@ public class ArticleRequestDto {
         this.content = content;
     }
 
-    private String content;
-
-    public Article toEntity() {
+    public Article toEntity(String username) {
         return Article.builder()
                 .title(title)
                 .content(content)
+                .username(username)
                 .build();
     }
 }

@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ArticleFixture {
     public static Article get() {
+        return get(1L);
+    }
+
+    public static Article get(Long id) {
         Article article = new Article();
 
-        ReflectionTestUtils.setField(article, "id", 1L);
+        ReflectionTestUtils.setField(article, "id", id);
         ReflectionTestUtils.setField(article, "title", "title");
         ReflectionTestUtils.setField(article, "content", "content");
         ReflectionTestUtils.setField(article, "username", "username");

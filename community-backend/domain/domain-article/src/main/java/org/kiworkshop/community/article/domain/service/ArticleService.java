@@ -7,6 +7,8 @@ import org.kiworkshop.community.article.domain.model.Article;
 import org.kiworkshop.community.article.domain.model.ArticleRepository;
 import org.kiworkshop.community.article.dto.ArticleRequestDto;
 import org.kiworkshop.community.article.dto.ArticleResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,10 @@ public class ArticleService {
     public Long create(ArticleRequestDto articleRequestDto) {
         Article article = articleRepository.save(ArticleConverter.toEntity(articleRequestDto));
         return article.getId();
+    }
+
+    public Page<ArticleResponseDto> readPage(Pageable pageable) {
+        return articleRepository.findAllByActiveIsTrue(pageable).map(ArticleConverter::from);
     }
 
     public ArticleResponseDto read(Long id) {

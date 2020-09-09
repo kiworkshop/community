@@ -7,7 +7,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +24,10 @@ import org.kiworkshop.community.article.dto.ArticleRequestDtoFixture;
 import org.kiworkshop.community.article.dto.ArticleResponseDto;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +55,24 @@ class ArticleServiceTest {
         //then
         assertThat(id).isNotNull();
         then(articleRepository).should().save(any(Article.class));
+    }
+
+    @Test
+    void readPage() {
+        Long articleNum = 10L;
+        // given
+        List<Article> articles = LongStream.rangeClosed(1L, articleNum)
+            .mapToObj(ArticleFixture::get)
+            .collect(Collectors.toList());
+        PageImpl<Article> articlePage = new PageImpl<>(articles);
+        given(articleRepository.findAllByActiveIsTrue(any())).willReturn(articlePage);
+
+        // when
+        Pageable pageable = PageRequest.of(0, articleNum.intValue());
+        Page<ArticleResponseDto> articleResponseDtoPage = articleService.readPage(pageable);
+
+        // then
+        assertThat(articleResponseDtoPage.getTotalElements()).isEqualTo(articleNum);
     }
 
     @Test

@@ -1,9 +1,9 @@
 package org.kiworkshop.community.article.api;
 
 import lombok.RequiredArgsConstructor;
-import org.kiworkshop.community.article.api.dto.ArticleRequestDto;
-import org.kiworkshop.community.article.api.dto.ArticleResponseDto;
-import org.kiworkshop.community.article.service.ArticleService;
+import org.kiworkshop.community.article.dto.ArticleRequestDto;
+import org.kiworkshop.community.article.dto.ArticleResponseDto;
+import org.kiworkshop.community.article.domain.service.ArticleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Long> create(@RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
-        return ResponseEntity.ok(articleService.create(articleRequestDto, principal));
+        return ResponseEntity.ok(articleService.create(articleRequestDto));
     }
 
     @DeleteMapping("/{id}")
@@ -33,7 +33,7 @@ public class ArticleController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
-        articleService.update(id, articleRequestDto, principal);
+        articleService.update(id, articleRequestDto);
         return ResponseEntity.ok().build();
     }
 }

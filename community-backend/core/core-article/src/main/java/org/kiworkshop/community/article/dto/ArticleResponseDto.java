@@ -3,7 +3,9 @@ package org.kiworkshop.community.article.dto;
 import java.time.ZonedDateTime;
 
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class ArticleResponseDto {
     private Long id;
     private String title;

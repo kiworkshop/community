@@ -2,6 +2,7 @@ package org.kiworkshop.community.article.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 import org.kiworkshop.community.common.domain.BaseEntity;
 import org.springframework.util.Assert;
@@ -18,6 +19,7 @@ public class Article extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
+    @Lob
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)

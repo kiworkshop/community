@@ -25,4 +25,6 @@ include 'core:core-user-resource'
 include 'in-system-available:common-web'
 
 include 'module:module-validation'
+include 'core:core-article'
+findProject(':core:core-article')?.name = 'core-article'
 

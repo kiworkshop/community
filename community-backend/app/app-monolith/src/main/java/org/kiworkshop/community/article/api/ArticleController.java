@@ -20,31 +20,29 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
-        return ResponseEntity.ok(articleService.create(articleRequestDto));
+    public Long create(@RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
+        return articleService.create(articleRequestDto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<ArticleResponseDto>> readPage(
+    public Page<ArticleResponseDto> readPage(
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return ResponseEntity.ok(articleService.readPage(pageable));
+        return articleService.readPage(pageable);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleResponseDto> read(@PathVariable Long id) {
-        return ResponseEntity.ok(articleService.read(id));
+    public ArticleResponseDto read(@PathVariable Long id) {
+        return articleService.read(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, Principal principal) {
+    public void delete(@PathVariable Long id, Principal principal) {
         articleService.delete(id, principal);
-        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
+    public void update(@PathVariable Long id, @RequestBody ArticleRequestDto articleRequestDto, Principal principal) {
         articleService.update(id, articleRequestDto);
-        return ResponseEntity.ok().build();
     }
 }

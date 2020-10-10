@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -rf node_modules .next out
+rm -rf node_modules .next out packages

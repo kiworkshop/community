@@ -15,12 +15,14 @@ include 'domain:domain-file'
 include 'domain:domain-comment'
 include 'domain:domain-common'
 include 'domain:domain-user-resource'
+include 'domain:domain-article'
 
 include 'core:core-mother'
 include 'core:core-file'
 include 'core:core-comment'
 include 'core:core-auth'
 include 'core:core-user-resource'
+include 'core:core-article'
 
 include 'in-system-available:common-web'
 
